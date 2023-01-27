@@ -1,0 +1,13 @@
+// Same as using the command line
+// $ live-server --no-browser --verbose --no-css-inject --entry-file=./index.html
+var liveServer = require("live-server");
+
+var params = {
+    // When false, it won't load your browser by default.
+    open: false,
+    // 0 = errors only, 1 = some, 2 = lots
+    logLevel: 2,
+    // When set, serve this file (server root relative) for every 404 (useful for single-page applications)
+    file: "./index.html"
+};
+liveServer.start(params);
