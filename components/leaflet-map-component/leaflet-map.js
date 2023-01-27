@@ -6,6 +6,31 @@ class LeafletMap extends HTMLElement {
     }
 
     connectedCallback() {
+        this._fetch("components/leaflet-map-component/leaflet-map.html")
+            .then(this._appendHtml);
+
+        this._addMapToBodyAsReference();
+    }
+
+    _appendHtml = html => {
+        const el = document.createElement('div');
+        el.innerHTML = html;
+        this.shadowRoot.appendChild(el);
+    }
+
+    async _fetch(url) {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            const message = `An error has occured fetching '${url}': ${response.status}`;
+            throw new Error(message);
+        }
+
+        const text = await response.text();
+        return text;
+    }
+
+    _addMapToBodyAsReference() {
         const template = document.querySelector('template');
         const node = document.importNode(template.content, true);
         document.body.appendChild(node);
