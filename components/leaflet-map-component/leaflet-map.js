@@ -1,4 +1,9 @@
-class LeafletMap extends HTMLElement{
+class LeafletMap extends HTMLElement {
+
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
 
     connectedCallback() {
         const template = document.querySelector('template');
