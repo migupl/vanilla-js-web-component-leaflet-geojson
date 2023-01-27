@@ -11,6 +11,8 @@
 
 	<link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
 
+	<script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
+
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
 		integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
@@ -34,6 +36,7 @@
 </head>
 
 <body onload="showContent()">
+	<leaflet-map></leaflet-map>
 
 	<template id="leaflet-map">
 		<style>
