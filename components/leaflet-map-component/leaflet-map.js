@@ -6,6 +6,9 @@ class LeafletMap extends HTMLElement {
     }
 
     connectedCallback() {
+        this._fetch("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css")
+            .then(this._appendStyle);
+
         this._fetch("components/leaflet-map-component/leaflet-map.css")
             .then(this._appendStyle);
         this._fetch("components/leaflet-map-component/leaflet-map.html")
