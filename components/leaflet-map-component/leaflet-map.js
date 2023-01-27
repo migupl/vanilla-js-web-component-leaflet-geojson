@@ -6,10 +6,18 @@ class LeafletMap extends HTMLElement {
     }
 
     connectedCallback() {
+        this._fetch("components/leaflet-map-component/leaflet-map.css")
+            .then(this._appendStyle);
         this._fetch("components/leaflet-map-component/leaflet-map.html")
             .then(this._appendHtml);
 
         this._addMapToBodyAsReference();
+    }
+
+    _appendStyle = css => {
+        const el = document.createElement('style');
+        el.innerHTML = css;
+        this.shadowRoot.appendChild(el);
     }
 
     _appendHtml = html => {
