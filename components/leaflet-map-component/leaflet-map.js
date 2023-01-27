@@ -12,21 +12,32 @@ class LeafletMap extends HTMLElement {
         this._fetch("components/leaflet-map-component/leaflet-map.css")
             .then(this._appendStyle);
         this._fetch("components/leaflet-map-component/leaflet-map.html")
-            .then(this._appendHtml);
+            .then(this._appendAndInitializeMap);
 
         this._addMapToBodyAsReference();
     }
 
-    _appendStyle = css => {
-        const el = document.createElement('style');
-        el.innerHTML = css;
-        this.shadowRoot.appendChild(el);
+    _appendAndInitializeMap = htmlMap => {
+        const el = document.createElement('div');
+        el.innerHTML = htmlMap;
+        this._appendChild(el);
+
+        const elMap = el.querySelectorAll("div#map")[0];
+        console.log(elMap);
+
+        const map = L.map(elMap).setView([51.505, -0.09], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
     }
 
-    _appendHtml = html => {
-        const el = document.createElement('div');
-        el.innerHTML = html;
-        this.shadowRoot.appendChild(el);
+    _appendChild = element => this.shadowRoot.appendChild(element)
+
+    _appendStyle = css => {
+        const el = document.createElement('style');
+        el.innerText = css;
+        this._appendChild(el);
     }
 
     async _fetch(url) {
