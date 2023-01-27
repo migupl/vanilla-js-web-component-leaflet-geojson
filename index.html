@@ -24,11 +24,11 @@
 			margin: 0;
 		}
 
-		.leaflet-container {
+		#map {
 			height: 400px;
 			width: 600px;
-			max-width: 100%;
-			max-height: 100%;
+			position: relative;
+			outline: none;
 		}
 	</style>
 </head>
@@ -36,7 +36,13 @@
 <body onload="showContent()">
 
 	<template id="leaflet-map">
-		<div id="map" style="width: 600px; height: 400px; position: relative; outline: none;"
+		<style>
+			.leaflet-container {
+				max-width: 100%;
+				max-height: 100%;
+			}
+		</style>
+		<div id="map"
 			class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
 			tabindex="0">
 			<div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);">
