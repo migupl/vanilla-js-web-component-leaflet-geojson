@@ -41,14 +41,14 @@ class LeafletMap extends HTMLElement {
                 this.getAttribute('latitude') || 51.505,
                 this.getAttribute('longitude') || -0.09
             ),
-            zoom: this.getAttribute('zoom') || 13
+            zoom: this.getAttribute('zoom') || 13,
+            layers: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            })
         };
 
         const map = L.map(elMap, opts);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
     }
 
     _appendChild = element => this.shadowRoot.appendChild(element)
