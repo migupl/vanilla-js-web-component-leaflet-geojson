@@ -1,4 +1,17 @@
 class LeafletMap extends HTMLElement {
+    static get observedAttributes() {
+        return [
+            'latitude',
+            'longitude',
+            'zoom'
+        ];
+    }
+
+    attributeChangedCallback(attrName, oldValue, newValue) {
+        if (newValue !== oldValue) {
+            this[attrName] = this.hasAttribute(attrName);
+        }
+    }
 
     constructor() {
         super();
@@ -24,8 +37,11 @@ class LeafletMap extends HTMLElement {
         const elMap = el.querySelectorAll('div#map')[0];
 
         const opts = {
-            center: new L.LatLng(51.505, -0.09),
-            zoom: 13
+            center: new L.LatLng(
+                this.getAttribute('latitude') || 51.505,
+                this.getAttribute('longitude') || -0.09
+            ),
+            zoom: this.getAttribute('zoom') || 13
         };
 
         const map = L.map(elMap, opts);
