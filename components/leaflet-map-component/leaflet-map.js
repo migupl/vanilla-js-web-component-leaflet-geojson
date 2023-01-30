@@ -6,13 +6,12 @@ class LeafletMap extends HTMLElement {
     }
 
     connectedCallback() {
-        this._fetch("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css")
-            .then(this._appendStyle);
-
-        this._fetch("components/leaflet-map-component/leaflet-map.css")
-            .then(this._appendStyle);
-        this._fetch("components/leaflet-map-component/leaflet-map.html")
-            .then(this._appendAndInitializeMap);
+        this._getRootContent()
+            .then(([leafletCss, css, html]) => {
+                this._appendStyle(leafletCss);
+                this._appendStyle(css);
+                this._appendAndInitializeMap(html);
+            });
 
         this._addMapToBodyAsReference();
     }
@@ -40,16 +39,28 @@ class LeafletMap extends HTMLElement {
         this._appendChild(el);
     }
 
-    async _fetch(url) {
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            const message = `An error has occured fetching '${url}': ${response.status}`;
-            throw new Error(message);
+    async _getRootContent() {
+        const urls = {
+            leaflet: {
+                css: "https://unpkg.com/leaflet@1.9.3/dist/leaflet.css",
+                integrity: "sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+            },
+            map: {
+                css: "components/leaflet-map-component/leaflet-map.css",
+                html: "components/leaflet-map-component/leaflet-map.html"
+            }
         }
+        const [leafletCssResponse, cssResponse, htmlResponse] = await Promise.all([
+            fetch(urls.leaflet.css),
+            fetch(urls.map.css),
+            fetch(urls.map.html),
+        ])
 
-        const text = await response.text();
-        return text;
+        const leafletCss = await leafletCssResponse.text();
+        const css = await cssResponse.text();
+        const html = await htmlResponse.text();
+
+        return [leafletCss, css, html];
     }
 
     _addMapToBodyAsReference() {
