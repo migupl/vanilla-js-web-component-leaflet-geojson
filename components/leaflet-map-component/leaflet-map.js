@@ -21,8 +21,7 @@ class LeafletMap extends HTMLElement {
         el.innerHTML = htmlMap;
         this._appendChild(el);
 
-        const elMap = el.querySelectorAll("div#map")[0];
-        console.log(elMap);
+        const elMap = el.querySelectorAll('div#map')[0];
 
         const map = L.map(elMap).setView([51.505, -0.09], 13);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -42,12 +41,12 @@ class LeafletMap extends HTMLElement {
     async _getRootContent() {
         const urls = {
             leaflet: {
-                css: "https://unpkg.com/leaflet@1.9.3/dist/leaflet.css",
-                integrity: "sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+                css: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
+                integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='
             },
             map: {
-                css: "components/leaflet-map-component/leaflet-map.css",
-                html: "components/leaflet-map-component/leaflet-map.html"
+                css: 'components/leaflet-map-component/leaflet-map.css',
+                html: 'components/leaflet-map-component/leaflet-map.html'
             }
         }
         const [leafletCssResponse, cssResponse, htmlResponse] = await Promise.all([
