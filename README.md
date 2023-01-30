@@ -74,6 +74,27 @@ The shadow DOM is an encapsulated version of the DOM that is inaccessible from i
 
 The HTML <template> element allows us to define a re-usable templates of code that won’t be rendered, but can be used at a later time.
 
+## Install
+
+Copy the directory */components/leaflet-map-component/*
+
+## Getting started
+
+To get started you need to import the Web Component
+
+```html
+<head>
+    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
+</head>
+<body>
+    <leaflet-map
+        longitude="-3.7001448634709626"
+        latitude="40.4237577382345"
+        zoom="13">
+	</leaflet-map>
+</body>
+```
+
 ## Helpers
 
 A [container is used for hot reloading](https://github.com/migupl/hot-reloading-container) during development.
