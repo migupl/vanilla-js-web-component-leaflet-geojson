@@ -23,7 +23,12 @@ class LeafletMap extends HTMLElement {
 
         const elMap = el.querySelectorAll('div#map')[0];
 
-        const map = L.map(elMap).setView([51.505, -0.09], 13);
+        const opts = {
+            center: new L.LatLng(51.505, -0.09),
+            zoom: 13
+        };
+
+        const map = L.map(elMap, opts);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
