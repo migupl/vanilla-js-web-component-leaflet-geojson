@@ -87,13 +87,35 @@ To get started you need to import the Web Component
     <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
 </head>
 <body>
-    <leaflet-map
-        longitude="-3.7001448634709626"
-        latitude="40.4237577382345"
-        zoom="13">
+	<leaflet-map
+		longitude="-3.7001448634709626"
+		latitude="40.4237577382345"
+		zoom="13"
+		tileCopyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
+		tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
 	</leaflet-map>
 </body>
 ```
+
+## Tiles
+
+Change easily the tile layer on the map using the *tileServer* property.
+
+Note that most tile servers require attribution, which you can set using the *tileCopyrigth* property.
+
+```html
+<body>
+	<leaflet-map
+		longitude="-3.7001448634709626"
+		latitude="40.4237577382345"
+		zoom="13"
+		tileCopyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
+		tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
+	</leaflet-map>
+</body>
+```
+
+[Leaflet Provider Demo](http://leaflet-extras.github.io/leaflet-providers/preview/index.html) is a good resource for Leaflet layer providers
 
 ## Helpers
 
