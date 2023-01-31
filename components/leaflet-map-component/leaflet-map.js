@@ -37,20 +37,7 @@ class LeafletMap extends HTMLElement {
 
         const elMap = el.querySelectorAll('div#map')[0];
 
-        const tileCopyright = this.getAttribute('tileCopyright') ||
-            (this.getAttribute('tileServer') ? '' : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>');
-        const opts = {
-            center: new L.LatLng(
-                this.getAttribute('latitude') || 51.505,
-                this.getAttribute('longitude') || -0.09
-            ),
-            zoom: this.getAttribute('zoom') || 13,
-            layers: L.tileLayer(this.getAttribute('tileServer') || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: tileCopyright
-            })
-        };
-
+        const opts = this._mapOptions();
         const map = L.map(elMap, opts);
     }
 
@@ -60,6 +47,32 @@ class LeafletMap extends HTMLElement {
         const el = document.createElement('style');
         el.innerText = css;
         this._appendChild(el);
+    }
+
+    _mapOptions() {
+        const defaults = {
+            latitude: 51.505,
+            longitude: -0.09,
+            maxZoom: 19,
+            tileCopyright: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            tileServer: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            zoom: 13
+        }
+
+        const tileCopyright = this.getAttribute('tileCopyright') ||
+            (this.getAttribute('tileServer') ? '' : defaults.tileCopyright);
+        const opts = {
+            center: new L.LatLng(
+                this.getAttribute('latitude') || defaults.latitude,
+                this.getAttribute('longitude') || defaults.longitude
+            ),
+            zoom: this.getAttribute('zoom') || defaults.zoom,
+            layers: L.tileLayer(this.getAttribute('tileServer') || defaults.tileServer, {
+                maxZoom: defaults.maxZoom,
+                attribution: tileCopyright
+            })
+        };
+        return opts;
     }
 
     async _getRootContent() {
