@@ -100,7 +100,7 @@ class LeafletMap extends HTMLElement {
     }
 }
 
-const getLeafletScript = function() {
+const getLeafletScript = function () {
     const dependency = {
         url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.js',
         integrity: 'sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM='
@@ -117,7 +117,7 @@ const getLeafletScript = function() {
 }
 
 const leafletjs = getLeafletScript();
-leafletjs.onload = function(ev) {
+leafletjs.onload = function (ev) {
     customElements.define('leaflet-map', LeafletMap);
 }
 
