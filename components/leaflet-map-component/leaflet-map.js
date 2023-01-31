@@ -3,6 +3,7 @@ class LeafletMap extends HTMLElement {
         return [
             'latitude',
             'longitude',
+            'tileCopyright', 'tileServer',
             'zoom'
         ];
     }
@@ -36,15 +37,17 @@ class LeafletMap extends HTMLElement {
 
         const elMap = el.querySelectorAll('div#map')[0];
 
+        const tileCopyright = this.getAttribute('tileCopyright') ||
+            (this.getAttribute('tileServer') ? '' : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>');
         const opts = {
             center: new L.LatLng(
                 this.getAttribute('latitude') || 51.505,
                 this.getAttribute('longitude') || -0.09
             ),
             zoom: this.getAttribute('zoom') || 13,
-            layers: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            layers: L.tileLayer(this.getAttribute('tileServer') || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                attribution: tileCopyright
             })
         };
 
