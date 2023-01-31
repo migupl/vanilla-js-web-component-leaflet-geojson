@@ -3,6 +3,7 @@ class LeafletMap extends HTMLElement {
         return [
             'latitude',
             'longitude',
+            'maxZoom',
             'tileCopyright', 'tileServer',
             'zoom'
         ];
@@ -68,7 +69,7 @@ class LeafletMap extends HTMLElement {
             ),
             zoom: this.getAttribute('zoom') || defaults.zoom,
             layers: L.tileLayer(this.getAttribute('tileServer') || defaults.tileServer, {
-                maxZoom: defaults.maxZoom,
+                maxZoom: this.getAttribute('maxZoom') || defaults.maxZoom,
                 attribution: tileCopyright
             })
         };
