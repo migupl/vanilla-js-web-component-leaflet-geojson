@@ -90,9 +90,7 @@ To get started you need to import the Web Component
 	<leaflet-map
 		longitude="-3.7001448634709626"
 		latitude="40.4237577382345"
-		zoom="13"
-		tileCopyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
-		tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
+		zoom="13">
 	</leaflet-map>
 </body>
 ```
