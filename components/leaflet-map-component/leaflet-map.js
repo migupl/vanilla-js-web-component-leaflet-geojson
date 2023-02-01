@@ -1,3 +1,5 @@
+import { EVENT_BUS } from "./EventBus.js";
+
 class LeafletMap extends HTMLElement {
     static get observedAttributes() {
         return [
@@ -15,9 +17,15 @@ class LeafletMap extends HTMLElement {
         }
     }
 
+    get eventBus() {
+        return this._eventBus;
+    }
+
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+
+        this._registerEvents();
     }
 
     connectedCallback() {
@@ -98,6 +106,10 @@ class LeafletMap extends HTMLElement {
         const html = await htmlResponse.text();
 
         return [leafletCss, css, html];
+    }
+
+    _registerEvents() {
+        this._eventBus = EVENT_BUS;
     }
 
     _addMapToBodyAsReference() {
