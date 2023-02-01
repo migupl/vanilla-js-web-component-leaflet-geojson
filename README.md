@@ -72,7 +72,7 @@ The shadow DOM is an encapsulated version of the DOM that is inaccessible from i
 
 #### Template element
 
-The HTML <template> element allows us to define a re-usable templates of code that won’t be rendered, but can be used at a later time.
+The HTML &lt;template&gt; element allows us to define a re-usable templates of code that won’t be rendered, but can be used at a later time.
 
 ## Install
 
