@@ -116,6 +116,23 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 [Leaflet Provider Demo](http://leaflet-extras.github.io/leaflet-providers/preview/index.html) is a good resource for Leaflet layer providers
 
+## Default values
+
+All parameters are optional.
+
+Default values are
+```json
+{
+    latitude: 51.505,
+    longitude: -0.09,
+    maxZoom: 19,
+    tileCopyright: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    tileServer: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    zoom: 13
+}
+```
+
+
 ## Helpers
 
 A [container is used for hot reloading](https://github.com/migupl/hot-reloading-container) during development.
