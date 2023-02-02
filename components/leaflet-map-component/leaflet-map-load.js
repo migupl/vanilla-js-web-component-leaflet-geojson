@@ -25,6 +25,22 @@ class LeafletMapLoad {
         return el;
     }
 
+    getLeafletScript() {
+        const dependency = {
+            url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.js',
+            integrity: 'sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM='
+        };
+
+        let js = document.createElement('script');
+        js.src = dependency.url;
+        js.integrity = dependency.integrity;
+
+        js.crossOrigin = '';
+        js.async = 'false';
+
+        return js;
+    }
+
     async _fetchLeafletCss() {
         const leafletCss = {
             url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
