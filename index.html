@@ -121,7 +121,8 @@
 	<script>
 		setTimeout(function () {
 			const eventBus = document.querySelector('leaflet-map').eventBus;
-		}, 3000);
+			eventBus.fire('x-leaflet-map-geojson-add', '--dispatch--');
+		}, 1000);
 	</script>
 </body>
 <grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>

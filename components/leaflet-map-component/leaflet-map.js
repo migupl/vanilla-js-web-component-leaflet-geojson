@@ -84,6 +84,9 @@ class LeafletMap extends HTMLElement {
 
     _registerEvents() {
         this._eventBus = EVENT_BUS;
+        this._eventBus.register('x-leaflet-map-geojson-add', (event) => {
+            console.log(event.detail);
+        });
     }
 
     _addMapToBodyAsReference() {
