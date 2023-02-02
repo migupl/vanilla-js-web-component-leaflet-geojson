@@ -30,7 +30,7 @@ class LeafletMap extends HTMLElement {
     }
 
     connectedCallback() {
-        const css = loadMap.getStyle();
+        const css = loadMap.getStyleElement();
         this._appendChild(css);
 
         this._getRootContent()

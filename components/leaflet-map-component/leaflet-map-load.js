@@ -2,7 +2,7 @@ import { css } from "./leaflet-map-dom.js"
 
 class LeafletMapLoad {
 
-    getStyle() {
+    getStyleElement() {
         const el = document.createElement('style');
         el.innerText = css;
         return el;
