@@ -6,6 +6,10 @@ Behind this idea is learning about:
 
 ## About
 
+### GeoJSON
+
+GeoJSON is a format for encoding a variety of geographic data structures […]. A GeoJSON object may represent a region of space (a Geometry), a spatially bounded entity (a Feature), or a list of Features (a FeatureCollection). GeoJSON supports the following geometry types: Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. Features in GeoJSON contain a Geometry object and additional properties, and a FeatureCollection contains a list of Features. [GeoJSON Specification (RFC 7946)](https://tools.ietf.org/html/rfc7946)
+
 ### Web Components
 
 Web Components[^1] use three separate technologies together:
@@ -123,6 +127,7 @@ Note that most tile servers require attribution, which you can set using the *ti
 All parameters are optional.
 
 Default values are
+
 ```json
 {
     latitude: 51.505,
@@ -134,10 +139,15 @@ Default values are
 }
 ```
 
+## Events
+
+Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties.
 
 ## Helpers
 
 A [container is used for hot reloading](https://github.com/migupl/hot-reloading-container) during development.
+
+Test your GeoJSON with [GeoJSONLint](https://geojsonlint.com/).
 
 Good luck and I hope you enjoy it.
 
