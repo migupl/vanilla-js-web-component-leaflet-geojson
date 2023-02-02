@@ -44,12 +44,17 @@ class LeafletMap extends HTMLElement {
         this._addMapToBodyAsReference();
     }
 
+    _appendChild = element => this.shadowRoot.appendChild(element)
+
     _initializeMap = mapElement => {
         const opts = this._mapOptions();
         const map = L.map(mapElement, opts);
-    }
 
-    _appendChild = element => this.shadowRoot.appendChild(element)
+        this._leafletMap = {
+            map: map,
+            el: mapElement
+        }
+    }
 
     _mapOptions() {
         const defaults = {
