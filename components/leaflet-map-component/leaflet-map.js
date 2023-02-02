@@ -34,23 +34,20 @@ class LeafletMap extends HTMLElement {
         this._appendChild(css);
 
         this._getRootContent()
-            .then(([leafletCss, html]) => {
+            .then(([leafletCss]) => {
                 this._appendStyle(leafletCss);
-                this._appendAndInitializeMap(html);
             });
+
+        const map = loadMap.getHtml();
+        this._appendChild(map);
+        this._initializeMap(map);
 
         this._addMapToBodyAsReference();
     }
 
-    _appendAndInitializeMap = htmlMap => {
-        const el = document.createElement('div');
-        el.innerHTML = htmlMap;
-        this._appendChild(el);
-
-        const elMap = el.querySelectorAll('div#map')[0];
-
+    _initializeMap = mapElement => {
         const opts = this._mapOptions();
-        const map = L.map(elMap, opts);
+        const map = L.map(mapElement, opts);
     }
 
     _appendChild = element => this.shadowRoot.appendChild(element)
@@ -93,19 +90,14 @@ class LeafletMap extends HTMLElement {
                 css: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
                 integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='
             },
-            map: {
-                html: 'components/leaflet-map-component/leaflet-map.html'
-            }
         }
-        const [leafletCssResponse, htmlResponse] = await Promise.all([
+        const [leafletCssResponse] = await Promise.all([
             fetch(urls.leaflet.css),
-            fetch(urls.map.html),
         ])
 
         const leafletCss = await leafletCssResponse.text();
-        const html = await htmlResponse.text();
 
-        return [leafletCss, html];
+        return [leafletCss];
     }
 
     _registerEvents() {
