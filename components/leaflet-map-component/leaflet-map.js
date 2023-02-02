@@ -1,4 +1,4 @@
-import { EVENT_BUS } from "./EventBus.js";
+import { EVENT_BUS } from "./event-bus.js";
 
 class LeafletMap extends HTMLElement {
     static get observedAttributes() {
