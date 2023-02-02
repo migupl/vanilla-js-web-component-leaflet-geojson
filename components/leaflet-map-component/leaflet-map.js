@@ -2,6 +2,7 @@ import { EVENT_BUS } from "./event-bus.js";
 import { loadMap } from "./leaflet-map-load.js";
 
 class LeafletMap extends HTMLElement {
+
     static get observedAttributes() {
         return [
             'latitude',
