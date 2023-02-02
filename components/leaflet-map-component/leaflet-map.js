@@ -1,4 +1,5 @@
 import { EVENT_BUS } from "./event-bus.js";
+import { loadMap } from "./leaflet-map-load.js";
 
 class LeafletMap extends HTMLElement {
     static get observedAttributes() {
@@ -29,10 +30,12 @@ class LeafletMap extends HTMLElement {
     }
 
     connectedCallback() {
+        const css = loadMap.getStyle();
+        this._appendChild(css);
+
         this._getRootContent()
-            .then(([leafletCss, css, html]) => {
+            .then(([leafletCss, html]) => {
                 this._appendStyle(leafletCss);
-                this._appendStyle(css);
                 this._appendAndInitializeMap(html);
             });
 
@@ -91,21 +94,18 @@ class LeafletMap extends HTMLElement {
                 integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='
             },
             map: {
-                css: 'components/leaflet-map-component/leaflet-map.css',
                 html: 'components/leaflet-map-component/leaflet-map.html'
             }
         }
-        const [leafletCssResponse, cssResponse, htmlResponse] = await Promise.all([
+        const [leafletCssResponse, htmlResponse] = await Promise.all([
             fetch(urls.leaflet.css),
-            fetch(urls.map.css),
             fetch(urls.map.html),
         ])
 
         const leafletCss = await leafletCssResponse.text();
-        const css = await cssResponse.text();
         const html = await htmlResponse.text();
 
-        return [leafletCss, css, html];
+        return [leafletCss, html];
     }
 
     _registerEvents() {

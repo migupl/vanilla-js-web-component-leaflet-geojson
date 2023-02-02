@@ -1,3 +1,4 @@
+const css = `
 #map {
     position: absolute;
     inset: 0px;
@@ -11,3 +12,6 @@
     max-width: 100%;
     max-height: 100%;
 }
+`
+
+export { css }
