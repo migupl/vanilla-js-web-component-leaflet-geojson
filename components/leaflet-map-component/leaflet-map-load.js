@@ -15,6 +15,31 @@ class LeafletMapLoad {
         const map = el.querySelectorAll('div#map')[0];
         return map;
     }
+
+    getLeafletCss() {
+        const el = document.createElement('style');
+        this._fetchLeafletCss().then(
+            (css) => { el.innerText = css }
+        );
+
+        return el;
+    }
+
+    async _fetchLeafletCss() {
+        const leafletCss = {
+            url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
+            integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='
+        };
+
+        const response = await fetch(leafletCss.url);
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            throw new Error(message);
+        }
+
+        const css = await response.text();
+        return css;
+    }
 }
 
 const loadMap = new LeafletMapLoad();

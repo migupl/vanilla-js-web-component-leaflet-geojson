@@ -33,10 +33,8 @@ class LeafletMap extends HTMLElement {
         const css = loadMap.getStyleElement();
         this._appendChild(css);
 
-        this._getRootContent()
-            .then(([leafletCss]) => {
-                this._appendStyle(leafletCss);
-            });
+        const leafletCss = loadMap.getLeafletCss();
+        this._appendChild(leafletCss);
 
         const map = loadMap.getHtml();
         this._appendChild(map);
@@ -51,12 +49,6 @@ class LeafletMap extends HTMLElement {
     }
 
     _appendChild = element => this.shadowRoot.appendChild(element)
-
-    _appendStyle = css => {
-        const el = document.createElement('style');
-        el.innerText = css;
-        this._appendChild(el);
-    }
 
     _mapOptions() {
         const defaults = {
@@ -82,22 +74,6 @@ class LeafletMap extends HTMLElement {
             })
         };
         return opts;
-    }
-
-    async _getRootContent() {
-        const urls = {
-            leaflet: {
-                css: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
-                integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='
-            },
-        }
-        const [leafletCssResponse] = await Promise.all([
-            fetch(urls.leaflet.css),
-        ])
-
-        const leafletCss = await leafletCssResponse.text();
-
-        return [leafletCss];
     }
 
     _registerEvents() {
