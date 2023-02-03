@@ -1,5 +1,6 @@
 import { EVENT_BUS } from "./event-bus.js";
 import { loadMap } from "./leaflet-map-load.js";
+import { features } from "./leaflet-map-features.js";
 
 class LeafletMap extends HTMLElement {
 
@@ -50,10 +51,7 @@ class LeafletMap extends HTMLElement {
         const opts = this._mapOptions();
         const map = L.map(mapElement, opts);
 
-        this._leafletMap = {
-            map: map,
-            el: mapElement
-        }
+        this._leafletMap = map;
     }
 
     _mapOptions() {
@@ -82,40 +80,12 @@ class LeafletMap extends HTMLElement {
         return opts;
     }
 
-    _onEachFeature(feature, layer) {
-        if (feature?.properties?.popupContent) {
-            layer.bindPopup(feature.properties.popupContent);
-        }
-    }
-
-    _pointToLayer = feature => {
-        const isCircle = feature?.properties?.radius;
-        L.geoJSON(feature, {
-            onEachFeature: this._onEachFeature,
-            pointToLayer: function (feature, latlng) {
-                return isCircle ?
-                    L.circleMarker(latlng, feature.properties) :
-                    L.marker(latlng, L.icon({}))
-            }
-        }).addTo(this._leafletMap.map);
-    }
-
-    _polygonToLayer = feature => {
-        L.geoJSON(feature, {
-            onEachFeature: this._onEachFeature
-        }).addTo(this._leafletMap.map);
-    }
-
     _registerEvents() {
         this._eventBus = EVENT_BUS;
 
         this._eventBus.register('x-leaflet-map-geojson-add', (event) => {
             const feature = event.detail;
-            if ('Point' == feature.geometry.type) {
-                this._pointToLayer(feature);
-            } else {
-                this._polygonToLayer(feature)
-            }
+            features.add(feature, this._leafletMap);
         });
     }
 
