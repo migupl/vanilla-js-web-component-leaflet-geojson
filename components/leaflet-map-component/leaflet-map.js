@@ -82,10 +82,18 @@ class LeafletMap extends HTMLElement {
         return opts;
     }
 
+    _onEachFeature(feature, layer) {
+        if (feature?.properties?.popupContent) {
+            layer.bindPopup(feature.properties.popupContent);
+        }
+    }
+
     _pointToLayer = feature => {
+        const isCircle = feature?.properties?.radius;
         L.geoJSON(feature, {
+            onEachFeature: this._onEachFeature,
             pointToLayer: function (feature, latlng) {
-                return feature?.properties?.radius ?
+                return isCircle ?
                     L.circleMarker(latlng, feature.properties) :
                     L.marker(latlng, L.icon({}))
             }
@@ -93,7 +101,9 @@ class LeafletMap extends HTMLElement {
     }
 
     _polygonToLayer = feature => {
-        L.geoJSON(feature).addTo(this._leafletMap.map);
+        L.geoJSON(feature, {
+            onEachFeature: this._onEachFeature
+        }).addTo(this._leafletMap.map);
     }
 
     _registerEvents() {
@@ -123,19 +133,22 @@ class LeafletMap extends HTMLElement {
         }).addTo(map);
 
         const marker = L.marker([51.5, -0.09]).addTo(map);
+        marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
 
-        L.circle([51.508, -0.11], {
+        const circle = L.circle([51.508, -0.11], {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.5,
             radius: 500
         }).addTo(map);
+        circle.bindPopup("I am a circle.");
 
         const polygon = L.polygon([
             [51.509, -0.08],
             [51.503, -0.06],
             [51.51, -0.047]
         ]).addTo(map);
+        polygon.bindPopup("I am a polygon.");
     }
 }
 

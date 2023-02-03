@@ -145,6 +145,8 @@ Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for add
 
 ### Adding a marker
 
+The *popupContent* property is optional.
+
 ```html
 <body>
 	<leaflet-map></leaflet-map>
@@ -157,6 +159,9 @@ Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for add
 				geometry: {
 					type: "Point",
 					coordinates: [-0.09, 51.5] // [longitude, latitude]
+				},
+				properties: {
+					popupContent: "<b>Hello world!</b><br>I am a popupContent."
 				}
 			}
 
@@ -168,7 +173,7 @@ Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for add
 
 ### Adding a circle
 
-The property **radius** defines a circle.
+The **radius** property defines a circle and is  the only one required.
 
 ```html
 <body>
@@ -187,7 +192,8 @@ The property **radius** defines a circle.
 					color: 'red',
 					fillColor: '#f03',
 					fillOpacity: 0.5,
-					radius: 40
+					radius: 40,
+					popupContent: "I am a circle."
 				}
 			}
 
@@ -198,6 +204,8 @@ The property **radius** defines a circle.
 ```
 
 ### Adding a polygon
+
+The property *popupContent* is optional.
 
 ```html
 <body>
@@ -215,6 +223,9 @@ The property **radius** defines a circle.
 						[-0.06, 51.503],
 						[-0.047, 51.51]
 					]]
+				},
+				properties: {
+					popupContent: "I am a polygon."
 				}
 			};
 
