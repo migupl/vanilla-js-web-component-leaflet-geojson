@@ -109,7 +109,6 @@ class LeafletMap extends HTMLElement {
     _registerEvents() {
         this._eventBus = EVENT_BUS;
 
-        this._pointToLayer.bind(this);
         this._eventBus.register('x-leaflet-map-geojson-add', (event) => {
             const feature = event.detail;
             if ('Point' == feature.geometry.type) {
