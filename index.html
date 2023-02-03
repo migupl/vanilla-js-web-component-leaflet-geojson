@@ -135,11 +135,26 @@
 					color: 'red',
 					fillColor: '#f03',
 					fillOpacity: 0.5,
-					radius: 40
+					radius: 40,
+					popup: "I am a circle."
 				}
 			}
 
 			eventBus.fire('x-leaflet-map-geojson-add', circle);
+
+			const polygon = {
+				"type": "Feature",
+				"geometry": {
+					"type": "Polygon",
+					"coordinates": [[
+						[-0.08, 51.509],
+						[-0.06, 51.503],
+						[-0.047, 51.51]
+					]]
+				}
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', polygon);
 		}, 1000);
 	</script>
 </body>

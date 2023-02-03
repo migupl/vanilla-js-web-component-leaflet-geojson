@@ -197,6 +197,32 @@ The property **radius** defines a circle.
 </body>
 ```
 
+### Adding a polygon
+
+```html
+<body>
+	<leaflet-map></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const polygon = {
+				"type": "Feature",
+				"geometry": {
+					"type": "Polygon",
+					"coordinates": [[
+						[-0.08, 51.509],
+						[-0.06, 51.503],
+						[-0.047, 51.51]
+					]]
+				}
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', polygon);
+		}, 1000);
+	</script>
+</body>
+```
 
 ## Helpers
 

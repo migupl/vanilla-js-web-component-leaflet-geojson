@@ -92,6 +92,10 @@ class LeafletMap extends HTMLElement {
         }).addTo(this._leafletMap.map);
     }
 
+    _polygonToLayer = feature => {
+        L.geoJSON(feature).addTo(this._leafletMap.map);
+    }
+
     _registerEvents() {
         this._eventBus = EVENT_BUS;
 
@@ -100,6 +104,8 @@ class LeafletMap extends HTMLElement {
             const feature = event.detail;
             if ('Point' == feature.geometry.type) {
                 this._pointToLayer(feature);
+            } else {
+                this._polygonToLayer(feature)
             }
         });
     }
@@ -124,6 +130,12 @@ class LeafletMap extends HTMLElement {
             fillOpacity: 0.5,
             radius: 500
         }).addTo(map);
+
+        const polygon = L.polygon([
+            [51.509, -0.08],
+            [51.503, -0.06],
+            [51.51, -0.047]
+        ]).addTo(map);
     }
 }
 
