@@ -82,10 +82,12 @@ class LeafletMap extends HTMLElement {
         return opts;
     }
 
-    _markerToLayer = geojsonMarker => {
-        L.geoJSON(geojsonMarker, {
+    _pointToLayer = feature => {
+        L.geoJSON(feature, {
             pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, L.icon({}));
+                return feature?.properties?.radius ?
+                    L.circleMarker(latlng, feature.properties) :
+                    L.marker(latlng, L.icon({}))
             }
         }).addTo(this._leafletMap.map);
     }
@@ -93,9 +95,12 @@ class LeafletMap extends HTMLElement {
     _registerEvents() {
         this._eventBus = EVENT_BUS;
 
-        this._markerToLayer.bind(this);
+        this._pointToLayer.bind(this);
         this._eventBus.register('x-leaflet-map-geojson-add', (event) => {
-            this._markerToLayer(event.detail);
+            const feature = event.detail;
+            if ('Point' == feature.geometry.type) {
+                this._pointToLayer(feature);
+            }
         });
     }
 
@@ -112,6 +117,13 @@ class LeafletMap extends HTMLElement {
         }).addTo(map);
 
         const marker = L.marker([51.5, -0.09]).addTo(map);
+
+        L.circle([51.508, -0.11], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500
+        }).addTo(map);
     }
 }
 

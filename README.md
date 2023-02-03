@@ -166,6 +166,38 @@ Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for add
 </body>
 ```
 
+### Adding a circle
+
+The property **radius** defines a circle.
+
+```html
+<body>
+	<leaflet-map></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const circle = {
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: [-0.11, 51.508] // [longitude, latitude]
+				},
+				properties: {
+					color: 'red',
+					fillColor: '#f03',
+					fillOpacity: 0.5,
+					radius: 40
+				}
+			}
+
+			eventBus.fire('x-leaflet-map-geojson-add', circle);
+		}, 1000);
+	</script>
+</body>
+```
+
+
 ## Helpers
 
 A [container is used for hot reloading](https://github.com/migupl/hot-reloading-container) during development.

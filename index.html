@@ -124,6 +124,22 @@
 			}
 
 			eventBus.fire('x-leaflet-map-geojson-add', marker);
+
+			const circle = {
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: [-0.11, 51.508] // [longitude, latitude]
+				},
+				properties: {
+					color: 'red',
+					fillColor: '#f03',
+					fillOpacity: 0.5,
+					radius: 40
+				}
+			}
+
+			eventBus.fire('x-leaflet-map-geojson-add', circle);
 		}, 1000);
 	</script>
 </body>
