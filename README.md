@@ -143,6 +143,29 @@ Default values are
 
 Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties.
 
+### Adding a marker
+
+```html
+<body>
+	<leaflet-map></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const marker = {
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: [-0.09, 51.5] // [longitude, latitude]
+				}
+			}
+
+			eventBus.fire('x-leaflet-map-geojson-add', marker);
+		}, 1000);
+	</script>
+</body>
+```
+
 ## Helpers
 
 A [container is used for hot reloading](https://github.com/migupl/hot-reloading-container) during development.

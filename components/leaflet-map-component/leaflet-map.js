@@ -82,10 +82,20 @@ class LeafletMap extends HTMLElement {
         return opts;
     }
 
+    _markerToLayer = geojsonMarker => {
+        L.geoJSON(geojsonMarker, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, L.icon({}));
+            }
+        }).addTo(this._leafletMap.map);
+    }
+
     _registerEvents() {
         this._eventBus = EVENT_BUS;
+
+        this._markerToLayer.bind(this);
         this._eventBus.register('x-leaflet-map-geojson-add', (event) => {
-            console.log(event.detail);
+            this._markerToLayer(event.detail);
         });
     }
 

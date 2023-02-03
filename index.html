@@ -87,16 +87,10 @@
 				</div>
 				<div class="leaflet-pane leaflet-overlay-pane"></div>
 				<div class="leaflet-pane leaflet-shadow-pane"></div>
-				<div class="leaflet-pane leaflet-marker-pane">
-					<img src="https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png"
-						class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive"
-						style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(300px, 247px, 0px); z-index: 247; outline: none;"
-						alt="Marker" tabindex="0" role="button">
-				</div>
+				<div class="leaflet-pane leaflet-marker-pane"></div>
 				<div class="leaflet-pane leaflet-tooltip-pane"></div>
 				<div class="leaflet-pane leaflet-popup-pane"></div>
-				<div class="leaflet-proxy leaflet-zoom-animated"
-					style="transform: translate3d(1048050px, 697379px, 0px) scale(4096);"></div>
+				<div class="leaflet-proxy leaflet-zoom-animated" tyle="transform: translate3d(1048050px, 697379px, 0px) scale(4096);"></div>
 			</div>
 			<div class="leaflet-control-container">
 				<div class="leaflet-top leaflet-left">
@@ -121,7 +115,15 @@
 	<script>
 		setTimeout(function () {
 			const eventBus = document.querySelector('leaflet-map').eventBus;
-			eventBus.fire('x-leaflet-map-geojson-add', '--dispatch--');
+			const marker = {
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: [-0.09, 51.5] // [longitude, latitude]
+				}
+			}
+
+			eventBus.fire('x-leaflet-map-geojson-add', marker);
 		}, 1000);
 	</script>
 </body>
