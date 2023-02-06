@@ -215,10 +215,10 @@ The property *popupContent* is optional.
 		setTimeout(function () {
 			const eventBus = document.querySelector('leaflet-map').eventBus;
 			const polygon = {
-				"type": "Feature",
-				"geometry": {
-					"type": "Polygon",
-					"coordinates": [[
+				type: "Feature",
+				geometry: {
+					type: "Polygon",
+					coordinates: [[
 						[-0.08, 51.509],
 						[-0.06, 51.503],
 						[-0.047, 51.51]
