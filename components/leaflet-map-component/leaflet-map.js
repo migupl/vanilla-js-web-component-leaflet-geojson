@@ -14,12 +14,6 @@ class LeafletMap extends HTMLElement {
         ];
     }
 
-    attributeChangedCallback(attrName, oldValue, newValue) {
-        if (newValue !== oldValue) {
-            this[attrName] = this.hasAttribute(attrName);
-        }
-    }
-
     get eventBus() {
         return this._eventBus;
     }
