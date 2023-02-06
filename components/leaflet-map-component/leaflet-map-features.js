@@ -1,13 +1,26 @@
 class LeafletMapFeatures {
 
-    add(feature, leafletMap) {
+    add(geojson, leafletMap) {
         this._leafletMap = leafletMap;
-        if ('Point' == feature.geometry.type) {
-            this._pointToLayer(feature);
-        } else {
-            this._polygonToLayer(feature)
-        }
+
+        const features = this._getFeaturesArray(geojson);
+        const pointsAndPolygons = this._groupPointsAndPolygons(features);
+
+        this._addPoints(pointsAndPolygons?.point)
+        this._addPolygons(pointsAndPolygons?.polygon);
     }
+
+    _addPoints = points => points && this._pointToLayer(points)
+    _addPolygons = polygons => polygons && this._polygonToLayer(polygons)
+
+    _getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
+
+    _groupPointsAndPolygons = features => features.reduce((r, feature) => {
+        const group = feature.geometry.type == 'Point' ? 'point' : 'polygon';
+        r[group] = r[group] || [];
+        r[group].push(feature);
+        return r;
+    }, Object.create(null));
 
     _onEachFeature(feature, layer) {
         if (feature?.properties?.popupContent) {
@@ -16,11 +29,10 @@ class LeafletMapFeatures {
     }
 
     _pointToLayer = feature => {
-        const isCircle = feature?.properties?.radius;
         L.geoJSON(feature, {
             onEachFeature: this._onEachFeature,
             pointToLayer: function (feature, latlng) {
-                return isCircle ?
+                return feature?.properties?.radius ?
                     L.circleMarker(latlng, feature.properties) :
                     L.marker(latlng, L.icon({}))
             }

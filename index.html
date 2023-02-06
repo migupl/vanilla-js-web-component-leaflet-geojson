@@ -128,39 +128,39 @@
 
 			eventBus.fire('x-leaflet-map-geojson-add', marker);
 
-			const circle = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.11, 51.508] // [longitude, latitude]
+			const features = {
+				type: "FeatureCollection",
+				features: [{
+					type: "Feature",
+					geometry: {
+						type: "Point",
+						coordinates: [-0.11, 51.508] // [longitude, latitude]
+					},
+					properties: {
+						color: 'red',
+						fillColor: '#f03',
+						fillOpacity: 0.5,
+						radius: 40,
+						popupContent: "I am a circle."
+					}
 				},
-				properties: {
-					color: 'red',
-					fillColor: '#f03',
-					fillOpacity: 0.5,
-					radius: 40,
-					popupContent: "I am a circle."
-				}
-			}
-
-			eventBus.fire('x-leaflet-map-geojson-add', circle);
-
-			const polygon = {
-				"type": "Feature",
-				"geometry": {
-					"type": "Polygon",
-					"coordinates": [[
-						[-0.08, 51.509],
-						[-0.06, 51.503],
-						[-0.047, 51.51]
-					]]
-				},
-				properties: {
-					popupContent: "I am a polygon."
-				}
+				{
+					type: "Feature",
+					geometry: {
+						type: "Polygon",
+						coordinates: [[
+							[-0.08, 51.509],
+							[-0.06, 51.503],
+							[-0.047, 51.51]
+						]]
+					},
+					properties: {
+						popupContent: "I am a polygon."
+					}
+				}]
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', polygon);
+			eventBus.fire('x-leaflet-map-geojson-add', features);
 		}, 1000);
 	</script>
 </body>
