@@ -165,7 +165,15 @@ The *style* and *popupContent* properties are optional.
 					coordinates: [-0.09, 51.5] // [longitude, latitude]
 				},
 				properties: {
-					popupContent: "<b>Hello world!</b><br>I am a popupContent."
+					popupContent: "<b>Hello world!</b><br>I am a popupContent.",
+					icon: {
+						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+						iconSize: [25, 41],
+						iconAnchor: [12, 41],
+						popupAnchor: [1, -34],
+						shadowSize: [41, 41]
+					}
 				}
 			}
 
@@ -229,7 +237,15 @@ The **radius** property defines a circle and is the only one required.
 					]
 				},
 				properties: {
-					popupContent: "I am a MultiPoint."
+					popupContent: "I am a MultiPoint.",
+					icon: {
+						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png',
+						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+						iconSize: [25, 41],
+						iconAnchor: [12, 41],
+						popupAnchor: [1, -34],
+						shadowSize: [41, 41]
+					}
 				}
 			};
 
@@ -404,6 +420,8 @@ The property *popupContent* is optional.
 A [container is used for hot reloading](https://github.com/migupl/hot-reloading-container) during development.
 
 Test your GeoJSON with [GeoJSONLint](https://geojsonlint.com/).
+
+[Leaflet color markers](https://github.com/pointhi/leaflet-color-markers)
 
 Good luck and I hope you enjoy it.
 

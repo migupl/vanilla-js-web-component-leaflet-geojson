@@ -32,19 +32,36 @@ class LeafletMapFeatures {
         L.geoJSON(feature, {
             onEachFeature: this._onEachFeature,
             pointToLayer: function (feature, latlng) {
-                return feature?.properties?.radius ?
-                    L.circleMarker(latlng, feature.properties) :
-                    L.marker(latlng, L.icon({}))
+                let point;
+                const isCircle = feature?.properties?.radius;
+
+                if (isCircle) {
+                    const properties = {
+                        ...feature.properties,
+                        ...feature.properties.style
+                    }
+                    point = L.circleMarker(latlng, properties);
+                }
+                else {
+                    const icon = feature?.properties?.icon ? L.icon(feature.properties.icon) : L.icon();
+                    point = L.marker(latlng, icon);
+                }
+
+                return point;
             }
         }).addTo(this._leafletMap);
     }
 
     _polygonToLayer = feature => {
         L.geoJSON(feature, {
+            onEachFeature: this._onEachFeature,
+            pointToLayer: function (feature, latlng) {
+                const icon = feature?.properties?.icon ? L.icon(feature.properties.icon) : L.icon();
+                return L.marker(latlng, icon);
+            },
             style(feature) {
                 return feature?.properties?.style;
             },
-            onEachFeature: this._onEachFeature
         }).addTo(this._leafletMap);
     }
 }
