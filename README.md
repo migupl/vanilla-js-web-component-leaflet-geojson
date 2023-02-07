@@ -143,7 +143,11 @@ Default values are
 
 Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties.
 
-### Adding a marker
+### Adding [GeoJSON objects](https://www.rfc-editor.org/rfc/rfc7946#section-3)
+
+#### Point
+
+##### Adding a marker
 
 The *popupContent* property is optional.
 
@@ -171,7 +175,7 @@ The *popupContent* property is optional.
 </body>
 ```
 
-### Adding a circle
+##### Adding a circle
 
 The **radius** property defines a circle and is  the only one required.
 
@@ -203,7 +207,106 @@ The **radius** property defines a circle and is  the only one required.
 </body>
 ```
 
-### Adding a polygon
+#### MultiPoint
+
+```html
+<body>
+	<leaflet-map></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const multiPoint = {
+				type: "Feature",
+				geometry: {
+						type: "MultiPoint",
+						coordinates: [
+							[-0.14082945900490862, 51.500729712288845],
+							[-0.126152411319017, 51.518999110271444],
+							[-0.09791411489411447, 51.513123787337804]
+						]
+					},
+					properties: {
+						popupContent: "I am a MultiPoint."
+				}
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', multiPoint);
+		}, 1000);
+	</script>
+</body>
+```
+
+#### LineString
+
+```html
+<body>
+	<leaflet-map></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const lineString = {
+				type: "Feature",
+				geometry: {
+						type: "LineString",
+						coordinates: [
+							[-0.14082945900490862, 51.500729712288845],
+							[-0.126152411319017, 51.518999110271444],
+							[-0.09791411489411447, 51.513123787337804]
+						]
+					},
+					properties: {
+						popupContent: "I am a LineString."
+				}
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', lineString);
+		}, 1000);
+	</script>
+</body>
+```
+
+#### MultiLineString
+
+```html
+<body>
+	<leaflet-map></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const multiLineString = {
+				type: "Feature",
+				geometry: {
+						type: "MultiLineString",
+						coordinates: [
+							[
+								[-0.12452174238299801, 51.50066274018154],
+								[-0.11752654129293857, 51.50076292147487]
+							],
+							[
+								[-0.11752654129293857, 51.50076292147487],
+								[-0.11614252143672825, 51.50273310885865]
+							],
+							[
+								[-0.11614252143672825, 51.50273310885865],
+								[-0.11935044340901013, 51.50326738227206]
+							],
+						]
+					},
+					properties: {
+						popupContent: "I am a MultiLineString."
+				}
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', multiLineString);
+		}, 1000);
+	</script>
+</body>
+```
+
+#### Polygon
 
 The property *popupContent* is optional.
 
@@ -230,6 +333,49 @@ The property *popupContent* is optional.
 			};
 
 			eventBus.fire('x-leaflet-map-geojson-add', polygon);
+		}, 1000);
+	</script>
+</body>
+```
+
+#### MultiPolygon
+
+```html
+<body>
+	<leaflet-map></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const multiPolygon = {
+				type: "Feature",
+				geometry: {
+						type: "MultiPolygon",
+						coordinates: [
+							[
+								[
+									[-0.09365488101163101, 51.509838432977276],
+									[-0.09341884661902165, 51.5097449490648],
+									[-0.0944273572056253, 51.50808891653398],
+									[-0.09470630694234546, 51.508142337877736]
+								],
+							],
+							[
+								[
+									[-0.08751798680378747, 51.508930295422665],
+									[-0.08723903706706732, 51.50887687500278],
+									[-0.0879685979169508, 51.506926986810356],
+									[-0.08820463230956016, 51.506940342492776]
+								]
+							]
+						]
+					},
+					properties: {
+						popupContent: "I am a MultiPolygon."
+				}
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', multiPolygon);
 		}, 1000);
 	</script>
 </body>
