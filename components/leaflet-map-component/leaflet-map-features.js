@@ -41,6 +41,9 @@ class LeafletMapFeatures {
 
     _polygonToLayer = feature => {
         L.geoJSON(feature, {
+            style(feature) {
+                return feature?.properties?.style;
+            },
             onEachFeature: this._onEachFeature
         }).addTo(this._leafletMap);
     }

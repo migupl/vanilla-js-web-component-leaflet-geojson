@@ -135,11 +135,13 @@
 						coordinates: [-0.11, 51.508]
 					},
 					properties: {
-						color: 'red',
-						fillColor: '#f03',
-						fillOpacity: 0.5,
 						radius: 40,
-						popupContent: "I am a circle."
+						popupContent: "I am a circle.",
+						style: {
+							color: 'red',
+							fillColor: '#f03',
+							fillOpacity: 0.5,
+						}
 					}
 				},
 				{
@@ -153,7 +155,11 @@
 						]]
 					},
 					properties: {
-						popupContent: "I am a polygon."
+						popupContent: "I am a polygon.",
+						style: {
+							color: "magenta",
+							opacity: 1,
+						}
 					}
 				},
 				{
@@ -181,7 +187,11 @@
 						]
 					},
 					properties: {
-						popupContent: "I am a LineString."
+						popupContent: "I am a LineString.",
+						style: {
+							color: "black",
+							opacity: 1,
+						}
 					}
 				},
 				{
@@ -204,7 +214,11 @@
 						]
 					},
 					properties: {
-						popupContent: "I am a MultiLineString."
+						popupContent: "I am a MultiLineString.",
+						style: {
+							color: "green",
+							opacity: 1,
+						}
 					}
 				},
 				{
@@ -231,7 +245,11 @@
 						]
 					},
 					properties: {
-						popupContent: "I am a MultiPolygon."
+						popupContent: "I am a MultiPolygon.",
+						style: {
+							color: "red",
+							opacity: 1,
+						}
 					}
 				}
 
