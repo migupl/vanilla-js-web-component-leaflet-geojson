@@ -2,13 +2,10 @@ class LeafletMapFeatures {
 
     add(geojson, leafletMap) {
         const features = this._getFeaturesArray(geojson);
-        const pointsAndPolygons = this._groupPointsAndPolygons(features);
+        const { points, polygons } = this._groupPointsAndPolygons(features);
 
-        this._addPoints(pointsAndPolygons?.point)
-            .addTo(leafletMap);
-
-        this._addPolygons(pointsAndPolygons?.polygon)
-            .addTo(leafletMap);
+        this._addPoints(points)?.addTo(leafletMap);
+        this._addPolygons(polygons)?.addTo(leafletMap);
     }
 
     _addPoints = points => points && this._pointToLayer(points)
@@ -17,7 +14,7 @@ class LeafletMapFeatures {
     _getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
 
     _groupPointsAndPolygons = features => features.reduce((r, feature) => {
-        const group = feature.geometry.type == 'Point' ? 'point' : 'polygon';
+        const group = feature.geometry.type == 'Point' ? 'points' : 'polygons';
         r[group] = r[group] || [];
         r[group].push(feature);
         return r;
