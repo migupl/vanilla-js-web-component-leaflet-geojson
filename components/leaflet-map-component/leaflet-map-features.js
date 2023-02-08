@@ -1,6 +1,6 @@
 class LeafletMapFeatures {
 
-    add(geojson, leafletMap) {
+    addTo(geojson, leafletMap) {
         const features = this._getFeaturesArray(geojson);
         const { points, polygons } = this._groupPointsAndPolygons(features);
 
