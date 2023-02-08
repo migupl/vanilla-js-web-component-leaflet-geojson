@@ -1,13 +1,14 @@
 class LeafletMapFeatures {
 
     add(geojson, leafletMap) {
-        this._leafletMap || (this._leafletMap = leafletMap);
-
         const features = this._getFeaturesArray(geojson);
         const pointsAndPolygons = this._groupPointsAndPolygons(features);
 
         this._addPoints(pointsAndPolygons?.point)
-        this._addPolygons(pointsAndPolygons?.polygon);
+            .addTo(leafletMap);
+
+        this._addPolygons(pointsAndPolygons?.polygon)
+            .addTo(leafletMap);
     }
 
     _addPoints = points => points && this._pointToLayer(points)
@@ -29,7 +30,7 @@ class LeafletMapFeatures {
     }
 
     _pointToLayer = feature => {
-        L.geoJSON(feature, {
+        return L.geoJSON(feature, {
             onEachFeature: this._onEachFeature,
             pointToLayer: function (feature, latlng) {
                 let point;
@@ -49,11 +50,11 @@ class LeafletMapFeatures {
 
                 return point;
             }
-        }).addTo(this._leafletMap);
+        });
     }
 
     _polygonToLayer = feature => {
-        L.geoJSON(feature, {
+        return L.geoJSON(feature, {
             onEachFeature: this._onEachFeature,
             pointToLayer: function (feature, latlng) {
                 const icon = feature?.properties?.icon ? L.icon(feature.properties.icon) : L.icon();
@@ -62,7 +63,7 @@ class LeafletMapFeatures {
             style(feature) {
                 return feature?.properties?.style;
             },
-        }).addTo(this._leafletMap);
+        });
     }
 }
 
