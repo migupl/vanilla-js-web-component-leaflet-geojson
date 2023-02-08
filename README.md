@@ -128,7 +128,7 @@ All parameters are optional.
 
 Default values are
 
-```json
+```javascript
 {
     latitude: 51.505,
     longitude: -0.09,
@@ -143,13 +143,15 @@ Default values are
 
 Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties.
 
-### Adding [GeoJSON objects](https://www.rfc-editor.org/rfc/rfc7946#section-3)
+## Adding [GeoJSON objects](https://www.rfc-editor.org/rfc/rfc7946#section-3)
 
 The *style* and *popupContent* properties are optional.
 
-#### Point
+The *coordinates* property is in the form *[longitude, latitude]*.
 
-##### Adding a marker
+### Point
+
+#### Adding a marker
 
 ```html
 <body>
@@ -162,7 +164,7 @@ The *style* and *popupContent* properties are optional.
 				type: "Feature",
 				geometry: {
 					type: "Point",
-					coordinates: [-0.09, 51.5] // [longitude, latitude]
+					coordinates: [-0.09, 51.5]
 				},
 				properties: {
 					popupContent: "<b>Hello world!</b><br>I am a popupContent.",
@@ -183,7 +185,7 @@ The *style* and *popupContent* properties are optional.
 </body>
 ```
 
-##### Adding a circle
+#### Adding a circle
 
 The **radius** property defines a circle and is the only one required.
 
@@ -198,7 +200,7 @@ The **radius** property defines a circle and is the only one required.
 				type: "Feature",
 				geometry: {
 					type: "Point",
-					coordinates: [-0.11, 51.508] // [longitude, latitude]
+					coordinates: [-0.11, 51.508]
 				},
 				properties: {
 					radius: 40,
@@ -217,7 +219,7 @@ The **radius** property defines a circle and is the only one required.
 </body>
 ```
 
-#### MultiPoint
+### MultiPoint
 
 ```html
 <body>
@@ -255,7 +257,7 @@ The **radius** property defines a circle and is the only one required.
 </body>
 ```
 
-#### LineString
+### LineString
 
 ```html
 <body>
@@ -289,7 +291,7 @@ The **radius** property defines a circle and is the only one required.
 </body>
 ```
 
-#### MultiLineString
+### MultiLineString
 
 ```html
 <body>
@@ -332,7 +334,7 @@ The **radius** property defines a circle and is the only one required.
 </body>
 ```
 
-#### Polygon
+### Polygon
 
 The property *popupContent* is optional.
 
@@ -368,7 +370,7 @@ The property *popupContent* is optional.
 </body>
 ```
 
-#### MultiPolygon
+### MultiPolygon
 
 ```html
 <body>
