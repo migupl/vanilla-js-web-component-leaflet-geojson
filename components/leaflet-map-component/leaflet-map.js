@@ -4,6 +4,8 @@ import { features } from "./leaflet-map-features.js";
 
 class LeafletMap extends HTMLElement {
 
+    static MAPS = new WeakMap();
+
     static get observedAttributes() {
         return [
             'latitude',
@@ -45,6 +47,8 @@ class LeafletMap extends HTMLElement {
         const opts = this._mapOptions();
         const map = L.map(mapElement, opts);
 
+        LeafletMap.MAPS.set(this, map);
+
         this._leafletMap = map;
     }
 
@@ -78,8 +82,11 @@ class LeafletMap extends HTMLElement {
         this._eventBus = EVENT_BUS;
 
         this._eventBus.register('x-leaflet-map-geojson-add', (event) => {
-            const geojson = event.detail;
-            features.addTo(geojson, this._leafletMap);
+            const { leafletMap, geojson } = event.detail;
+
+            const map = LeafletMap.MAPS.get(leafletMap);
+            features.addTo(geojson, map);
+            event.stopPropagation();
         });
     }
 

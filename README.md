@@ -159,7 +159,9 @@ The *coordinates* property is in the form *[longitude, latitude]*.
 
     <script>
 		setTimeout(function () {
-			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const map = document.querySelector('leaflet-map');
+			const eventBus = map.eventBus;
+
 			const marker = {
 				type: "Feature",
 				geometry: {
@@ -179,7 +181,7 @@ The *coordinates* property is in the form *[longitude, latitude]*.
 				}
 			}
 
-			eventBus.fire('x-leaflet-map-geojson-add', marker);
+			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: marker });
 		}, 1000);
 	</script>
 </body>
@@ -195,7 +197,9 @@ The **radius** property defines a circle and is the only one required.
 
     <script>
 		setTimeout(function () {
-			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const map = document.querySelector('leaflet-map');
+			const eventBus = map.eventBus;
+
 			const circle = {
 				type: "Feature",
 				geometry: {
@@ -213,7 +217,7 @@ The **radius** property defines a circle and is the only one required.
 				}
 			}
 
-			eventBus.fire('x-leaflet-map-geojson-add', circle);
+			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: circle });
 		}, 1000);
 	</script>
 </body>
@@ -227,7 +231,9 @@ The **radius** property defines a circle and is the only one required.
 
     <script>
 		setTimeout(function () {
-			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const map = document.querySelector('leaflet-map');
+			const eventBus = map.eventBus;
+
 			const multiPoint = {
 				type: "Feature",
 				geometry: {
@@ -251,7 +257,7 @@ The **radius** property defines a circle and is the only one required.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', multiPoint);
+			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPoint });
 		}, 1000);
 	</script>
 </body>
@@ -265,7 +271,9 @@ The **radius** property defines a circle and is the only one required.
 
     <script>
 		setTimeout(function () {
-			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const map = document.querySelector('leaflet-map');
+			const eventBus = map.eventBus;
+
 			const lineString = {
 				type: "Feature",
 				geometry: {
@@ -285,7 +293,7 @@ The **radius** property defines a circle and is the only one required.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', lineString);
+			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: lineString });
 		}, 1000);
 	</script>
 </body>
@@ -299,7 +307,9 @@ The **radius** property defines a circle and is the only one required.
 
     <script>
 		setTimeout(function () {
-			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const map = document.querySelector('leaflet-map');
+			const eventBus = map.eventBus;
+
 			const multiLineString = {
 				type: "Feature",
 				geometry: {
@@ -328,7 +338,7 @@ The **radius** property defines a circle and is the only one required.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', multiLineString);
+			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiLineString });
 		}, 1000);
 	</script>
 </body>
@@ -344,7 +354,9 @@ The property *popupContent* is optional.
 
     <script>
 		setTimeout(function () {
-			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const map = document.querySelector('leaflet-map');
+			const eventBus = map.eventBus;
+
 			const polygon = {
 				type: "Feature",
 				geometry: {
@@ -364,7 +376,7 @@ The property *popupContent* is optional.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', polygon);
+			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: polygon });
 		}, 1000);
 	</script>
 </body>
@@ -378,7 +390,9 @@ The property *popupContent* is optional.
 
     <script>
 		setTimeout(function () {
-			const eventBus = document.querySelector('leaflet-map').eventBus;
+			const map = document.querySelector('leaflet-map');
+			const eventBus = map.eventBus;
+
 			const multiPolygon = {
 				type: "Feature",
 				geometry: {
@@ -411,11 +425,75 @@ The property *popupContent* is optional.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', multiPolygon);
+			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPolygon });
 		}, 1000);
 	</script>
 </body>
 ```
+
+## Multiple maps
+
+```html
+<body>
+	<leaflet-map id="first-map"></leaflet-map>
+	<leaflet-map id="second-map"></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const eventBus = document.querySelector('leaflet-map').eventBus;
+
+			const firstMap = document.getElementById('first-map');
+			const secondMap = document.getElementById('second-map');
+
+			const point = {
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: [-0.09, 51.5]
+				},
+				properties: {
+					popupContent: "<b>Hello world!</b><br>I am a popup.",
+					icon: {
+						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+						iconSize: [25, 41],
+						iconAnchor: [12, 41],
+						popupAnchor: [1, -34],
+						shadowSize: [41, 41]
+					}
+				}
+			};
+			const circle = {
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: [-0.11, 51.508]
+				},
+				properties: {
+					radius: 40,
+					popupContent: "I am a circle.",
+					style: {
+						color: 'red',
+						fillColor: '#f03',
+						fillOpacity: 0.5,
+					}
+				}
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', {
+				leafletMap: firstMap,
+				geojson: point
+			});
+
+			eventBus.fire('x-leaflet-map-geojson-add', {
+				leafletMap: secondMap,
+				geojson: circle
+			});
+		}, 1000);
+	</script>
+</body>
+```
+
 
 ## Helpers
 
