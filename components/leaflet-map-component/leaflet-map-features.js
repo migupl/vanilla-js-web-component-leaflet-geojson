@@ -41,7 +41,9 @@ class LeafletMapFeatures {
                     point = L.circleMarker(latlng, properties);
                 }
                 else {
-                    const icon = feature?.properties?.icon ? L.icon(feature.properties.icon) : L.icon();
+                    const icon = feature?.properties?.icon ? {
+                        icon: L.icon(feature.properties.icon)
+                    } : L.icon();
                     point = L.marker(latlng, icon);
                 }
 
