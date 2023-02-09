@@ -41,9 +41,17 @@ class LeafletMapFeatures {
                     point = L.circleMarker(latlng, properties);
                 }
                 else {
-                    const icon = feature?.properties?.icon ? {
-                        icon: L.icon(feature.properties.icon)
-                    } : L.icon();
+                    const icon = {
+                        icon: L.icon(
+                            feature?.properties?.icon || {
+                                iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
+                                shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+                                iconSize: [25, 41],
+                                iconAnchor: [12, 41],
+                                popupAnchor: [1, -34],
+                                shadowSize: [41, 41]
+                            })
+                    };
                     point = L.marker(latlng, icon);
                 }
 
@@ -56,7 +64,17 @@ class LeafletMapFeatures {
         return L.geoJSON(feature, {
             onEachFeature: this._onEachFeature,
             pointToLayer: function (feature, latlng) {
-                const icon = feature?.properties?.icon ? L.icon(feature.properties.icon) : L.icon();
+                const icon = {
+                    icon: L.icon(
+                        feature?.properties?.icon || {
+                            iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
+                            shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                            popupAnchor: [1, -34],
+                            shadowSize: [41, 41]
+                        })
+                };
                 return L.marker(latlng, icon);
             },
             style(feature) {
