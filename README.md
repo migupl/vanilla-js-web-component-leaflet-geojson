@@ -494,6 +494,54 @@ The property *popupContent* is optional.
 </body>
 ```
 
+## Clear a map
+
+```html
+<body>
+	<leaflet-map id="first-map"></leaflet-map>
+	<leaflet-map id="second-map"></leaflet-map>
+
+    <script>
+		const map = document.querySelector('leaflet-map');
+
+		setTimeout(function () {
+			const eventBus = map.eventBus;
+		
+			const point = {
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: [-0.09, 51.5]
+				},
+				properties: {
+					popupContent: "<b>Hello world!</b><br>I am a popup.",
+					icon: {
+						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+						iconSize: [25, 41],
+						iconAnchor: [12, 41],
+						popupAnchor: [1, -34],
+						shadowSize: [41, 41]
+					}
+				}
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', {
+				leafletMap: map,
+				geojson: point
+			});
+		}, 1000);
+
+		setTimeout(function () {
+			const eventBus = map.eventBus;
+		
+			eventBus.fire('x-leaflet-map-clear', {
+				leafletMap: map,
+			});
+		}, 3000);
+	</script>
+</body>
+```
 
 ## Helpers
 

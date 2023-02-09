@@ -77,6 +77,16 @@ class LeafletMap extends HTMLElement {
     }
 
     _registerEvents() {
+        eventBus.register('x-leaflet-map-clear', (event) => {
+            const { leafletMap } = event.detail;
+
+            const map = LeafletMap.MAPS.get(leafletMap);
+            map.eachLayer(function (layer) {
+                map.removeLayer(layer);
+            });
+            event.stopPropagation();
+        });
+
         eventBus.register('x-leaflet-map-geojson-add', (event) => {
             const { leafletMap, geojson } = event.detail;
 
