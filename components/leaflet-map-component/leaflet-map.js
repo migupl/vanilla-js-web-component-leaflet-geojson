@@ -4,7 +4,7 @@ import { features } from "./leaflet-map-features.js";
 
 class LeafletMap extends HTMLElement {
 
-    static MAPS = new WeakMap();
+    static maps = new WeakMap();
 
     static get observedAttributes() {
         return [
@@ -45,7 +45,7 @@ class LeafletMap extends HTMLElement {
         const opts = this._mapOptions();
         const map = L.map(mapElement, opts);
 
-        LeafletMap.MAPS.set(this, map);
+        LeafletMap.maps.set(this, map);
     }
 
     _mapOptions() {
@@ -78,7 +78,7 @@ class LeafletMap extends HTMLElement {
         eventBus.register('x-leaflet-map-clear', (event) => {
             const { leafletMap } = event.detail;
 
-            const map = LeafletMap.MAPS.get(leafletMap);
+            const map = LeafletMap.maps.get(leafletMap);
             map.eachLayer(function (layer) {
                 map.removeLayer(layer);
             });
@@ -88,7 +88,7 @@ class LeafletMap extends HTMLElement {
         eventBus.register('x-leaflet-map-geojson-add', (event) => {
             const { leafletMap, geojson } = event.detail;
 
-            const map = LeafletMap.MAPS.get(leafletMap);
+            const map = LeafletMap.maps.get(leafletMap);
             features.addTo(geojson, map);
             event.stopPropagation();
         });
