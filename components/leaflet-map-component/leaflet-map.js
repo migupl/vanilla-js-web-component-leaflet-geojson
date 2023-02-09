@@ -95,9 +95,10 @@ class LeafletMap extends HTMLElement {
     }
 }
 
-const leafletjs = loadMap.getLeafletScript();
+let leafletjs = loadMap.getLeafletScript();
 leafletjs.onload = function (ev) {
     customElements.define('leaflet-map', LeafletMap);
+    leaflet = null;
 }
 
 document.head.append(leafletjs);
