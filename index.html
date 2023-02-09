@@ -41,43 +41,57 @@
 	<leaflet-map></leaflet-map>
 
 	<script>
-		const map = document.querySelector('leaflet-map');
-
 		setTimeout(function () {
+			const map = document.querySelector('leaflet-map');
 			const eventBus = map.eventBus;
-		
-			const point = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.09, 51.5]
-				},
-				properties: {
-					popupContent: "<b>Hello world!</b><br>I am a popup.",
-					icon: {
-						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-						iconSize: [25, 41],
-						iconAnchor: [12, 41],
-						popupAnchor: [1, -34],
-						shadowSize: [41, 41]
+
+			const features = {
+				type: "FeatureCollection",
+				features: [{
+					type: "Feature",
+					geometry: {
+						type: "Point",
+						coordinates: [-0.09, 51.5]
+					},
+					properties: {
+						popupContent: "<b>Hello world!</b><br>I am a popup."
 					}
-				}
+				},
+				{
+					type: "Feature",
+					geometry: {
+						type: "Point",
+						coordinates: [-0.11, 51.508] // [longitude, latitude]
+					},
+					properties: {
+						color: 'red',
+						fillColor: '#f03',
+						fillOpacity: 0.5,
+						radius: 40,
+						popupContent: "I am a circle."
+					}
+				},
+				{
+					type: "Feature",
+					geometry: {
+						type: "Polygon",
+						coordinates: [[
+							[-0.08, 51.509],
+							[-0.06, 51.503],
+							[-0.047, 51.51]
+						]]
+					},
+					properties: {
+						popupContent: "I am a polygon."
+					}
+				}]
 			};
 
 			eventBus.fire('x-leaflet-map-geojson-add', {
 				leafletMap: map,
-				geojson: point
+				geojson: features
 			});
 		}, 1000);
-
-		setTimeout(function () {
-			const eventBus = map.eventBus;
-		
-			eventBus.fire('x-leaflet-map-clear', {
-				leafletMap: map,
-			});
-		}, 3000);
 	</script>
 </body>
 <grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
