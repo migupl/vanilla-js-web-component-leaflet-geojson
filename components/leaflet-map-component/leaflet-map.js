@@ -48,8 +48,6 @@ class LeafletMap extends HTMLElement {
         const map = L.map(mapElement, opts);
 
         LeafletMap.MAPS.set(this, map);
-
-        this._leafletMap = map;
     }
 
     _mapOptions() {
