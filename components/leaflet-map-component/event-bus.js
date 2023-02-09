@@ -17,5 +17,5 @@ class EventBus {
     }
 }
 
-var EVENT_BUS = new EventBus();
-export { EVENT_BUS }
+var eventBus = new EventBus();
+export { eventBus }

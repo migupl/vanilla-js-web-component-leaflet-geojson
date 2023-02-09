@@ -1,4 +1,4 @@
-import { EVENT_BUS } from "./event-bus.js";
+import { eventBus } from "./event-bus.js";
 import { loadMap } from "./leaflet-map-load.js";
 import { features } from "./leaflet-map-features.js";
 
@@ -17,7 +17,7 @@ class LeafletMap extends HTMLElement {
     }
 
     get eventBus() {
-        return this._eventBus;
+        return eventBus;
     }
 
     constructor() {
@@ -79,9 +79,7 @@ class LeafletMap extends HTMLElement {
     }
 
     _registerEvents() {
-        this._eventBus = EVENT_BUS;
-
-        this._eventBus.register('x-leaflet-map-geojson-add', (event) => {
+        eventBus.register('x-leaflet-map-geojson-add', (event) => {
             const { leafletMap, geojson } = event.detail;
 
             const map = LeafletMap.MAPS.get(leafletMap);
