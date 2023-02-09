@@ -431,6 +431,68 @@ The property *popupContent* is optional.
 </body>
 ```
 
+### FeatureCollections
+
+```html
+<body>
+	<leaflet-map></leaflet-map>
+
+    <script>
+		setTimeout(function () {
+			const map = document.querySelector('leaflet-map');
+			const eventBus = map.eventBus;
+
+			const features = {
+				type: "FeatureCollection",
+				features: [{
+					type: "Feature",
+					geometry: {
+						type: "Point",
+						coordinates: [-0.09, 51.5]
+					},
+					properties: {
+						popupContent: "<b>Hello world!</b><br>I am a popup."
+					}
+				},
+				{
+					type: "Feature",
+					geometry: {
+						type: "Point",
+						coordinates: [-0.11, 51.508] // [longitude, latitude]
+					},
+					properties: {
+						color: 'red',
+						fillColor: '#f03',
+						fillOpacity: 0.5,
+						radius: 40,
+						popupContent: "I am a circle."
+					}
+				},
+				{
+					type: "Feature",
+					geometry: {
+						type: "Polygon",
+						coordinates: [[
+							[-0.08, 51.509],
+							[-0.06, 51.503],
+							[-0.047, 51.51]
+						]]
+					},
+					properties: {
+						popupContent: "I am a polygon."
+					}
+				}]
+			};
+
+			eventBus.fire('x-leaflet-map-geojson-add', {
+				leafletMap: map,
+				geojson: features
+			});
+		}, 1000);
+	</script>
+</body>
+```
+
 ## Multiple maps
 
 ```html
