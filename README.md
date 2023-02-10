@@ -458,7 +458,7 @@ The property *popupContent* is optional.
 					type: "Feature",
 					geometry: {
 						type: "Point",
-						coordinates: [-0.11, 51.508] // [longitude, latitude]
+						coordinates: [-0.11, 51.508]
 					},
 					properties: {
 						color: 'red',
