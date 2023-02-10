@@ -6,16 +6,6 @@ class LeafletMap extends HTMLElement {
 
     static maps = new WeakMap();
 
-    static get observedAttributes() {
-        return [
-            'latitude',
-            'longitude',
-            'maxZoom',
-            'tileCopyright', 'tileServer',
-            'zoom'
-        ];
-    }
-
     get eventBus() {
         return eventBus;
     }
