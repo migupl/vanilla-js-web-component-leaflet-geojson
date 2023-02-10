@@ -151,6 +151,8 @@ The *style* and *popupContent* properties are optional.
 
 The *coordinates* property is in the form *[longitude, latitude]*.
 
+The *icon* property for a marker is optional.
+
 ### Point
 
 #### Adding a marker
