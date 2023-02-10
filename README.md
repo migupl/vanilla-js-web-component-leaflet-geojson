@@ -141,7 +141,9 @@ Default values are
 
 ## Events
 
-Leaflet-map Web Components defines the event 'x-leaflet-map-geojson-add' for adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties.
+Leaflet-map Web Components defines two events:
+- '**x-leaflet-map-geojson-add**' for adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties.
+- '**x-leaflet-map-clear**' for removing all GeoJSON features from the map
 
 ## Adding [GeoJSON objects](https://www.rfc-editor.org/rfc/rfc7946#section-3)
 
