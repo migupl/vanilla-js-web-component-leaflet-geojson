@@ -1,89 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>Web Component - Leaflet Map</title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
 	<link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
-
 	<script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
-
-	<style>
-		html,
-		body {
-			height: 100%;
-			margin: 0;
-		}
-
-		leaflet-map {
-			height: 500px;
-			width: 800px;
-			display: inline-block;
-			position: relative;
-			outline: none;
-		}
-
-		.card {
-			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-			transition: 0.3s;
-			border-radius: 5px;
-		}
-
-		.container {
-			padding: 2px 16px;
-		}
-
-		img {
-			border-radius: 5px 5px 0 0;
-		}
-	</style>
 </head>
-
 <body>
 	<leaflet-map></leaflet-map>
-
-	<script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
-
-			const burgessPark = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.08144411512541307, 51.48288683515307]
-				},
-				properties: {
-					popupContent: `
-<div class="card">
-	<img src="https://www.southwark.gov.uk/_images/pageside/8257/Burgess%20Park.jpg" alt="Burguess Park" style="width:100%">
-	<div class="container">
-		<h4><strong>Burgess Park</strong></h4>
-		<p>
-			At 56 hectares, Burgess Park is Southwark's largest park.
-			The park stretches from Camberwell and Walworth in the west to Peckham and the Old Kent Road in the east.</p>
-	</div>
-</div >
-`,
-					icon: {
-						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-						iconSize: [25, 41],
-						iconAnchor: [12, 41],
-						popupAnchor: [1, -34],
-						shadowSize: [41, 41]
-					}
-				}
-			};
-
-			eventBus.fire('x-leaflet-map-geojson-add', {
-				leafletMap: map,
-				geojson: burgessPark
-			});
-		}, 1000);
-	</script>
 </body>
 </html>
