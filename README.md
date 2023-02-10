@@ -465,11 +465,13 @@ The property *popupContent* is optional.
 						coordinates: [-0.11, 51.508]
 					},
 					properties: {
+					radius: 40,
+					popupContent: "I am a circle.",
+					style: {
 						color: 'red',
 						fillColor: '#f03',
 						fillOpacity: 0.5,
-						radius: 40,
-						popupContent: "I am a circle."
+					}
 					}
 				},
 				{
@@ -529,6 +531,7 @@ The property *popupContent* is optional.
 					}
 				}
 			};
+
 			const circle = {
 				type: "Feature",
 				geometry: {
