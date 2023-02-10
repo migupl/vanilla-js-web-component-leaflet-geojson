@@ -1,5 +1,14 @@
 class LeafletMapFeatures {
 
+    static DEFAULT_MARKER = {
+        iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    };
+
     addTo(geojson, leafletMap) {
         const features = this._getFeaturesArray(geojson);
         const { points, polygons } = this._groupPointsAndPolygons(features);
@@ -42,15 +51,7 @@ class LeafletMapFeatures {
                 }
                 else {
                     const icon = {
-                        icon: L.icon(
-                            feature?.properties?.icon || {
-                                iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
-                                shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
-                                iconSize: [25, 41],
-                                iconAnchor: [12, 41],
-                                popupAnchor: [1, -34],
-                                shadowSize: [41, 41]
-                            })
+                        icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER)
                     };
                     point = L.marker(latlng, icon);
                 }
@@ -65,15 +66,7 @@ class LeafletMapFeatures {
             onEachFeature: this._onEachFeature,
             pointToLayer: function (feature, latlng) {
                 const icon = {
-                    icon: L.icon(
-                        feature?.properties?.icon || {
-                            iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
-                            shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
-                            iconSize: [25, 41],
-                            iconAnchor: [12, 41],
-                            popupAnchor: [1, -34],
-                            shadowSize: [41, 41]
-                        })
+                    icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER)
                 };
                 return L.marker(latlng, icon);
             },
