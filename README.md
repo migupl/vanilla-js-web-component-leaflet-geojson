@@ -153,7 +153,7 @@ This event requires an object with the properties:
 - leafletMap, the DOM element of the map on top of which objects are to be added
 - geojson, the GeoJSON object to be added
 
-### x-leaflet-map-clear
+### Event 'x-leaflet-map-clear'
 
 Use it to removing all GeoJSON features from the map (see [Clear a map](#clear-a-map)).
 
