@@ -1,4 +1,8 @@
 const css = `
+:host {
+      display: block;
+    }
+
 #map {
     position: absolute;
     inset: 0px;
