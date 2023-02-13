@@ -18,4 +18,4 @@ class EventBus {
 }
 
 var eventBus = new EventBus();
-export { eventBus }
+export { eventBus as EventBus }

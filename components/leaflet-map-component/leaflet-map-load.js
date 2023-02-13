@@ -59,4 +59,4 @@ class LeafletMapLoad {
 }
 
 const loadMap = new LeafletMapLoad();
-export { loadMap }
+export { loadMap as LoadMap }

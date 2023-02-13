@@ -1,13 +1,13 @@
-import { eventBus } from "./event-bus.js";
-import { loadMap } from "./leaflet-map-load.js";
-import { features } from "./leaflet-map-features.js";
+import { EventBus } from "./event-bus.js";
+import { LoadMap } from "./leaflet-map-load.js";
+import { Features } from "./leaflet-map-features.js";
 
 class LeafletMap extends HTMLElement {
 
     static maps = new WeakMap();
 
     get eventBus() {
-        return eventBus;
+        return EventBus;
     }
 
     constructor() {
@@ -18,13 +18,13 @@ class LeafletMap extends HTMLElement {
     }
 
     connectedCallback() {
-        const css = loadMap.getStyleElement();
+        const css = LoadMap.getStyleElement();
         this._appendChild(css);
 
-        const leafletCss = loadMap.getLeafletCss();
+        const leafletCss = LoadMap.getLeafletCss();
         this._appendChild(leafletCss);
 
-        const map = loadMap.getHtml();
+        const map = LoadMap.getHtml();
         this._appendChild(map);
         this._initializeMap(map);
     }
@@ -65,7 +65,7 @@ class LeafletMap extends HTMLElement {
     }
 
     _registerEvents() {
-        eventBus.register('x-leaflet-map-clear', (event) => {
+        EventBus.register('x-leaflet-map-clear', (event) => {
             const { leafletMap } = event.detail;
 
             const map = LeafletMap.maps.get(leafletMap);
@@ -75,17 +75,17 @@ class LeafletMap extends HTMLElement {
             event.stopPropagation();
         });
 
-        eventBus.register('x-leaflet-map-geojson-add', (event) => {
+        EventBus.register('x-leaflet-map-geojson-add', (event) => {
             const { leafletMap, geojson } = event.detail;
 
             const map = LeafletMap.maps.get(leafletMap);
-            features.addTo(geojson, map);
+            Features.addTo(geojson, map);
             event.stopPropagation();
         });
     }
 }
 
-let leafletjs = loadMap.getLeafletScript();
+let leafletjs = LoadMap.getLeafletScript();
 leafletjs.onload = function (ev) {
     customElements.define('leaflet-map', LeafletMap);
     leaflet = null;

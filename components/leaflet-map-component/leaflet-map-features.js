@@ -78,4 +78,4 @@ class LeafletMapFeatures {
 }
 
 const features = new LeafletMapFeatures();
-export { features }
+export { features as Features }
