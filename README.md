@@ -100,8 +100,6 @@ To get started you need to import the Web Component
 </body>
 ```
 
-The Web Component *leaflet-map* exposes an event bus[^7] at the property *eventBus*.
-
 ## Tiles
 
 Change easily the tile layer on the map using the *tileServer* property.
@@ -141,9 +139,26 @@ Default values are
 
 ## Events
 
-Leaflet-map Web Components defines two events:
-- '**x-leaflet-map-geojson-add**' for adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties.
-- '**x-leaflet-map-clear**' for removing all GeoJSON features from the map
+The Web Component *leaflet-map* exposes an event bus[^7] at the property *eventBus*.
+
+This Event Bus can be considered as a global way to transport messages or events to make them accesibles from any place within the web page.
+
+The Web Component *leaflet-map* defines two events as actions.
+
+### Event 'x-leaflet-map-geojson-add'
+
+Use it to adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties (samples bellow).
+
+This event requires an object with the properties:
+- leafletMap, the DOM element of the map on top of which objects are to be added
+- geojson, the GeoJSON object to be added
+
+### x-leaflet-map-clear
+
+Use it to removing all GeoJSON features from the map (see [Clear a map](#clear-a-map)).
+
+This event requires an object with the property:
+- leafletMap, the DOM Element of the map to be cleared
 
 ## Adding [GeoJSON objects](https://www.rfc-editor.org/rfc/rfc7946#section-3)
 
@@ -185,7 +200,7 @@ The *icon* property for a marker is optional.
 				}
 			}
 
-			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: marker });
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: marker });
 		}, 1000);
 	</script>
 </body>
@@ -221,7 +236,7 @@ The **radius** property defines a circle and is the only one required.
 				}
 			}
 
-			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: circle });
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: circle });
 		}, 1000);
 	</script>
 </body>
@@ -261,7 +276,7 @@ The **radius** property defines a circle and is the only one required.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPoint });
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPoint });
 		}, 1000);
 	</script>
 </body>
@@ -297,7 +312,7 @@ The **radius** property defines a circle and is the only one required.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: lineString });
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: lineString });
 		}, 1000);
 	</script>
 </body>
@@ -342,7 +357,7 @@ The **radius** property defines a circle and is the only one required.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiLineString });
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiLineString });
 		}, 1000);
 	</script>
 </body>
@@ -380,7 +395,7 @@ The property *popupContent* is optional.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: polygon });
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: polygon });
 		}, 1000);
 	</script>
 </body>
@@ -429,7 +444,7 @@ The property *popupContent* is optional.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPolygon });
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPolygon });
 		}, 1000);
 	</script>
 </body>
@@ -490,10 +505,7 @@ The property *popupContent* is optional.
 				}]
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', {
-				leafletMap: map,
-				geojson: features
-			});
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: features });
 		}, 1000);
 	</script>
 </body>
@@ -549,15 +561,9 @@ The property *popupContent* is optional.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', {
-				leafletMap: firstMap,
-				geojson: point
-			});
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: firstMap, geojson: point });
 
-			eventBus.fire('x-leaflet-map-geojson-add', {
-				leafletMap: secondMap,
-				geojson: circle
-			});
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: secondMap, geojson: circle });
 		}, 1000);
 	</script>
 </body>
@@ -595,18 +601,13 @@ The property *popupContent* is optional.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', {
-				leafletMap: map,
-				geojson: point
-			});
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: point });
 		}, 1000);
 
 		setTimeout(function () {
 			const eventBus = map.eventBus;
 		
-			eventBus.fire('x-leaflet-map-clear', {
-				leafletMap: map,
-			});
+			eventBus.dispatch('x-leaflet-map-clear', { leafletMap: map });
 		}, 3000);
 	</script>
 </body>
@@ -698,10 +699,7 @@ Using a *point* feature with a small card.
 				}
 			};
 
-			eventBus.fire('x-leaflet-map-geojson-add', {
-				leafletMap: map,
-				geojson: burgessPark
-			});
+			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: burgessPark });
 		}, 1000);
 	</script>
 </body>

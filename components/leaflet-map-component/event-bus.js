@@ -8,11 +8,11 @@ class EventBus {
         this._bus.addEventListener(event, callback);
     }
 
-    remove(event, callback) {
+    unregister(event, callback) {
         this._bus.removeEventListener(event, callback);
     }
 
-    fire(event, detail = {}) {
+    dispatch(event, detail = {}) {
         this._bus.dispatchEvent(new CustomEvent(event, { detail }));
     }
 }
