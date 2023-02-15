@@ -38,6 +38,8 @@ class LeafletMap extends HTMLElement {
         LeafletMap.maps.set(this, map);
     }
 
+    _isThisMap = mapId => mapId === this.id
+
     _mapOptions() {
         const defaults = {
             latitude: 51.505,
@@ -78,7 +80,7 @@ class LeafletMap extends HTMLElement {
         EventBus.register('x-leaflet-map-geojson-add', (event) => {
             const { leafletMap, geojson } = event.detail;
 
-            if (leafletMap.id === this.id) {
+            if (this._isThisMap(leafletMap.id)) {
                 const map = LeafletMap.maps.get(leafletMap);
                 Features.addTo(geojson, map);
             }
