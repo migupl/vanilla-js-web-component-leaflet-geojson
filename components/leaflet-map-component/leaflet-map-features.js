@@ -47,7 +47,7 @@ class LeafletMapFeatures {
                         ...feature.properties,
                     }
                     delete properties.style;
-                    point = L.circleMarker(latlng, properties);
+                    point = L.circle(latlng, properties);
                 }
                 else {
                     const icon = {
