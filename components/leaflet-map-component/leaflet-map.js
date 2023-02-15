@@ -78,8 +78,10 @@ class LeafletMap extends HTMLElement {
         EventBus.register('x-leaflet-map-geojson-add', (event) => {
             const { leafletMap, geojson } = event.detail;
 
-            const map = LeafletMap.maps.get(leafletMap);
-            Features.addTo(geojson, map);
+            if (leafletMap.id === this.id) {
+                const map = LeafletMap.maps.get(leafletMap);
+                Features.addTo(geojson, map);
+            }
             event.stopPropagation();
         });
     }
