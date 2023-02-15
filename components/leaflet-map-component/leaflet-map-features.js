@@ -45,8 +45,8 @@ class LeafletMapFeatures {
                 if (isCircle) {
                     const properties = {
                         ...feature.properties,
-                        ...feature.properties.style
                     }
+                    delete properties.style;
                     point = L.circleMarker(latlng, properties);
                 }
                 else {
@@ -57,6 +57,9 @@ class LeafletMapFeatures {
                 }
 
                 return point;
+            },
+            style(feature) {
+                return feature?.properties?.style;
             }
         });
     }
