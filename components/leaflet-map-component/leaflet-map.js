@@ -70,10 +70,12 @@ class LeafletMap extends HTMLElement {
         EventBus.register('x-leaflet-map-clear', (event) => {
             const { leafletMap } = event.detail;
 
-            const map = LeafletMap.maps.get(leafletMap);
-            map.eachLayer(function (layer) {
-                map.removeLayer(layer);
-            });
+            if (this._isThisMap(leafletMap.id)) {
+                const map = LeafletMap.maps.get(leafletMap);
+                map.eachLayer(function (layer) {
+                    map.removeLayer(layer);
+                });
+            }
             event.stopPropagation();
         });
 
