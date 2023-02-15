@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <title>A vanilla JavaScript Web Component for Leaflet using GeoJSON</title>
+    <meta name="description" content="A vanilla JavaScript Web Component for Leaflet using GeoJSON">
+    <meta name="author" content="@migupl">
+    <meta name="robots" content="index, follow">
+    <meta name="referrer" content="always">
+
+    <meta property="og:title" content="A vanilla JavaScript Web Component for Leaflet using GeoJSON">
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+        content="How-to use a vanilla JavaScript Web Component for Leaflet using GeoJSON">
+    <meta property="og:url" content="https://github.com/migupl/leaflet-map-vanilla-js-web-component">
+
+    <meta name="twitter:title" content="A vanilla JavaScript Web Component for Leaflet using GeoJSON">
+    <meta name="twitter:description"
+        content="How-to use a vanilla JavaScript Web Component for Leaflet using GeoJSON">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@migupl">
+    <meta name="twitter:creator" content="@migupl">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Source+Code+Pro:wght@500&display=swap"
+        rel="stylesheet">
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.1/css/all.min.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
+    <script src="./js/how-to.js"></script>
+
+    <style>
+        header {
+            margin-bottom: 60px;
+        }
+        
+        header,
+        footer {
+            text-align: center;
+            background: #222B30;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        header a,
+        footer a {
+            color: blue;
+        }
+
+        footer {
+            margin-top: 60px;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            font-size: 1.25em;
+            margin: 0;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 60%;
+            padding: 0;
+        }
+
+        pre code {
+            display: block;
+            overflow: auto;
+            background: #efefef;
+            border-radius: 10px;
+            padding: 0 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        code {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.65em;
+        }
+
+        code.inline {
+            font-size: 1em;
+        }
+
+        h2 {
+            margin-top: 50px;
+            margin-bottom: 0;
+            color: #3887BE;
+        }
+
+        h3 {
+            margin-bottom: 0;
+            color: #3887BE;
+        }
+
+        ol {
+            list-style-type: circle;
+        }
+
+        li {
+            margin-top: 1.25ch;
+        }
+
+        #subtitle {
+            margin: 0;
+            font-size: 0.8em;
+        }
+
+        leaflet-map {
+            height: 300px;
+            display: block;
+            position: relative;
+        }
+
+        .small-map {
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
+        }
+
+        #walk-throught-el-retiro {
+            margin-left: auto;
+            margin-right: auto;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>A vanilla JavaScript Web Component for Leaflet using GeoJSON</h1>
+            <div id="subtitle">
+                <code>&lt;leaflet-map&gt;&lt;/leaflet-map&gt;</code>
+                <p>Use <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet</a>
+                    maps with GeoJSON objects as a Web Component</p>
+            </div>
+        </div>
+    </header>
+    <section id="introduction" class="container">
+        <p>This simple guide will quickly get you started on using &lt;leaflet-map&gt;,
+            including setting up the Web Component and working with GeoJSON objects.
+        </p>
+        <leaflet-map id="initial-map" class="small-map"></leaflet-map>
+    </section>
+    <section id="getting-started" class="container">
+        <h2>Getting started</h2>
+        <p>To get started you need to do the following steps on your project:</p>
+        <ol>
+            <li>
+                Install the Web Component copying the directory
+                <code class="inline">/components/leaflet-map-component/</code>
+                to your project.
+                It is only required to keep all the files of the Web Component in the same directory.
+                Any directory structure can be used.
+
+            </li>
+            <li>
+                Include the Web Component itself.
+                <pre><code>
+&lt;head&lt;&gt;
+    &lt;meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"&gt;
+
+    &lt;link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"&gt;
+    &lt;script type="module" src="./components/leaflet-map-component/leaflet-map.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+                </code></pre>
+            </li>
+            <li>
+                Add the element <code class="inline">&lt;leaflet-map&gt;</code>. An <code class="inline">id</code> is
+                recommended with multiple maps.
+                <pre><code>
+&lt;body&gt;
+    &lt;leaflet-map id="initial-map" class="small-map"&gt;&lt;/leaflet-map&gt;
+&lt;/body&gt;
+                </code></pre>
+            </li>
+            <li>
+                Make sure the Web Component container has a defined size.
+                <pre><code>
+.small-map {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+                </code></pre>
+            </li>
+        </ol>
+    </section>
+    <section id="setting-up">
+        <div class="container">
+            <h2>Setting up the map</h2>
+            <p>Let's create a map of the Puerta de Alcalá of Madrid with pretty OpenStreetMap tiles.
+                First we’ll initialize the map and set its view to our chosen geographical coordinates and a zoom level:
+            </p>
+            <pre><code>
+&lt;body&gt;
+    &lt;leaflet-map id="madrid-map"
+    longitude = "-3.6888136946558996"
+    latitude = "40.42062134697108"
+    zoom = "16"
+    &gt;&lt;/leaflet-map&gt;
+&lt;/body&gt;
+            </code></pre>
+        </div>
+        <leaflet-map id="madrid-map" longitude="-3.6888136946558996" latitude="40.42062134697108"
+            zoom="16"></leaflet-map>
+        <div class="container">
+            <p>
+                <code class="inline">&lt;leaflet-map&gt;</code> allows the following attributes:
+                <code class="inline">latitude</code>;
+                <code class="inline">longitude</code>;
+                <code class="inline">maxZoom</code>;
+                <code class="inline">tileCopyright</code>;
+                <code class="inline">tileServer</code>;
+                and, <code class="inline">zoom</code>.
+            </p>
+            <p><b>Defaults</b> are centred on London city using OpenStreetMap tiles:</p>
+            <pre><code>
+{
+    latitude: 51.505,
+    longitude: -0.09,
+    maxZoom: 19,
+    tileCopyright: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>',
+    tileServer: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    zoom: 13
+}
+                </code></pre>
+        </div>
+    </section>
+    <section id="adding-tiles">
+        <div class="container">
+            <h2>Tiles</h2>
+            <p>Change easily the tile layer on the map using the <code class="inline">tileServer</code> property.</p>
+            <p>Note that most tile servers require attribution, which you can set using the <code
+                    class="inline">tileCopyrigth</code>
+                property.</p>
+            <pre><code>
+&lt;leaflet-map id="tiles-map"
+    longitude = "-3.6888136946558996"
+    latitude = "40.42062134697108"
+    zoom = "16"
+    tileCopyright="Map data: &copy; &lt;a href='https://www.openstreetmap.org/copyright'&gt;OpenStreetMap&lt;/a&gt;" +
+        " contributors, &lt;a href='http://viewfinderpanoramas.org'&gt;SRTM&lt;/a&gt;" +
+        " | Map style: &copy; &lt;a href='https://opentopomap.org'&gt;OpenTopoMap&lt;/a&gt;" +
+        " (&lt;a href='https://creativecommons.org/licenses/by-sa/3.0/'&gt;CC-BY-SA&lt;/a&gt;)"
+    tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"&gt;
+&lt;/leaflet-map&gt;
+            </code></pre>
+        </div>
+        <leaflet-map id="tiles-map" longitude="-3.6888136946558996" latitude="40.42062134697108" zoom="16"
+            tileCopyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
+            tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
+        </leaflet-map>
+        <div class="container">
+            <p><a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html" target="_blank"
+                    rel="noopener noreferrer">Leaflet Provider Demo</a>
+                is a good resource for
+                Leaflet layer providers</p>
+        </div>
+    </section>
+    <section id="geojson" class="container">
+        <h2>GeoJSON</h2>
+        <p>GeoJSON is a format for encoding a variety of geographic data structures […]. A GeoJSON object may
+            represent a region of
+            space (a Geometry), a spatially bounded entity (a Feature), or a list of Features (a
+            FeatureCollection).
+            GeoJSON
+            supports the following geometry types:
+            <a href="#markers-circles-and-polygons">Point</a>;
+            <a href="#adding-linestrings">LineString</a>;
+            <a href="#markers-circles-and-polygons">Polygon</a>;
+            <a href="#adding-multipoint">MultiPoint</a>;
+            <a href="#adding-multilinestrings">MultiLineString</a>;
+            <a href="#adding-polygons">MultiPolygon</a>; and,
+            GeometryCollection.
+        </p>
+        <p>Features in GeoJSON contain a Geometry object and additional properties, and a
+            <a href="#markers-circles-and-polygons">FeatureCollection</a>
+            contains a list of Features. [GeoJSON Specification (RFC 7946)](https://tools.ietf.org/html/rfc7946)
+        </p>
+        <p><code class="inline">&lt;leaflet-map&gt;</code> allows to add GeoJSON features. Among the allowed properties:
+        <ol>
+            <li>The <code class="inline">style</code> and <code class="inline">popupContent</code> properties are
+                optional.</li>
+            <li>The <code class="inline">coordinates</code> property is in the form [<code
+                    class="inline">longitude</code>,
+                <code class="inline">latitude</code>].
+            </li>
+        </ol>
+        </p>
+    </section>
+    <section id="events" class="container">
+        <h2>Events</h2>
+
+        <p>The Web Component <code class="inline">&lt;leaflet-map&gt;</code> exposes an
+            <a href="https://www.thisdot.co/blog/web-components-communication-using-an-event-bus" target="_blank"
+                rel="noopener noreferrer">event bus</a>
+            at the property <code class="inline">eventBus</code>.
+        </p>
+
+        <p>This Event Bus can be considered as a global way to transport messages or events to make them
+            accesibles
+            from any place
+            within the web page.</p>
+
+        <p>The Web Component *leaflet-map* defines two events as actions.</p>
+
+        <h4>Event 'x-leaflet-map-geojson-add'</h4>
+
+        <p>Use it to adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and
+            [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe
+            features with a set
+            of properties (samples bellow).</p>
+
+        <p>This event requires an object with the properties:
+        <ol>
+            <li><code class="inline">leafletMap</code>, the DOM element of the map on top of which objects are to be
+                added</li>
+            <li><code class="inline">geojson</code>, the GeoJSON object to be added</li>
+        </ol>
+        </p>
+
+        <h4>Event 'x-leaflet-map-clear'</h4>
+
+        <p>Use it to removing all GeoJSON features from the map (see <a href="#clear_map">Clear a map</a>).</p>
+
+        <p>This event requires an object with the property:
+        <ol>
+            <li><code class="inline">leafletMap</code>, the DOM Element of the map to be cleared</li>
+        </ol>
+        </p>
+    </section>
+    <section id="markers-circles-and-polygons" class="container">
+        <h2>Markers, circles, and polygons</h2>
+        <p>The <a href="#initial-map"><code class="inline">&lt;leaflet-map&gt;</code> on the header</a> is using the
+            <a href="#geojson">GeoJSON features</a>
+            point, circle and polygon all added using a
+            <a href="#geojson">FeatureCollection</a>
+            as following:
+        </p>
+        <pre><code>
+const introductionMap = document.getElementById('initial-map');
+const eventBus = introductionMap.eventBus;
+
+const features = {
+    type: "FeatureCollection",
+    features: [{
+        type: "Feature",
+        geometry: {
+            type: "Point",
+            coordinates: [-0.09, 51.5]
+        },
+        properties: {
+            popupContent: "&lt;b&gt;Hello world!&lt;/b&gt;&lt;br&gt;I am a popup.",
+            icon: {
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            }
+        }
+    },
+    {
+        type: "Feature",
+        geometry: {
+            type: "Point",
+            coordinates: [-0.11, 51.508]
+        },
+        properties: {
+            radius: 500,
+            style: {
+                color: 'green',
+                fillColor: 'lightgreen',
+                fillOpacity: 0.5,
+            }
+        }
+    },
+    {
+        type: "Feature",
+        geometry: {
+            type: "Polygon",
+            coordinates: [[
+                [-0.08, 51.509], [-0.06, 51.503], [-0.047, 51.51]
+            ]]
+        },
+        properties: {
+            popupContent: "I am a polygon.",
+            style: {
+                color: 'black'
+            }
+        }
+    }]
+};
+
+eventBus.dispatch('x-leaflet-map-geojson-add', {
+    leafletMap: introductionMap,
+    geojson: features
+});
+        </code></pre>
+        <p>The <code class="inline">icon</code> property for a marker is optional.</p>
+        <p>The <code class="inline">radius</code> property defines a circle and is the only one required.</p>
+        <p>The <code class="inline">popupContent</code> and <code class="inline">style</code>
+            properties are always optional for all GeoJSON feature.</p>
+    </section>
+    <section id="an-example-adding-other-features">
+        <div id="adding-multipoint" class="container">
+            <h2>An example using other GeoJSON features</h2>
+        </div>
+        <div id="multipoint" class="container">
+            <h3>MultiPoint feature</h3>
+            <pre><code>
+const multiPoint = {
+    type: "Feature",
+    geometry: {
+        type: "MultiPoint",
+        coordinates: [
+            [-3.682427584343109, 40.4111491873453],
+            [-3.68192202963495, 40.41365692730523],
+            [-3.681948851722108, 40.41519059487516]
+        ]
+    },
+    properties: {
+        popupContent: "I am a MultiPoint.",
+        icon: {
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        }
+    }
+};
+            </code></pre>
+        </div>
+        <div id="adding-linestrings" class="container">
+            <h3>LineString feature</h3>
+            <pre><code>
+const lineString = {
+    type: "Feature",
+    geometry: {
+        type: "LineString",
+        coordinates: [
+            [-3.687652527491114, 40.409744093267946], [-3.682427584343109, 40.4111491873453]
+        ]
+    },
+    properties: {
+        popupContent: "I am a LineString.",
+        style: {
+            color: "darkgreen"
+        }
+    }
+};
+            </code></pre>
+        </div>
+        <div id="adding-multilinestrings" class="container">
+            <h3>MultiLineString feature</h3>
+            <pre><code>
+const multiLineString = {
+    type: "Feature",
+    geometry: {
+        type: "MultiLineString",
+        coordinates: [
+            [[-3.682427584343109, 40.4111491873453],[-3.6826099745492304, 40.411341160113004]],
+            [[-3.6826099745492304, 40.411341160113004], [-3.6826528899000177, 40.411506583044506]],
+            [[-3.6826528899000177, 40.411506583044506], [-3.68243831317919853, 40.411606653500144]],
+            [[-3.68243831317919853, 40.411606653500144], [-3.682108401470939, 40.412278551277]],
+            [[-3.682108401470939, 40.412278551277], [-3.681923329048269, 40.41250115425148]],
+            [[-3.681923329048269, 40.41250115425148], [-3.6817275277905215, 40.41301170869761]],
+            [[-3.6817275277905215, 40.41301170869761], [-3.681829451732911, 40.41325473125318]],
+            [[-3.681829451732911, 40.41325473125318], [-3.6817870058620503, 40.41364722100761]],
+            [[-3.6817870058620503, 40.41364722100761], [-3.6819264807305836, 40.41399847689981]],
+            [[-3.6819264807305836, 40.41399847689981], [-3.681591447371322, 40.41409650736312]],
+            [[-3.681591447371322, 40.41409650736312], [-3.6818127296148377, 40.41472753715036]],
+            [[-3.6818127296148377, 40.41472753715036], [-3.6818435750184553, 40.414991996086876]]
+        ]
+    },
+    properties: {
+        popupContent: "I am a MultiLineString.",
+        style: {
+            color: "green",
+        }
+    }
+};
+            </code></pre>
+        </div>
+        <div id="adding-polygons" class="container">
+            <h3>MultiPolygon feature</h3>
+            <pre><code>
+const multiPolygon = {
+    type: "Feature",
+    geometry: {
+        type: "MultiPolygon",
+        coordinates: [
+            [[
+                [-3.6851719536314866, 40.418190942101084], [-3.6836913742578337, 40.41853094304074],
+                [-3.68269536666569, 40.41612787699837], [-3.684217761317601, 40.415778927180085]
+            ]],
+            [[
+                [-3.6818543038540397, 40.41399031407121], [-3.6811368129438007, 40.41413326654296],
+                [-3.6811247430031844, 40.41355941263011], [-3.6816638670142425, 40.41346649276557]
+            ]]
+        ]
+    },
+    properties: {
+    popupContent: "I am a MultiPolygon.",
+    style: {
+    color: "black",
+    opacity: 0.5,
+    }
+    }
+};
+            </code></pre>
+        </div>
+        <div id="adding-polygons" class="container">
+            adding all of them to the following map:
+            <pre><code>
+const walking = document.getElementById('walk-throught-el-retiro');
+const walkThroughtElRetiro = {
+type: "FeatureCollection",
+    features: [multiPoint, lineString, multiLineString, multiPolygon]
+};
+
+
+eventBus.dispatch('x-leaflet-map-geojson-add', {
+    leafletMap: walking,
+    geojson: walkThroughtElRetiro
+});
+            </code></pre>
+        </div>
+        <leaflet-map id="walk-throught-el-retiro" longitude="-3.6843547932100424" latitude="40.41411233423414"
+            zoom="16">
+        </leaflet-map>
+    </section>
+    <section id="multiple-maps" class="container">
+        <h2>Multiple maps</h2>
+        <p>As you can see from the previous examples, it is very easy to add multiple maps on a web page.</p>
+    </section>
+    <footer>
+        Made with
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+        </svg>
+        using <a href="http://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>
+        (<a href="https://github.com/migupl/leaflet-map-vanilla-js-web-component" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>)
+    </footer>
+</body>
+
+</html>
