@@ -211,4 +211,6 @@ window.onload = (event) => {
 
 function copyEvent(id) {
     alert('Copying ', id);
-}
+};
+
+hljs.highlightAll();

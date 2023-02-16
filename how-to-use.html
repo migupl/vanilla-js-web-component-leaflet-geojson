@@ -32,6 +32,9 @@
         
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.1/css/all.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/agate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
     <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
     <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
     <script src="./js/how-to.js"></script>
@@ -71,11 +74,7 @@
         }
 
         pre code {
-            display: block;
-            overflow: auto;
-            background: #efefef;
             border-radius: 10px;
-            padding: 0 15px;
             margin-top: 30px;
             margin-bottom: 30px;
         }
@@ -184,7 +183,7 @@
             </li>
             <li>
                 Make sure the Web Component container has a defined size.
-                <pre><code>
+                <pre><code class="hljs language-css">
 .small-map {
     margin-left: auto;
     margin-right: auto;
@@ -223,7 +222,7 @@
                 and, <code class="inline">zoom</code>.
             </p>
             <p><b>Defaults</b> are centred on London city using OpenStreetMap tiles:</p>
-            <pre><code>
+            <pre><code class="hljs language-json">
 {
     latitude: 51.505,
     longitude: -0.09,
@@ -346,7 +345,7 @@
             <a href="#geojson">FeatureCollection</a>
             as following:
         </p>
-        <pre><code>
+        <pre><code class="hljs language-js">
 const introductionMap = document.getElementById('initial-map');
 const eventBus = introductionMap.eventBus;
 
@@ -418,7 +417,7 @@ eventBus.dispatch('x-leaflet-map-geojson-add', {
         </div>
         <div id="multipoint" class="container">
             <h3>MultiPoint feature</h3>
-            <pre><code>
+            <pre><code class="hljs language-js">
 const multiPoint = {
     type: "Feature",
     geometry: {
@@ -445,7 +444,7 @@ const multiPoint = {
         </div>
         <div id="adding-linestrings" class="container">
             <h3>LineString feature</h3>
-            <pre><code>
+            <pre><code class="hljs language-js">
 const lineString = {
     type: "Feature",
     geometry: {
@@ -465,7 +464,7 @@ const lineString = {
         </div>
         <div id="adding-multilinestrings" class="container">
             <h3>MultiLineString feature</h3>
-            <pre><code>
+            <pre><code class="hljs language-js">
 const multiLineString = {
     type: "Feature",
     geometry: {
@@ -496,7 +495,7 @@ const multiLineString = {
         </div>
         <div id="adding-polygons" class="container">
             <h3>MultiPolygon feature</h3>
-            <pre><code>
+            <pre><code class="hljs language-js">
 const multiPolygon = {
     type: "Feature",
     geometry: {
@@ -524,7 +523,7 @@ const multiPolygon = {
         </div>
         <div id="adding-polygons" class="container">
             adding all of them to the following map:
-            <pre><code>
+            <pre><code class="hljs language-js">
 const walking = document.getElementById('walk-throught-el-retiro');
 const walkThroughtElRetiro = {
 type: "FeatureCollection",
