@@ -4,20 +4,18 @@ Behind this idea is learning about:
 - Use the open-source JavaScript library [Leaflet](https://leafletjs.com/index.html) for playing with maps
 - Web Components
 
-## About
-
-### GeoJSON
+## GeoJSON
 
 GeoJSON is a format for encoding a variety of geographic data structures […]. A GeoJSON object may represent a region of space (a Geometry), a spatially bounded entity (a Feature), or a list of Features (a FeatureCollection). GeoJSON supports the following geometry types: Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. Features in GeoJSON contain a Geometry object and additional properties, and a FeatureCollection contains a list of Features. [GeoJSON Specification (RFC 7946)](https://tools.ietf.org/html/rfc7946)
 
-### Web Components
+## Web Components
 
 Web Components[^1] use three separate technologies together:
 - Custom Elements[^2]. Quite simply, these are fully-valid HTML elements with custom templates, behaviors and tag names (e.g. <leaflet-map>) made with a set of JavaScript APIs.
 - Shadow DOM[^3]. Capable of isolating CSS and JavaScript. This is defined in the Living Standard DOM specification.
 - HTML templates[^4]. User-defined templates in HTML that aren’t rendered until called upon.
 
-#### Custom elements
+### Custom elements
 
 Custom elements are like the standard elements - <div>, <head> or <footer> - except they always have a dash[^5] in them.
 
@@ -70,11 +68,11 @@ All custom elements must in some way extend an HTMLElement in order to be regist
 
 The mode option[^6] in attachShadow specifies the *encaptulation mode* for the shadow DOM tree. See further, [Element.attachShadow()](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow)
 
-#### Shadow DOM
+### Shadow DOM
 
 The shadow DOM is an encapsulated version of the DOM that is inaccessible from it and defines its own behavior and style.
 
-#### Template element
+### Template element
 
 The HTML &lt;template&gt; element allows us to define a re-usable templates of code that won’t be rendered, but can be used at a later time.
 
