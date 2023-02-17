@@ -91,12 +91,12 @@ To get started you need to import the Web Component
     <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
 </head>
 <body>
-	<leaflet-map
-		longitude="-3.7001448634709626"
-		latitude="40.4237577382345"
+    <leaflet-map
+        longitude="-3.7001448634709626"
+        latitude="40.4237577382345"
         maxZoom="20"
-		zoom="13">
-	</leaflet-map>
+        zoom="13">
+    </leaflet-map>
 </body>
 ```
 
@@ -108,13 +108,13 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 ```html
 <body>
-	<leaflet-map
-		longitude="-3.7001448634709626"
-		latitude="40.4237577382345"
-		zoom="13"
-		tileCopyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
-		tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
-	</leaflet-map>
+    <leaflet-map
+        longitude="-3.7001448634709626"
+        latitude="40.4237577382345"
+        zoom="13"
+        tileCopyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
+        tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
+    </leaflet-map>
 </body>
 ```
 
@@ -174,35 +174,35 @@ The *icon* property for a marker is optional.
 
 ```html
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const marker = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.09, 51.5]
-				},
-				properties: {
-					popupContent: "<b>Hello world!</b><br>I am a popupContent.",
-					icon: {
-						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-						iconSize: [25, 41],
-						iconAnchor: [12, 41],
-						popupAnchor: [1, -34],
-						shadowSize: [41, 41]
-					}
-				}
-			}
+            const marker = {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [-0.09, 51.5]
+                },
+                properties: {
+                    popupContent: "<b>Hello world!</b><br>I am a popupContent.",
+                    icon: {
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                    }
+                }
+            }
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: marker });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: marker });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -212,33 +212,33 @@ The **radius** property defines a circle and is the only one required.
 
 ```html
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const circle = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.11, 51.508]
-				},
-				properties: {
-					radius: 40,
-					popupContent: "I am a circle.",
-					style: {
-						color: 'red',
-						fillColor: '#f03',
-						fillOpacity: 0.5,
-					}
-				}
-			}
+            const circle = {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [-0.11, 51.508]
+                },
+                properties: {
+                    radius: 40,
+                    popupContent: "I am a circle.",
+                    style: {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.5,
+                    }
+                }
+            }
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: circle });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: circle });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -246,39 +246,39 @@ The **radius** property defines a circle and is the only one required.
 
 ```html
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const multiPoint = {
-				type: "Feature",
-				geometry: {
-					type: "MultiPoint",
-					coordinates: [
-						[-0.14082945900490862, 51.500729712288845],
-						[-0.126152411319017, 51.518999110271444],
-						[-0.09791411489411447, 51.513123787337804]
-					]
-				},
-				properties: {
-					popupContent: "I am a MultiPoint.",
-					icon: {
-						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png',
-						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-						iconSize: [25, 41],
-						iconAnchor: [12, 41],
-						popupAnchor: [1, -34],
-						shadowSize: [41, 41]
-					}
-				}
-			};
+            const multiPoint = {
+                type: "Feature",
+                geometry: {
+                    type: "MultiPoint",
+                    coordinates: [
+                        [-0.14082945900490862, 51.500729712288845],
+                        [-0.126152411319017, 51.518999110271444],
+                        [-0.09791411489411447, 51.513123787337804]
+                    ]
+                },
+                properties: {
+                    popupContent: "I am a MultiPoint.",
+                    icon: {
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                    }
+                }
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPoint });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPoint });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -286,35 +286,35 @@ The **radius** property defines a circle and is the only one required.
 
 ```html
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const lineString = {
-				type: "Feature",
-				geometry: {
-					type: "LineString",
-					coordinates: [
-						[-0.14082945900490862, 51.500729712288845],
-						[-0.126152411319017, 51.518999110271444],
-						[-0.09791411489411447, 51.513123787337804]
-					]
-				},
-				properties: {
-					popupContent: "I am a LineString.",
-					style: {
-						color: "black",
-						opacity: 1,
-					}
-				}
-			};
+            const lineString = {
+                type: "Feature",
+                geometry: {
+                    type: "LineString",
+                    coordinates: [
+                        [-0.14082945900490862, 51.500729712288845],
+                        [-0.126152411319017, 51.518999110271444],
+                        [-0.09791411489411447, 51.513123787337804]
+                    ]
+                },
+                properties: {
+                    popupContent: "I am a LineString.",
+                    style: {
+                        color: "black",
+                        opacity: 1,
+                    }
+                }
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: lineString });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: lineString });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -322,44 +322,44 @@ The **radius** property defines a circle and is the only one required.
 
 ```html
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const multiLineString = {
-				type: "Feature",
-				geometry: {
-					type: "MultiLineString",
-					coordinates: [
-						[
-							[-0.12452174238299801, 51.50066274018154],
-							[-0.11752654129293857, 51.50076292147487]
-						],
-						[
-							[-0.11752654129293857, 51.50076292147487],
-							[-0.11614252143672825, 51.50273310885865]
-						],
-						[
-							[-0.11614252143672825, 51.50273310885865],
-							[-0.11935044340901013, 51.50326738227206]
-						],
-					]
-				},
-				properties: {
-					popupContent: "I am a MultiLineString.",
-					style: {
-						color: "green",
-						opacity: 1,
-					}
-				}
-			};
+            const multiLineString = {
+                type: "Feature",
+                geometry: {
+                    type: "MultiLineString",
+                    coordinates: [
+                        [
+                            [-0.12452174238299801, 51.50066274018154],
+                            [-0.11752654129293857, 51.50076292147487]
+                        ],
+                        [
+                            [-0.11752654129293857, 51.50076292147487],
+                            [-0.11614252143672825, 51.50273310885865]
+                        ],
+                        [
+                            [-0.11614252143672825, 51.50273310885865],
+                            [-0.11935044340901013, 51.50326738227206]
+                        ],
+                    ]
+                },
+                properties: {
+                    popupContent: "I am a MultiLineString.",
+                    style: {
+                        color: "green",
+                        opacity: 1,
+                    }
+                }
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiLineString });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiLineString });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -369,35 +369,35 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const polygon = {
-				type: "Feature",
-				geometry: {
-					type: "Polygon",
-					coordinates: [[
-						[-0.08, 51.509],
-						[-0.06, 51.503],
-						[-0.047, 51.51]
-					]]
-				},
-				properties: {
-					popupContent: "I am a polygon.",
-					style: {
-						color: "magenta",
-						opacity: 1,
-					}
-				}
-			};
+            const polygon = {
+                type: "Feature",
+                geometry: {
+                    type: "Polygon",
+                    coordinates: [[
+                        [-0.08, 51.509],
+                        [-0.06, 51.503],
+                        [-0.047, 51.51]
+                    ]]
+                },
+                properties: {
+                    popupContent: "I am a polygon.",
+                    style: {
+                        color: "magenta",
+                        opacity: 1,
+                    }
+                }
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: polygon });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: polygon });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -405,48 +405,48 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const multiPolygon = {
-				type: "Feature",
-				geometry: {
-					type: "MultiPolygon",
-					coordinates: [
-						[
-							[
-								[-0.09365488101163101, 51.509838432977276],
-								[-0.09341884661902165, 51.5097449490648],
-								[-0.0944273572056253, 51.50808891653398],
-								[-0.09470630694234546, 51.508142337877736]
-							],
-						],
-						[
-							[
-								[-0.08751798680378747, 51.508930295422665],
-								[-0.08723903706706732, 51.50887687500278],
-								[-0.0879685979169508, 51.506926986810356],
-								[-0.08820463230956016, 51.506940342492776]
-							]
-						]
-					]
-				},
-				properties: {
-					popupContent: "I am a MultiPolygon.",
-					style: {
-						color: "red",
-						opacity: 1,
-					}
-				}
-			};
+            const multiPolygon = {
+                type: "Feature",
+                geometry: {
+                    type: "MultiPolygon",
+                    coordinates: [
+                        [
+                            [
+                                [-0.09365488101163101, 51.509838432977276],
+                                [-0.09341884661902165, 51.5097449490648],
+                                [-0.0944273572056253, 51.50808891653398],
+                                [-0.09470630694234546, 51.508142337877736]
+                            ],
+                        ],
+                        [
+                            [
+                                [-0.08751798680378747, 51.508930295422665],
+                                [-0.08723903706706732, 51.50887687500278],
+                                [-0.0879685979169508, 51.506926986810356],
+                                [-0.08820463230956016, 51.506940342492776]
+                            ]
+                        ]
+                    ]
+                },
+                properties: {
+                    popupContent: "I am a MultiPolygon.",
+                    style: {
+                        color: "red",
+                        opacity: 1,
+                    }
+                }
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPolygon });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: multiPolygon });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -454,60 +454,60 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const features = {
-				type: "FeatureCollection",
-				features: [{
-					type: "Feature",
-					geometry: {
-						type: "Point",
-						coordinates: [-0.09, 51.5]
-					},
-					properties: {
-						popupContent: "<b>Hello world!</b><br>I am a popup."
-					}
-				},
-				{
-					type: "Feature",
-					geometry: {
-						type: "Point",
-						coordinates: [-0.11, 51.508]
-					},
-					properties: {
-					radius: 40,
-					popupContent: "I am a circle.",
-					style: {
-						color: 'red',
-						fillColor: '#f03',
-						fillOpacity: 0.5,
-					}
-					}
-				},
-				{
-					type: "Feature",
-					geometry: {
-						type: "Polygon",
-						coordinates: [[
-							[-0.08, 51.509],
-							[-0.06, 51.503],
-							[-0.047, 51.51]
-						]]
-					},
-					properties: {
-						popupContent: "I am a polygon."
-					}
-				}]
-			};
+            const features = {
+                type: "FeatureCollection",
+                features: [{
+                    type: "Feature",
+                    geometry: {
+                        type: "Point",
+                        coordinates: [-0.09, 51.5]
+                    },
+                    properties: {
+                        popupContent: "<b>Hello world!</b><br>I am a popup."
+                    }
+                },
+                {
+                    type: "Feature",
+                    geometry: {
+                        type: "Point",
+                        coordinates: [-0.11, 51.508]
+                    },
+                    properties: {
+                    radius: 40,
+                    popupContent: "I am a circle.",
+                    style: {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.5,
+                    }
+                    }
+                },
+                {
+                    type: "Feature",
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: [[
+                            [-0.08, 51.509],
+                            [-0.06, 51.503],
+                            [-0.047, 51.51]
+                        ]]
+                    },
+                    properties: {
+                        popupContent: "I am a polygon."
+                    }
+                }]
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: features });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: features });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -515,57 +515,57 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-	<leaflet-map id="first-map"></leaflet-map>
-	<leaflet-map id="second-map"></leaflet-map>
+    <leaflet-map id="first-map"></leaflet-map>
+    <leaflet-map id="second-map"></leaflet-map>
 
     <script>
-		setTimeout(function () {
-			const eventBus = document.querySelector('leaflet-map').eventBus;
+        setTimeout(function () {
+            const eventBus = document.querySelector('leaflet-map').eventBus;
 
-			const firstMap = document.getElementById('first-map');
-			const secondMap = document.getElementById('second-map');
+            const firstMap = document.getElementById('first-map');
+            const secondMap = document.getElementById('second-map');
 
-			const point = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.09, 51.5]
-				},
-				properties: {
-					popupContent: "<b>Hello world!</b><br>I am a popup.",
-					icon: {
-						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-						iconSize: [25, 41],
-						iconAnchor: [12, 41],
-						popupAnchor: [1, -34],
-						shadowSize: [41, 41]
-					}
-				}
-			};
+            const point = {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [-0.09, 51.5]
+                },
+                properties: {
+                    popupContent: "<b>Hello world!</b><br>I am a popup.",
+                    icon: {
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                    }
+                }
+            };
 
-			const circle = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.11, 51.508]
-				},
-				properties: {
-					radius: 40,
-					popupContent: "I am a circle.",
-					style: {
-						color: 'red',
-						fillColor: '#f03',
-						fillOpacity: 0.5,
-					}
-				}
-			};
+            const circle = {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [-0.11, 51.508]
+                },
+                properties: {
+                    radius: 40,
+                    popupContent: "I am a circle.",
+                    style: {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.5,
+                    }
+                }
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: firstMap, geojson: point });
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: firstMap, geojson: point });
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: secondMap, geojson: circle });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: secondMap, geojson: circle });
+        }, 1000);
+    </script>
 </body>
 ```
 
@@ -573,43 +573,43 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-	<leaflet-map id="first-map"></leaflet-map>
-	<leaflet-map id="second-map"></leaflet-map>
+    <leaflet-map id="first-map"></leaflet-map>
+    <leaflet-map id="second-map"></leaflet-map>
 
     <script>
-		const map = document.querySelector('leaflet-map');
+        const map = document.querySelector('leaflet-map');
 
-		setTimeout(function () {
-			const eventBus = map.eventBus;
-		
-			const point = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.09, 51.5]
-				},
-				properties: {
-					popupContent: "<b>Hello world!</b><br>I am a popup.",
-					icon: {
-						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-						iconSize: [25, 41],
-						iconAnchor: [12, 41],
-						popupAnchor: [1, -34],
-						shadowSize: [41, 41]
-					}
-				}
-			};
+        setTimeout(function () {
+            const eventBus = map.eventBus;
+        
+            const point = {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [-0.09, 51.5]
+                },
+                properties: {
+                    popupContent: "<b>Hello world!</b><br>I am a popup.",
+                    icon: {
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                    }
+                }
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: point });
-		}, 1000);
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: point });
+        }, 1000);
 
-		setTimeout(function () {
-			const eventBus = map.eventBus;
-		
-			eventBus.dispatch('x-leaflet-map-clear', { leafletMap: map });
-		}, 3000);
-	</script>
+        setTimeout(function () {
+            const eventBus = map.eventBus;
+        
+            eventBus.dispatch('x-leaflet-map-clear', { leafletMap: map });
+        }, 3000);
+    </script>
 </body>
 ```
 
@@ -621,87 +621,87 @@ Using a *point* feature with a small card.
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Web Component - Leaflet Map</title>
+    <title>Web Component - Leaflet Map</title>
 
-	<link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
 
-	<script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
+    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
 
-	<style>
-		html,
-		body {
-			height: 100%;
-			margin: 0;
-		}
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
 
-		leaflet-map {
-			height: 500px;
-			width: 800px;
-			display: inline-block;
-			position: relative;
-			outline: none;
-		}
+        leaflet-map {
+            height: 500px;
+            width: 800px;
+            display: inline-block;
+            position: relative;
+            outline: none;
+        }
 
-		.card {
-			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-			transition: 0.3s;
-			border-radius: 5px;
-		}
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 5px;
+        }
 
-		.container {
-			padding: 2px 16px;
-		}
+        .container {
+            padding: 2px 16px;
+        }
 
-		img {
-			border-radius: 5px 5px 0 0;
-		}
-	</style>
+        img {
+            border-radius: 5px 5px 0 0;
+        }
+    </style>
 </head>
 
 <body>
-	<leaflet-map></leaflet-map>
+    <leaflet-map></leaflet-map>
 
-	<script>
-		setTimeout(function () {
-			const map = document.querySelector('leaflet-map');
-			const eventBus = map.eventBus;
+    <script>
+        setTimeout(function () {
+            const map = document.querySelector('leaflet-map');
+            const eventBus = map.eventBus;
 
-			const burgessPark = {
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [-0.08144411512541307, 51.48288683515307]
-				},
-				properties: {
-					popupContent: `
+            const burgessPark = {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [-0.08144411512541307, 51.48288683515307]
+                },
+                properties: {
+                    popupContent: `
 <div class="card">
-	<img src="https://www.southwark.gov.uk/_images/pageside/8257/Burgess%20Park.jpg" alt="Burguess Park" style="width:100%">
-	<div class="container">
-		<h4><strong>Burgess Park</strong></h4>
-		<p>
-			At 56 hectares, Burgess Park is Southwark's largest park.
-			The park stretches from Camberwell and Walworth in the west to Peckham and the Old Kent Road in the east.</p>
-	</div>
+    <img src="https://www.southwark.gov.uk/_images/pageside/8257/Burgess%20Park.jpg" alt="Burguess Park" style="width:100%">
+    <div class="container">
+        <h4><strong>Burgess Park</strong></h4>
+        <p>
+            At 56 hectares, Burgess Park is Southwark's largest park.
+            The park stretches from Camberwell and Walworth in the west to Peckham and the Old Kent Road in the east.</p>
+    </div>
 </div >
 `,
-					icon: {
-						iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-						iconSize: [25, 41],
-						iconAnchor: [12, 41],
-						popupAnchor: [1, -34],
-						shadowSize: [41, 41]
-					}
-				}
-			};
+                    icon: {
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                    }
+                }
+            };
 
-			eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: burgessPark });
-		}, 1000);
-	</script>
+            eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: burgessPark });
+        }, 1000);
+    </script>
 </body>
 </html>
 ```
