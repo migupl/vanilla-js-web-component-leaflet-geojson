@@ -18,7 +18,7 @@ class LeafletMapLoad {
 
     getLeafletCss() {
         const el = document.createElement('style');
-        this._fetchLeafletCss().then(
+        this.#fetchLeafletCss().then(
             (css) => { el.innerText = css }
         );
 
@@ -41,7 +41,7 @@ class LeafletMapLoad {
         return js;
     }
 
-    async _fetchLeafletCss() {
+    async #fetchLeafletCss() {
         const leafletCss = {
             url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
             integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='

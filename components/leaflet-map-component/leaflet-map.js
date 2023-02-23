@@ -14,33 +14,33 @@ class LeafletMap extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
 
-        this._registerEvents();
+        this.#registerEvents();
     }
 
     connectedCallback() {
         const css = LoadMap.getStyleElement();
-        this._appendChild(css);
+        this.#appendChild(css);
 
         const leafletCss = LoadMap.getLeafletCss();
-        this._appendChild(leafletCss);
+        this.#appendChild(leafletCss);
 
         const map = LoadMap.getHtml();
-        this._appendChild(map);
-        this._initializeMap(map);
+        this.#appendChild(map);
+        this.#initializeMap(map);
     }
 
-    _appendChild = element => this.shadowRoot.appendChild(element)
+    #appendChild = element => this.shadowRoot.appendChild(element)
 
-    _initializeMap = mapElement => {
-        const opts = this._mapOptions();
+    #initializeMap = mapElement => {
+        const opts = this.#mapOptions();
         const map = L.map(mapElement, opts);
 
         LeafletMap.maps.set(this, map);
     }
 
-    _isThisMap = mapId => mapId === this.id
+    #isThisMap = mapId => mapId === this.id
 
-    _mapOptions() {
+    #mapOptions() {
         const defaults = {
             latitude: 51.505,
             longitude: -0.09,
@@ -66,11 +66,11 @@ class LeafletMap extends HTMLElement {
         return opts;
     }
 
-    _registerEvents() {
+    #registerEvents() {
         EventBus.register('x-leaflet-map-clear', (event) => {
             const { leafletMap } = event.detail;
 
-            if (this._isThisMap(leafletMap.id)) {
+            if (this.#isThisMap(leafletMap.id)) {
                 const map = LeafletMap.maps.get(leafletMap);
                 map.eachLayer(function (layer) {
                     map.removeLayer(layer);
@@ -82,7 +82,7 @@ class LeafletMap extends HTMLElement {
         EventBus.register('x-leaflet-map-geojson-add', (event) => {
             const { leafletMap, geojson } = event.detail;
 
-            if (this._isThisMap(leafletMap.id)) {
+            if (this.#isThisMap(leafletMap.id)) {
                 const map = LeafletMap.maps.get(leafletMap);
                 Features.addTo(geojson, map);
             }

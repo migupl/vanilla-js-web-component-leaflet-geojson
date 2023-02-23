@@ -10,34 +10,34 @@ class LeafletMapFeatures {
     };
 
     addTo(geojson, leafletMap) {
-        const features = this._getFeaturesArray(geojson);
-        const { points, polygons } = this._groupPointsAndPolygons(features);
+        const features = this.#getFeaturesArray(geojson);
+        const { points, polygons } = this.#groupPointsAndPolygons(features);
 
-        this._addPoints(points)?.addTo(leafletMap);
-        this._addPolygons(polygons)?.addTo(leafletMap);
+        this.#addPoints(points)?.addTo(leafletMap);
+        this.#addPolygons(polygons)?.addTo(leafletMap);
     }
 
-    _addPoints = points => points && this._pointToLayer(points)
-    _addPolygons = polygons => polygons && this._polygonToLayer(polygons)
+    #addPoints = points => points && this.#pointToLayer(points)
+    #addPolygons = polygons => polygons && this.#polygonToLayer(polygons)
 
-    _getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
+    #getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
 
-    _groupPointsAndPolygons = features => features.reduce((r, feature) => {
+    #groupPointsAndPolygons = features => features.reduce((r, feature) => {
         const group = feature.geometry.type == 'Point' ? 'points' : 'polygons';
         r[group] = r[group] || [];
         r[group].push(feature);
         return r;
     }, Object.create(null));
 
-    _onEachFeature(feature, layer) {
+    #onEachFeature(feature, layer) {
         if (feature?.properties?.popupContent) {
             layer.bindPopup(feature.properties.popupContent);
         }
     }
 
-    _pointToLayer = feature => {
+    #pointToLayer = feature => {
         return L.geoJSON(feature, {
-            onEachFeature: this._onEachFeature,
+            onEachFeature: this.#onEachFeature,
             pointToLayer: function (feature, latlng) {
                 let point;
                 const isCircle = feature?.properties?.radius;
@@ -64,9 +64,9 @@ class LeafletMapFeatures {
         });
     }
 
-    _polygonToLayer = feature => {
+    #polygonToLayer = feature => {
         return L.geoJSON(feature, {
-            onEachFeature: this._onEachFeature,
+            onEachFeature: this.#onEachFeature,
             pointToLayer: function (feature, latlng) {
                 const icon = {
                     icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER)
