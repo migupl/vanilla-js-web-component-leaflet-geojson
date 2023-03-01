@@ -80,7 +80,7 @@ The HTML &lt;template&gt; element allows us to define a re-usable templates of c
 
 ## Install
 
-Copy the directory */components/leaflet-map-component/* to your project
+Copy the directory */components/leaflet-map-component/* to any directory in your project.
 
 ## Getting started
 
