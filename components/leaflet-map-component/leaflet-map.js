@@ -31,6 +31,44 @@ class LeafletMap extends HTMLElement {
 
     #appendChild = element => this.shadowRoot.appendChild(element)
 
+    #byPairs = flatArr => flatArr.reduce((res, number, i, arr) => {
+        if (0 === i % 2) {
+            res.push(arr.slice(i, i + 2));
+        };
+        return res;
+    }, [])
+
+    #coordinatesToLatLng = coordinates => coordinates.reduce((arr, bound) => {
+        const [lng, lat] = bound;
+        const latLng = L.latLng(lat, lng);
+        arr.push(latLng);
+        return arr;
+    }, [])
+
+    #setMapViewOnBounds = (geojson, map) => {
+        if (this.hasAttribute('fitToBounds') || this.hasAttribute('flyToBounds')) {
+            const features = 'FeatureCollection' === geojson.type ? geojson.features : [ geojson ];
+
+            const flatCoordinates = this.#flatCoordinates(features);
+            const bounds = this.#byPairs(flatCoordinates);
+
+            if (bounds.length) {
+                const points = this.#coordinatesToLatLng(bounds);
+                const latLngBounds = L.latLngBounds(points);
+
+                if (this.hasAttribute('fitToBounds')) map.fitBounds(latLngBounds)
+                else map.flyToBounds(latLngBounds);
+            }
+        }
+    }
+
+    #flatCoordinates = features => features.reduce((arr, feature) => {
+        const coordinates = feature.geometry.coordinates;
+        const flatCoordinates = coordinates.flat(Infinity);
+        arr.push(...flatCoordinates);
+        return arr;
+    }, [])
+
     #initializeMap = mapElement => {
         const opts = this.#mapOptions();
         const map = L.map(mapElement, opts);
@@ -85,7 +123,10 @@ class LeafletMap extends HTMLElement {
             if (this.#isThisMap(leafletMap.id)) {
                 const map = LeafletMap.maps.get(leafletMap);
                 Features.addTo(geojson, map);
+
+                this.#setMapViewOnBounds(geojson, map);
             }
+
             event.stopPropagation();
         });
     }
