@@ -13,13 +13,11 @@
 
     <meta property="og:title" content="A vanilla JavaScript Web Component for Leaflet using GeoJSON">
     <meta property="og:type" content="website">
-    <meta property="og:description"
-        content="How-to use a vanilla JavaScript Web Component for Leaflet using GeoJSON">
+    <meta property="og:description" content="How-to use a vanilla JavaScript Web Component for Leaflet using GeoJSON">
     <meta property="og:url" content="https://github.com/migupl/leaflet-map-vanilla-js-web-component">
 
     <meta name="twitter:title" content="A vanilla JavaScript Web Component for Leaflet using GeoJSON">
-    <meta name="twitter:description"
-        content="How-to use a vanilla JavaScript Web Component for Leaflet using GeoJSON">
+    <meta name="twitter:description" content="How-to use a vanilla JavaScript Web Component for Leaflet using GeoJSON">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@migupl">
     <meta name="twitter:creator" content="@migupl">
@@ -43,7 +41,7 @@
         header {
             margin-bottom: 60px;
         }
-        
+
         header,
         footer {
             text-align: center;
@@ -230,7 +228,7 @@
     tileServer: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     zoom: 13
 }
-                </code></pre>
+            </code></pre>
         </div>
     </section>
     <section id="adding-tiles">
@@ -283,7 +281,8 @@
         <p>Features in GeoJSON contain a Geometry object and additional properties, and a
             <a href="#markers-circles-and-polygons">FeatureCollection</a>
             contains a list of Features.
-			<a href="https://tools.ietf.org/html/rfc7946" target="_blank" rel="noopener noreferrer">GeoJSON Specification (RFC 7946)</a>
+            <a href="https://tools.ietf.org/html/rfc7946" target="_blank" rel="noopener noreferrer">GeoJSON
+                Specification (RFC 7946)</a>
         </p>
         <p><code class="inline">&lt;leaflet-map&gt;</code> allows to add GeoJSON features. Among the allowed properties:
         <ol>
@@ -315,10 +314,13 @@
         <h4>Event 'x-leaflet-map-geojson-add'</h4>
 
         <p>Use it to adding GeoJSON
-			<a href="https://tools.ietf.org/html/rfc7946#section-3.2" target="_blank" rel="noopener noreferrer">Features</a>
-			and
-			<a href="https://tools.ietf.org/html/rfc7946#section-3.3" target="_blank" rel="noopener noreferrer">FeatureCollections</a>
-			as they allow you to describe features with a set of properties (samples bellow).</p>
+            <a href="https://tools.ietf.org/html/rfc7946#section-3.2" target="_blank"
+                rel="noopener noreferrer">Features</a>
+            and
+            <a href="https://tools.ietf.org/html/rfc7946#section-3.3" target="_blank"
+                rel="noopener noreferrer">FeatureCollections</a>
+            as they allow you to describe features with a set of properties (samples bellow).
+        </p>
 
         <p>This event requires an object with the properties:
         <ol>
@@ -515,9 +517,8 @@ const multiPolygon = {
     properties: {
     popupContent: "I am a MultiPolygon.",
     style: {
-    color: "black",
-    opacity: 0.5,
-    }
+        color: "black",
+        opacity: 0.5,
     }
 };
             </code></pre>
@@ -553,7 +554,8 @@ eventBus.dispatch('x-leaflet-map-geojson-add', {
             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
         </svg>
         using <a href="http://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>
-        (<a href="https://github.com/migupl/leaflet-map-vanilla-js-web-component" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>)
+        (<a href="https://github.com/migupl/leaflet-map-vanilla-js-web-component" target="_blank"
+            rel="noopener noreferrer"><i class="fab fa-github"></i></a>)
     </footer>
 </body>
 
