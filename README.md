@@ -115,9 +115,11 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 [Leaflet Provider Demo](http://leaflet-extras.github.io/leaflet-providers/preview/index.html) is a good resource for Leaflet layer providers
 
-## Default values
+## Attributes and default values
 
-All parameters are optional.
+The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *maxZoom*; *tileCopyright*; *tileServer*; *zoom*; and, the specials *fitToBounds* or *flyToBounds*.
+
+All attributes are optional.
 
 Default values are
 
@@ -131,6 +133,8 @@ Default values are
     zoom: 13
 }
 ```
+
+The special attributes fit, without or with animation, the map view to contain all added GeoJSON objects at the hightst possible zoom level.
 
 ## Events
 

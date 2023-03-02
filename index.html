@@ -216,8 +216,11 @@
                 <code class="inline">maxZoom</code>;
                 <code class="inline">tileCopyright</code>;
                 <code class="inline">tileServer</code>;
-                and, <code class="inline">zoom</code>.
+                <code class="inline">zoom</code>;
+                and, the specials <code class="inline">fitToBounds</code>
+                or <code class="inline">flyToBounds</code>.
             </p>
+            <p>The special attributes fit, without or with animation, the map view to contain all added GeoJSON objects at the hightst possible zoom level.</p>
             <p><b>Defaults</b> are centred on London city using OpenStreetMap tiles:</p>
             <pre><code class="hljs language-json">
 {
@@ -540,8 +543,18 @@ eventBus.dispatch('x-leaflet-map-geojson-add', {
             </code></pre>
         </div>
         <leaflet-map id="walk-throught-el-retiro" longitude="-3.6843547932100424" latitude="40.41411233423414"
-            zoom="16">
-        </leaflet-map>
+            flyToBounds></leaflet-map>
+        <div class="container">
+            <p>The <code class="inline">&lt;leaflet-map&gt;</code> is using
+                the attribute <code class="inline">flyToBounds</code>
+            </p>
+            <pre><code class="hljs language-js">
+&lt;leaflet-map id="walk-throught-el-retiro"
+    longitude="-3.6843547932100424"
+    latitude="40.41411233423414"
+    flyToBounds&gt;&lt;/leaflet-map&gt;
+            </code></pre>
+        </div>
     </section>
     <section id="multiple-maps" class="container">
         <h2>Multiple maps</h2>
