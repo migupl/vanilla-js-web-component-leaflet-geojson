@@ -91,12 +91,7 @@ To get started you need to import the Web Component
     <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
 </head>
 <body>
-    <leaflet-map
-        longitude="-3.7001448634709626"
-        latitude="40.4237577382345"
-        maxZoom="20"
-        zoom="13">
-    </leaflet-map>
+    <leaflet-map></leaflet-map>
 </body>
 ```
 
