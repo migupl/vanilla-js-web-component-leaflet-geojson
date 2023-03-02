@@ -707,6 +707,8 @@ Using a *point* feature with a small card.
 
 ![An example](./docs/burguess-park.webp)
 
+You have another example with all the features and the *flyToBounds* attribute in [example.html](example.html).
+
 ## Helpers
 
 A [container is used for hot reloading](https://github.com/migupl/hot-reloading-container) during development.

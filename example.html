@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <title>An example of map with all features and the flyToBounds attribute</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/example.ico">
+
+    <script src="./js/example.js"></script>
+    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+
+        leaflet-map {
+            display: block;
+            position: relative;
+            min-height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <leaflet-map flyToBounds></leaflet-map>
+</body>
+
+</html>
