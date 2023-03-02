@@ -45,7 +45,7 @@ class LeafletMap extends HTMLElement {
         return arr;
     }, [])
 
-    #setMapViewOnBounds = (geojson, map) => {
+    #setMapViewOnBounds = (geojson, map, latLngPoints) => {
         if (this.hasAttribute('fitToBounds') || this.hasAttribute('flyToBounds')) {
             const features = 'FeatureCollection' === geojson.type ? geojson.features : [ geojson ];
 
@@ -55,9 +55,10 @@ class LeafletMap extends HTMLElement {
             if (bounds.length) {
                 const points = this.#coordinatesToLatLng(bounds);
                 const latLngBounds = L.latLngBounds(points);
+                latLngPoints.push(latLngBounds);
 
-                if (this.hasAttribute('fitToBounds')) map.fitBounds(latLngBounds)
-                else map.flyToBounds(latLngBounds);
+                if (this.hasAttribute('fitToBounds')) map.fitBounds(latLngPoints)
+                else map.flyToBounds(latLngPoints);
             }
         }
     }
@@ -73,7 +74,10 @@ class LeafletMap extends HTMLElement {
         const opts = this.#mapOptions();
         const map = L.map(mapElement, opts);
 
-        LeafletMap.maps.set(this, map);
+        LeafletMap.maps.set(this, {
+            map: map,
+            latLngPoints: []
+        });
     }
 
     #isThisMap = mapId => mapId === this.id
@@ -109,7 +113,7 @@ class LeafletMap extends HTMLElement {
             const { leafletMap } = event.detail;
 
             if (this.#isThisMap(leafletMap.id)) {
-                const map = LeafletMap.maps.get(leafletMap);
+                const { map } = LeafletMap.maps.get(leafletMap);
                 map.eachLayer(function (layer) {
                     map.removeLayer(layer);
                 });
@@ -121,10 +125,10 @@ class LeafletMap extends HTMLElement {
             const { leafletMap, geojson } = event.detail;
 
             if (this.#isThisMap(leafletMap.id)) {
-                const map = LeafletMap.maps.get(leafletMap);
+                const { map, latLngPoints } = LeafletMap.maps.get(leafletMap);
                 Features.addTo(geojson, map);
 
-                this.#setMapViewOnBounds(geojson, map);
+                this.#setMapViewOnBounds(geojson, map, latLngPoints);
             }
 
             event.stopPropagation();
