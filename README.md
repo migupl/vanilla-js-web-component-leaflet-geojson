@@ -479,7 +479,7 @@ The property *popupContent* is optional.
                         coordinates: [-0.11, 51.508]
                     },
                     properties: {
-                    radius: 40,
+                    radius: 500,
                     popupContent: "I am a circle.",
                     style: {
                         color: 'red',
