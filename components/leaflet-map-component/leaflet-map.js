@@ -110,6 +110,8 @@ class LeafletMap extends HTMLElement {
 
     #registerEvents() {
         EventBus.register('x-leaflet-map-clear', (event) => {
+            event.stopPropagation();
+
             const { leafletMap } = event.detail;
 
             if (this.#isThisMap(leafletMap.id)) {
@@ -118,10 +120,11 @@ class LeafletMap extends HTMLElement {
                     map.removeLayer(layer);
                 });
             }
-            event.stopPropagation();
         });
 
         EventBus.register('x-leaflet-map-geojson-add', (event) => {
+            event.stopPropagation();
+
             const { leafletMap, geojson } = event.detail;
 
             if (this.#isThisMap(leafletMap.id)) {
@@ -130,8 +133,6 @@ class LeafletMap extends HTMLElement {
 
                 this.#setMapViewOnBounds(geojson, map, latLngPoints);
             }
-
-            event.stopPropagation();
         });
     }
 }
