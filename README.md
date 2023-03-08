@@ -163,7 +163,7 @@ This event requires an object with the property:
 
 The *style* and *popupContent* properties are optional.
 
-The *coordinates* property is in the form *[longitude, latitude]*.
+The *coordinates* property is an array of numbers. There MUST be two or three elements. The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element.
 
 The *icon* property for a marker is optional.
 
