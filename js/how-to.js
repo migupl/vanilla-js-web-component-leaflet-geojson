@@ -2,64 +2,72 @@ window.onload = (event) => {
     const introductionMap = document.getElementById('initial-map');
     const eventBus = introductionMap.eventBus;
 
-    const features = {
-        type: "FeatureCollection",
-        features: [{
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [-0.09, 51.5]
-            },
-            properties: {
-                popupContent: "<b>Hello world!</b><br>I am a popup.",
-                icon: {
-                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                }
-            }
+    const point = {
+        type: "Feature",
+        geometry: {
+            type: "Point",
+            coordinates: [-0.09, 51.5]
         },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [-0.11, 51.508]
-            },
-            properties: {
-                radius: 500,
-                style: {
-                    color: 'green',
-                    fillColor: 'lightgreen',
-                    fillOpacity: 0.5,
-                }
+        properties: {
+            popupContent: "<b>Hello world!</b><br>I am a popup.",
+            icon: {
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
             }
-        },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Polygon",
-                coordinates: [[
-                    [-0.08, 51.509],
-                    [-0.06, 51.503],
-                    [-0.047, 51.51]
-                ]]
-            },
-            properties: {
-                popupContent: "I am a polygon.",
-                style: {
-                    color: 'black'
-                }
-            }
-        }]
+        }
     };
 
-    eventBus.dispatch('x-leaflet-map-geojson-add', {
-        leafletMap: introductionMap,
-        geojson: features
-    });
+    const circle = {
+        type: "Feature",
+        geometry: {
+            type: "Point",
+            coordinates: [-0.11, 51.508]
+        },
+        properties: {
+            radius: 500,
+            style: {
+                color: 'green',
+                fillColor: 'lightgreen',
+                fillOpacity: 0.5,
+            }
+        }
+    };
+
+    const polygon = {
+        type: "Feature",
+        geometry: {
+            type: "Polygon",
+            coordinates: [[
+                [-0.08, 51.509],
+                [-0.06, 51.503],
+                [-0.047, 51.51]
+            ]]
+        },
+        properties: {
+            popupContent: "I am a polygon.",
+            style: {
+                color: 'black'
+            }
+        }
+    };
+
+    const features = [ point, circle, polygon ];
+
+    const dispatchWithDelay = (map, geojson, delay = 200) => {
+        setTimeout(function () {
+            const [features, rest] = geojson;
+            if (features) {
+                eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: features })
+                dispatchWithDelay(map, geojson.slice(1), delay + 200)
+            };
+        }, delay);
+    }
+
+    dispatchWithDelay(introductionMap, features);
 
     const multiPoint = {
         type: "Feature",
@@ -201,7 +209,6 @@ window.onload = (event) => {
         type: "FeatureCollection",
         features: [multiPoint, lineString, multiLineString, multiPolygon]
     };
-
 
     eventBus.dispatch('x-leaflet-map-geojson-add', {
         leafletMap: walking,
