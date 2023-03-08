@@ -169,7 +169,7 @@ window.onload = (event) => {
         }]
     };
 
-    function dispatchWithDelay(map, geojson, delay = 200) {
+    const dispatchWithDelay = (map, geojson, delay = 200) => {
         setTimeout(function () {
             const [features, rest] = geojson;
             if (features) {

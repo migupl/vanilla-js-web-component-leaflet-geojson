@@ -4,15 +4,15 @@ class EventBus {
         this._bus.id = 'x-event-bus';
     }
 
-    register(event, callback) {
+    register = (event, callback) => {
         this._bus.addEventListener(event, callback);
     }
 
-    unregister(event, callback) {
+    unregister = (event, callback) => {
         this._bus.removeEventListener(event, callback);
     }
 
-    dispatch(event, detail = {}) {
+    dispatch = (event, detail = {}) => {
         this._bus.dispatchEvent(new CustomEvent(event, { detail }));
     }
 }

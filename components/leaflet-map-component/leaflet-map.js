@@ -43,7 +43,7 @@ class LeafletMap extends HTMLElement {
 
     #isThisMap = mapId => mapId === this.id
 
-    #mapOptions() {
+    #mapOptions = () => {
         const defaults = {
             latitude: 51.505,
             longitude: -0.09,
@@ -69,7 +69,7 @@ class LeafletMap extends HTMLElement {
         return opts;
     }
 
-    #registerEvents() {
+    #registerEvents = () => {
         EventBus.register('x-leaflet-map-clear', (event) => {
             event.stopPropagation();
 
@@ -114,7 +114,7 @@ class LeafletMap extends HTMLElement {
 }
 
 let leafletjs = LoadMap.getLeafletScript();
-leafletjs.onload = function (ev) {
+leafletjs.onload = (ev)  => {
     customElements.define('leaflet-map', LeafletMap);
     leaflet = null;
 }

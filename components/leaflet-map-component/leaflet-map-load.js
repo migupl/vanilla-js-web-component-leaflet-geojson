@@ -2,13 +2,13 @@ import { css, html } from "./leaflet-map-dom.js"
 
 class LeafletMapLoad {
 
-    getStyleElement() {
+    getStyleElement = () => {
         const el = document.createElement('style');
         el.innerText = css;
         return el;
     }
 
-    getHtml() {
+    getHtml = () => {
         const el = document.createElement('div');
         el.innerHTML = html;
 
@@ -16,7 +16,7 @@ class LeafletMapLoad {
         return map;
     }
 
-    getLeafletCss() {
+    getLeafletCss = () => {
         const el = document.createElement('style');
         this.#fetchLeafletCss().then(
             (css) => { el.innerText = css }
@@ -25,7 +25,7 @@ class LeafletMapLoad {
         return el;
     }
 
-    getLeafletScript() {
+    getLeafletScript = () => {
         const dependency = {
             url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.js',
             integrity: 'sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM='

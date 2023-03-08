@@ -11,7 +11,7 @@ class LeafletMapFeatures {
         shadowSize: [41, 41]
     };
 
-    addTo(geojson, leafletMap, mapId) {
+    addTo = (geojson, leafletMap, mapId) => {
         const features = this.#getFeaturesArray(geojson);
         const { points, polygons } = this.#groupPointsAndPolygons(features);
 
@@ -33,7 +33,7 @@ class LeafletMapFeatures {
         return r;
     }, Object.create(null));
 
-    #onEachFeature(feature, layer) {
+    #onEachFeature = (feature, layer) => {
         if (feature?.properties?.popupContent) {
             layer.bindPopup(feature.properties.popupContent);
         }
