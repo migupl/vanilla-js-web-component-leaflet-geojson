@@ -31,45 +31,6 @@ class LeafletMap extends HTMLElement {
 
     #appendChild = element => this.shadowRoot.appendChild(element)
 
-    #byPairs = flatArr => flatArr.reduce((res, number, i, arr) => {
-        if (0 === i % 2) {
-            res.push(arr.slice(i, i + 2));
-        };
-        return res;
-    }, [])
-
-    #coordinatesToLatLng = coordinates => coordinates.reduce((arr, bound) => {
-        const [lng, lat] = bound;
-        const latLng = L.latLng(lat, lng);
-        arr.push(latLng);
-        return arr;
-    }, [])
-
-    #setMapViewOnBounds = (geojson, map, latLngPoints) => {
-        if (this.hasAttribute('fitToBounds') || this.hasAttribute('flyToBounds')) {
-            const features = 'FeatureCollection' === geojson.type ? geojson.features : [ geojson ];
-
-            const flatCoordinates = this.#flatCoordinates(features);
-            const bounds = this.#byPairs(flatCoordinates);
-
-            if (bounds.length) {
-                const points = this.#coordinatesToLatLng(bounds);
-                const latLngBounds = L.latLngBounds(points);
-                latLngPoints.push(latLngBounds);
-
-                if (this.hasAttribute('fitToBounds')) map.fitBounds(latLngPoints)
-                else map.flyToBounds(latLngPoints);
-            }
-        }
-    }
-
-    #flatCoordinates = features => features.reduce((arr, feature) => {
-        const coordinates = feature.geometry.coordinates;
-        const flatCoordinates = coordinates.flat(Infinity);
-        arr.push(...flatCoordinates);
-        return arr;
-    }, [])
-
     #initializeMap = mapElement => {
         const opts = this.#mapOptions();
         const map = L.map(mapElement, opts);
@@ -129,9 +90,24 @@ class LeafletMap extends HTMLElement {
 
             if (this.#isThisMap(leafletMap.id)) {
                 const { map, latLngPoints } = LeafletMap.maps.get(leafletMap);
-                Features.addTo(geojson, map);
+                Features.addTo(geojson, map, leafletMap.id);
+            }
+        });
 
-                this.#setMapViewOnBounds(geojson, map, latLngPoints);
+        EventBus.register('x-leaflet-map-geojson:add-latlng', (event) => {
+            event.stopPropagation();
+
+            const { map, latLngPoints } = LeafletMap.maps.get(this);
+            const { lng, lat, alt, mapId } = event.detail;
+
+            if (this.#isThisMap(mapId)) {
+                const latLng = L.latLng(lat, lng);
+
+                const latLngBounds = L.latLngBounds([latLng]);
+                latLngPoints.push(latLngBounds);
+
+                if (this.hasAttribute('fitToBounds')) map.fitBounds(latLngPoints)
+                else if (this.hasAttribute('flyToBounds')) map.flyToBounds(latLngPoints);
             }
         });
     }

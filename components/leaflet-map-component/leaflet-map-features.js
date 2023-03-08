@@ -1,3 +1,5 @@
+import { LeafletMapFeature } from "./leaflet-map-feature.js";
+
 class LeafletMapFeatures {
 
     static DEFAULT_MARKER = {
@@ -9,16 +11,18 @@ class LeafletMapFeatures {
         shadowSize: [41, 41]
     };
 
-    addTo(geojson, leafletMap) {
+    addTo(geojson, leafletMap, mapId) {
         const features = this.#getFeaturesArray(geojson);
         const { points, polygons } = this.#groupPointsAndPolygons(features);
 
-        this.#addPoints(points, leafletMap);
-        this.#addPolygons(polygons, leafletMap);
+        this.#addPoints(points, mapId, leafletMap);
+        this.#addPolygons(polygons, mapId, leafletMap);
     }
 
-    #addPoints = (points, leafletMap) => points && this.#pointToLayer(points, leafletMap.id).addTo(leafletMap)
-    #addPolygons = (polygons, leafletMap) => polygons && this.#polygonToLayer(polygons).addTo(leafletMap)
+    #addPoints = (points, mapId, leafletMap) => points && this.#pointToLayer(points, mapId).addTo(leafletMap)
+    #addPolygons = (polygons, mapId, leafletMap) => polygons && this.#polygonToLayer(polygons, mapId).addTo(leafletMap)
+
+    #coordsToLatLng = mapId => new LeafletMapFeature(mapId).coordsToLatLng
 
     #getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
 
@@ -35,8 +39,9 @@ class LeafletMapFeatures {
         }
     }
 
-    #pointToLayer = feature => {
+    #pointToLayer = (feature, mapId) => {
         return L.geoJSON(feature, {
+            coordsToLatLng: this.#coordsToLatLng(mapId),
             onEachFeature: this.#onEachFeature,
             pointToLayer: function (feature, latlng) {
                 let point;
@@ -64,8 +69,9 @@ class LeafletMapFeatures {
         });
     }
 
-    #polygonToLayer = feature => {
+    #polygonToLayer = (feature, mapId) => {
         return L.geoJSON(feature, {
+            coordsToLatLng: this.#coordsToLatLng(mapId),
             onEachFeature: this.#onEachFeature,
             pointToLayer: function (feature, latlng) {
                 const icon = {
