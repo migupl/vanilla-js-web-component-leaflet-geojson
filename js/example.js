@@ -169,19 +169,9 @@ window.onload = (event) => {
         }]
     };
 
-    const dispatchWithDelay = (map, geojson, delay = 200) => {
-        setTimeout(function () {
-            const [features, rest] = geojson;
-            if (features) {
-                eventBus.dispatch('x-leaflet-map-geojson-add', { leafletMap: map, geojson: features })
-                dispatchWithDelay(map, geojson.slice(1), delay + 200)
-            };
-        }, delay);
-    }
-
     const map = document.querySelector('leaflet-map');
     const eventBus = map.eventBus;
 
     const geojson = [multiPolygon, marker, multiLineString, multiPoint, lineString, polygon, features];
-    dispatchWithDelay(map, geojson);
+    dispatchWithDelay(eventBus, map, geojson);
 }
