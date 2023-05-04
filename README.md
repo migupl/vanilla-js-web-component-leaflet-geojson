@@ -134,7 +134,7 @@ Default values are
 }
 ```
 
-The special attributes fit, without or with animation, the map view to contain all added GeoJSON objects at the hightst possible zoom level.
+The special attributes *fitToBounds* or *flyToBounds*, without or with animation, the map view to contain all added GeoJSON objects at the hightst possible zoom level.
 
 ## Events
 
