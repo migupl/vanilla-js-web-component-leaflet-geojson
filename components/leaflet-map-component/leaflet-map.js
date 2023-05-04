@@ -21,7 +21,8 @@ class LeafletMap extends HTMLElement {
         const css = LoadMap.getStyleElement();
         this.#appendChild(css);
 
-        const customStyleFile = this.getAttribute('customStyle')
+        const [customStyleClass, customStyleFile] = this.#getCustomStyle();
+
         const customLeafletStyle = LoadMap.getCustomStyle(customStyleFile);
         this.#appendChild(customLeafletStyle);
 
@@ -29,19 +30,20 @@ class LeafletMap extends HTMLElement {
         this.#appendChild(leafletCss);
 
         const map = LoadMap.getHtml();
-        this.#addCustomStyleClass(customStyleFile, map);
+        this.#addCustomStyleClass(customStyleClass, map);
         this.#appendChild(map);
         this.#initializeMap(map);
-
     }
 
-    #addCustomStyleClass = (styleFile, el) => {
-        if (styleFile) {
-            el.classList.add('custom-leaflet-style');
+    #addCustomStyleClass = (styleClass, el) => {
+        if (styleClass) {
+            el.classList.add(styleClass);
         }
     }
 
     #appendChild = element => this.shadowRoot.appendChild(element)
+
+    #getCustomStyle = () => (this.getAttribute('customStyle') || '').split(':')
 
     #initializeMap = mapElement => {
         const opts = this.#mapOptions();
