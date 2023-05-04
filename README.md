@@ -117,7 +117,7 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 ## Attributes and default values
 
-The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *maxZoom*; *tileCopyright*; *tileServer*; *zoom*; and, the specials *fitToBounds* or *flyToBounds*.
+The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *maxZoom*; *tileCopyright*; *tileServer*; *zoom*; and, the specials *customStyle* and *fitToBounds* or *flyToBounds*.
 
 All attributes are optional.
 
@@ -134,7 +134,41 @@ Default values are
 }
 ```
 
+The optional attribute *customStyle* defines the name of the custom class and style file separated by a colon. This allows custom styling of elements within the Web Component.
+
 The special attributes *fitToBounds* or *flyToBounds*, without or with animation, the map view to contain all added GeoJSON objects at the hightst possible zoom level.
+
+### The customStyle attribute
+
+For example, to change the background colour of all pop-up, we would include a CSS file
+
+custom-popup-style.css
+```css
+.custom-leaflet-popup-style .leaflet-popup-content-wrapper {
+    background: #2c3e50;
+    color: #fff;
+}
+
+.custom-leaflet-popup-style .leaflet-popup-content-wrapper a {
+    color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-leaflet-popup-style .leaflet-popup-tip {
+    background: #2c3e50;
+}
+```
+
+and the customStyle attribute as following
+
+```html
+<body>
+    <leaflet-map customStyle="custom-leaflet-popup-style:<path to file>/custom-popup-style.css"></leaflet-map>
+</body>
+```
+
+Obviously the name of the class '*custom-leaflet-popup-style*' is the same as the one that encapsulates the styles in the css file.
+
+Check this on the [demo start map](https://migupl.github.io/vanilla-js-web-component-leaflet-geojson/#intial-map) and click on the point to get a pop-up window with a dark background.
 
 ## Events
 
