@@ -1,0 +1,17 @@
+.custom-leaflet-popup-style .leaflet-popup-content-wrapper {
+    background: #2c3e50;
+    color: #fff;
+}
+
+.custom-leaflet-popup-style .leaflet-popup-content-wrapper a {
+    color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-leaflet-popup-style .leaflet-popup-tip-container {
+    width: 30px;
+    height: 15px;
+}
+
+.custom-leaflet-popup-style .leaflet-popup-tip {
+    background: #2c3e50;
+}
