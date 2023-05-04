@@ -41,13 +41,8 @@ class LeafletMapLoad {
         return js;
     }
 
-    #fetchLeafletCss = async () => {
-        const leafletCss = {
-            url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
-            integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='
-        };
-
-        const response = await fetch(leafletCss.url);
+    #fetchCss = async (url) => {
+        const response = await fetch(url);
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
@@ -55,6 +50,15 @@ class LeafletMapLoad {
 
         const css = await response.text();
         return css;
+    }
+
+    #fetchLeafletCss = () => {
+        const leafletCss = {
+            url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
+            integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='
+        };
+
+        return this.#fetchCss(leafletCss.url);
     }
 }
 
