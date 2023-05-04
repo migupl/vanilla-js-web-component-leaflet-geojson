@@ -21,12 +21,24 @@ class LeafletMap extends HTMLElement {
         const css = LoadMap.getStyleElement();
         this.#appendChild(css);
 
+        const customStyleFile = this.getAttribute('customStyle')
+        const customLeafletStyle = LoadMap.getCustomStyle(customStyleFile);
+        this.#appendChild(customLeafletStyle);
+
         const leafletCss = LoadMap.getLeafletCss();
         this.#appendChild(leafletCss);
 
         const map = LoadMap.getHtml();
+        this.#addCustomStyleClass(customStyleFile, map);
         this.#appendChild(map);
         this.#initializeMap(map);
+
+    }
+
+    #addCustomStyleClass = (styleFile, el) => {
+        if (styleFile) {
+            el.classList.add('custom-leaflet-style');
+        }
     }
 
     #appendChild = element => this.shadowRoot.appendChild(element)
@@ -114,7 +126,7 @@ class LeafletMap extends HTMLElement {
 }
 
 let leafletjs = LoadMap.getLeafletScript();
-leafletjs.onload = (ev)  => {
+leafletjs.onload = (ev) => {
     customElements.define('leaflet-map', LeafletMap);
     leaflet = null;
 }

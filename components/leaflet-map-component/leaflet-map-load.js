@@ -8,6 +8,17 @@ class LeafletMapLoad {
         return el;
     }
 
+    getCustomStyle = (styleFile) => {
+        const el = document.createElement('style');
+
+        if (styleFile) {
+            this.#fetchCss(styleFile)
+            .then(css => el.innerText = css);
+        }
+
+        return el;
+    }
+
     getHtml = () => {
         const el = document.createElement('div');
         el.innerHTML = html;
