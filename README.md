@@ -149,10 +149,6 @@ custom-popup-style.css
     color: #fff;
 }
 
-.custom-leaflet-popup-style .leaflet-popup-content-wrapper a {
-    color: rgba(255, 255, 255, 0.1);
-}
-
 .custom-leaflet-popup-style .leaflet-popup-tip {
     background: #2c3e50;
 }
@@ -168,7 +164,7 @@ and the customStyle attribute as following
 
 Obviously the name of the class '*custom-leaflet-popup-style*' is the same as the one that encapsulates the styles in the css file.
 
-Check this on the [demo start map](https://migupl.github.io/vanilla-js-web-component-leaflet-geojson/#intial-map) and click on the point to get a pop-up window with a dark background.
+Check this on the [demo start map](https://migupl.github.io/vanilla-js-web-component-leaflet-geojson/#initial-map) and click on the point to get a pop-up window with a dark background.
 
 ## Events
 
