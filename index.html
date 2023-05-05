@@ -145,9 +145,10 @@
             including setting up the Web Component and working with GeoJSON objects.
         </p>
         <leaflet-map id="initial-map" class="small-map" customStyle="custom-leaflet-popup-style:styles/leaflet-popup-style.css" flyToBounds></leaflet-map>
-        <p>The <code class="inline">&lt;leaflet-map&gt;</code> is using the attribute
-            <a href="#map-animation"><code class="inline">flyToBounds</code></a>
-            with a small delay adding the GeoJSON objects.
+        <p>The <code class="inline">&lt;leaflet-map&gt;</code> is using the attributes
+            <a href="#map-animation"><code class="inline">flyToBounds</code></a>, with a small delay, and
+            <a href="#custom-style"><code class="inline">customStyle</code></a> for a pop-up with
+            dark background when the point and polygon are clicked.
         </p>
     </section>
     <section id="getting-started" class="container">
@@ -221,9 +222,13 @@
                 <code class="inline">tileCopyright</code>;
                 <code class="inline">tileServer</code>;
                 <code class="inline">zoom</code>;
-                and, the specials <code class="inline">fitToBounds</code>
+                and, the specials <code class="inline">customStyle</code>
+                and <code class="inline">fitToBounds</code>
                 or <code class="inline">flyToBounds</code>.
             </p>
+            <p id="custom-style">The optional attribute <code class="inline">customStyle</code> defines
+                the name of a custom class and a style file separated by a colon.
+                This allows custom styling of elements within the Web Component.</p>
             <p id="map-animation">The special attributes fit, without or with animation,
                 the map view to contain all added GeoJSON objects
                 at the hightest possible zoom level.</p>
@@ -238,6 +243,30 @@
     zoom: 13
 }
             </code></pre>
+
+            <h3>The customStyle attribute</h3>
+            <p>For example, to change the background colour of all pop-up, we would include a CSS file</p>
+            <p><code class="inline">custom-popup-style.css</code>
+                <pre><code class="hljs language-css">
+.custom-leaflet-popup-style .leaflet-popup-content-wrapper {
+    background: #2c3e50;
+    color: #fff;
+}
+
+.custom-leaflet-popup-style .leaflet-popup-tip {
+background: #2c3e50;
+}
+                </code></pre>
+            </p>
+            <p>and the customStyle attribute as following
+                <pre><code>
+&lt;body&gt;
+    &lt;leaflet-map customStyle="custom-leaflet-popup-style:&lt;path to file&gt;/custom-popup-style.css"&gt;&lt;/leaflet-map&gt;
+&lt;/body&gt;
+                </code></pre>
+            </p>
+            <p>Obviously the name of the class <i>custom-leaflet-popup-style</i> is the same as the one that encapsulates the styles in
+            the css file.</p>
         </div>
     </section>
     <section id="adding-tiles">
