@@ -36,6 +36,7 @@ class LeafletMapFeatures {
     #onEachFeature = (feature, layer) => {
         if (feature?.properties?.popupContent) {
             layer.bindPopup(feature.properties.popupContent);
+            layer.on('dblclick', () => this.#remove(layer));
         }
     }
 
@@ -83,6 +84,12 @@ class LeafletMapFeatures {
                 return feature?.properties?.style;
             },
         });
+    }
+
+    #remove = layer => {
+        const { type } = layer.feature.geometry
+        const remove = confirm(`Are you sure you want to remove this '${type}'?`)
+        if (remove) layer.remove();
     }
 }
 
