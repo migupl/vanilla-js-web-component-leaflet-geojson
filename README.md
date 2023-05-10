@@ -598,6 +598,10 @@ The property *popupContent* is optional.
 </body>
 ```
 
+## Remove an element from the map
+
+Any of the elements added to the map can be deleted by double clicking on it and confirming the deletion.
+
 ## Clear a map
 
 ```html
