@@ -11,16 +11,31 @@ class LeafletMapFeatures {
         shadowSize: [41, 41]
     };
 
-    addTo = (geojson, leafletMap, mapId) => {
+    addTo = (geojson, mapId, theMap) => {
+        theMap.markers = theMap.markers || L.markerClusterGroup();
+
         const features = this.#getFeaturesArray(geojson);
         const { points, polygons } = this.#groupPointsAndPolygons(features);
 
-        this.#addPoints(points, mapId, leafletMap);
-        this.#addPolygons(polygons, mapId, leafletMap);
+        this.#addPoints(points, mapId, theMap);
+        this.#addPolygons(polygons, mapId, theMap);
     }
 
-    #addPoints = (points, mapId, leafletMap) => points && this.#pointToLayer(points, mapId).addTo(leafletMap)
-    #addPolygons = (polygons, mapId, leafletMap) => polygons && this.#polygonToLayer(polygons, mapId).addTo(leafletMap)
+    #addPoints = (points, mapId, theMap) => {
+        const { map, markers } = theMap;
+        points &&
+            markers
+                .addLayer(this.#pointToLayer(points, mapId))
+                .addTo(map)
+    }
+
+    #addPolygons = (polygons, mapId, theMap) => {
+        const { map, markers } = theMap;
+        polygons &&
+            markers
+                .addLayer(this.#polygonToLayer(polygons, mapId))
+                .addTo(map)
+    }
 
     #coordsToLatLng = mapId => new LeafletMapFeature(mapId).coordsToLatLng
 

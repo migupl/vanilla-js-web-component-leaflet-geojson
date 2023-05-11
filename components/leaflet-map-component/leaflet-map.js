@@ -54,6 +54,7 @@ class LeafletMap extends HTMLElement {
 
         LeafletMap.maps.set(this, {
             map: map,
+            markers: null,
             latLngPoints: []
         });
     }
@@ -106,8 +107,8 @@ class LeafletMap extends HTMLElement {
             const { leafletMap, geojson } = event.detail;
 
             if (this.#isThisMap(leafletMap.id)) {
-                const { map } = LeafletMap.maps.get(leafletMap);
-                Features.addTo(geojson, map, leafletMap.id);
+                const thisMap = LeafletMap.maps.get(leafletMap);
+                Features.addTo(geojson, leafletMap.id, thisMap);
             }
         });
 
