@@ -12,7 +12,9 @@ class LeafletMapFeatures {
     };
 
     addTo = (geojson, mapId, theMap) => {
-        theMap.markers = theMap.markers || L.markerClusterGroup();
+        if (!theMap.markers) {
+            theMap.markers = this.#getMarkerClusterGroup(theMap);
+        }
 
         const features = this.#getFeaturesArray(geojson);
         const { points, polygons } = this.#groupPointsAndPolygons(features);
@@ -41,6 +43,16 @@ class LeafletMapFeatures {
 
     #getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
 
+    #getMarkerClusterGroup = () => {
+        const markers = L.markerClusterGroup();
+        markers.on('dblclick', ev => {
+            const { layer } = ev;
+            this.#remove(layer);
+        });
+
+        return markers;
+    }
+
     #groupPointsAndPolygons = features => features.reduce((r, feature) => {
         const group = feature.geometry.type == 'Point' ? 'points' : 'polygons';
         r[group] = r[group] || [];
@@ -51,7 +63,6 @@ class LeafletMapFeatures {
     #onEachFeature = (feature, layer) => {
         if (feature?.properties?.popupContent) {
             layer.bindPopup(feature.properties.popupContent);
-            layer.on('dblclick', () => this.#remove(layer));
         }
     }
 
