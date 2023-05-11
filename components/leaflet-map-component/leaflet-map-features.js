@@ -47,7 +47,7 @@ class LeafletMapFeatures {
         const markers = L.markerClusterGroup();
         markers.on('dblclick', ev => {
             const { layer } = ev;
-            this.#remove(layer);
+            this.#remove(layer, markers);
         });
 
         return markers;
@@ -112,10 +112,10 @@ class LeafletMapFeatures {
         });
     }
 
-    #remove = layer => {
+    #remove = (layer, markers) => {
         const { type } = layer.feature.geometry
         const remove = confirm(`Are you sure you want to remove this '${type}'?`)
-        if (remove) layer.remove();
+        if (remove) markers.removeLayer(layer);
     }
 }
 
