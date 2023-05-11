@@ -175,3 +175,7 @@ window.onload = (event) => {
     const geojson = [multiPolygon, marker, multiLineString, multiPoint, lineString, polygon, features];
     dispatchWithDelay(eventBus, map, geojson);
 }
+
+document.addEventListener('x-leaflet-map-marker-remove', ev => {
+    console.log(ev);
+})

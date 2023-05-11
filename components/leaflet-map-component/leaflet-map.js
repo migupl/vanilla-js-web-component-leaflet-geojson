@@ -46,6 +46,17 @@ class LeafletMap extends HTMLElement {
 
     #appendChild = element => this.shadowRoot.appendChild(element)
 
+    #fireMarkerRemoved = feature => {
+        const evt = new CustomEvent('x-leaflet-map-marker-remove', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                feature: feature
+            }
+        });
+        this.shadowRoot.dispatchEvent(evt);
+    }
+
     #getCustomStyle = () => (this.getAttribute('customStyle') || '').split(':')
 
     #initializeMap = mapElement => {
@@ -135,7 +146,10 @@ class LeafletMap extends HTMLElement {
     #remove = (layer, markers) => {
         const { type } = layer.feature.geometry
         const remove = confirm(`Are you sure you want to remove this '${type}'?`)
-        if (remove) markers.removeLayer(layer);
+        if (remove) {
+            markers.removeLayer(layer);
+            this.#fireMarkerRemoved(layer.feature);
+        }
     }
 }
 
