@@ -602,6 +602,28 @@ The property *popupContent* is optional.
 
 Any of the elements added to the map can be deleted by double clicking on it and confirming the deletion.
 
+Web Component *leaflet-map* fires 'x-leaflet-map-marker-remove' event when any marker is removed from map by exposing its GeoJSON as follows
+
+```json
+x-leaflet-map-marker-remove { 
+    target: leaflet-map,
+    isTrusted: false,
+    detail: {
+        feature: {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [-0.09, 51.5]
+            },
+            ...
+        }
+    }
+    ...
+}
+```
+
+You can use the file *index.html* of the project as a small demo.
+
 ## Clear a map
 
 ```html
@@ -750,6 +772,8 @@ A [container is used for hot reloading](https://github.com/migupl/hot-reloading-
 Test your GeoJSON with [GeoJSONLint](https://geojsonlint.com/).
 
 [Leaflet color markers](https://github.com/pointhi/leaflet-color-markers)
+
+[Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster#leafletmarkercluster) is used.
 
 Good luck and I hope you enjoy it.
 
