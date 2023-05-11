@@ -103,7 +103,7 @@ class LeafletMap extends HTMLElement {
             const { leafletMap, geojson } = event.detail;
 
             if (this.#isThisMap(leafletMap.id)) {
-                const { map, latLngPoints } = LeafletMap.maps.get(leafletMap);
+                const { map } = LeafletMap.maps.get(leafletMap);
                 Features.addTo(geojson, map, leafletMap.id);
             }
         });
@@ -112,7 +112,7 @@ class LeafletMap extends HTMLElement {
             event.stopPropagation();
 
             const { map, latLngPoints } = LeafletMap.maps.get(this);
-            const { lng, lat, alt, mapId } = event.detail;
+            const { lng, lat, mapId } = event.detail;
 
             if (this.#isThisMap(mapId)) {
                 const latLng = L.latLng(lat, lng);
