@@ -13,7 +13,7 @@ class LeafletMapFeatures {
 
     addTo = (geojson, mapId, theMap) => {
         if (!theMap.markers) {
-            theMap.markers = this.#getMarkerClusterGroup(theMap);
+            theMap.markers = this.#getMarkerClusterGroup();
         }
 
         const features = this.#getFeaturesArray(geojson);
