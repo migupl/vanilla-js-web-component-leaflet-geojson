@@ -54,6 +54,7 @@ class LeafletMap extends HTMLElement {
 
         LeafletMap.maps.set(this, {
             map: map,
+            tile: opts.layers,
             markers: null,
             latLngPoints: []
         });
@@ -94,9 +95,9 @@ class LeafletMap extends HTMLElement {
             const { leafletMap } = event.detail;
 
             if (this.#isThisMap(leafletMap.id)) {
-                const { map } = LeafletMap.maps.get(leafletMap);
+                const { map, tile } = LeafletMap.maps.get(leafletMap);
                 map.eachLayer(function (layer) {
-                    map.removeLayer(layer);
+                    if (layer !== tile) layer.removeFrom(map);
                 });
             }
         });
