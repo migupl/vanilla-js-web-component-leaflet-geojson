@@ -13,7 +13,8 @@ class LeafletMapFeatures {
 
     addTo = (geojson, mapId, theMap) => {
         if (!theMap.markers) {
-            theMap.markers = this.#getMarkerClusterGroup();
+            const { onMarkerRemoved } = theMap;
+            theMap.markers = this.#getClusterAndOnDblclickDo(onMarkerRemoved);
         }
 
         const features = this.#getFeaturesArray(geojson);
@@ -43,11 +44,11 @@ class LeafletMapFeatures {
 
     #getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
 
-    #getMarkerClusterGroup = () => {
+    #getClusterAndOnDblclickDo = onMarkerRemoved => {
         const markers = L.markerClusterGroup();
         markers.on('dblclick', ev => {
             const { layer } = ev;
-            this.#remove(layer, markers);
+            onMarkerRemoved(layer, markers);
         });
 
         return markers;
@@ -110,12 +111,6 @@ class LeafletMapFeatures {
                 return feature?.properties?.style;
             },
         });
-    }
-
-    #remove = (layer, markers) => {
-        const { type } = layer.feature.geometry
-        const remove = confirm(`Are you sure you want to remove this '${type}'?`)
-        if (remove) markers.removeLayer(layer);
     }
 }
 

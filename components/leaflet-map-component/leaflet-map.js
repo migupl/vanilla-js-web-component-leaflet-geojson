@@ -56,6 +56,7 @@ class LeafletMap extends HTMLElement {
             map: map,
             tile: opts.layers,
             markers: null,
+            onMarkerRemoved: this.#remove,
             latLngPoints: []
         });
     }
@@ -129,6 +130,12 @@ class LeafletMap extends HTMLElement {
                 else if (this.hasAttribute('flyToBounds')) map.flyToBounds(latLngPoints);
             }
         });
+    }
+
+    #remove = (layer, markers) => {
+        const { type } = layer.feature.geometry
+        const remove = confirm(`Are you sure you want to remove this '${type}'?`)
+        if (remove) markers.removeLayer(layer);
     }
 }
 
