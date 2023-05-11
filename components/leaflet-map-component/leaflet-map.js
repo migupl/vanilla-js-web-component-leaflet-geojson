@@ -131,6 +131,10 @@ let leafletjs = LoadMap.getLeafletScript();
 leafletjs.onload = (ev) => {
     customElements.define('leaflet-map', LeafletMap);
     leaflet = null;
+
+    const markerCluster = LoadMap.getMarkerCluster();
+    document.head.appendChild(markerCluster.link);
+    document.head.appendChild(markerCluster.script);
 }
 
 document.head.append(leafletjs);

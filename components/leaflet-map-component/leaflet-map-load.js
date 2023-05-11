@@ -52,6 +52,17 @@ class LeafletMapLoad {
         return js;
     }
 
+    getMarkerCluster = () => {
+        const dist = '1.5.3';
+        const style = this.#getMarkerClusterCss(dist);
+        const js = this.#getMarkerClusterScript(dist);
+
+        return {
+            link: style,
+            script: js
+        }
+    }
+
     #fetchCss = async (url) => {
         const response = await fetch(url);
         if (!response.ok) {
@@ -70,6 +81,22 @@ class LeafletMapLoad {
         };
 
         return this.#fetchCss(leafletCss.url);
+    }
+
+    #getMarkerClusterCss(dist) {
+        let style = document.createElement('link');
+        style.href = `https://unpkg.com/leaflet.markercluster@${dist}/dist/MarkerCluster.css`;
+        style.rel = 'stylesheet';
+        return style;
+    }
+
+    #getMarkerClusterScript(dist) {
+        let js = document.createElement('script');
+        js.src = `https://unpkg.com/leaflet.markercluster@${dist}/dist/leaflet.markercluster.js`;
+
+        js.crossOrigin = '';
+        js.async = 'false';
+        return js;
     }
 }
 
