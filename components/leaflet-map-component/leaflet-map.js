@@ -26,6 +26,9 @@ class LeafletMap extends HTMLElement {
         const customLeafletStyle = LoadMap.getCustomStyle(customStyleFile);
         this.#appendChild(customLeafletStyle);
 
+        const markerClusterStyles = LoadMap.getMarkerClusterStyles();
+        markerClusterStyles.forEach(style => this.#appendChild(style))
+
         const leafletCss = LoadMap.getLeafletCss();
         this.#appendChild(leafletCss);
 
@@ -132,9 +135,8 @@ leafletjs.onload = (ev) => {
     customElements.define('leaflet-map', LeafletMap);
     leaflet = null;
 
-    const markerCluster = LoadMap.getMarkerCluster();
-    document.head.appendChild(markerCluster.link);
-    document.head.appendChild(markerCluster.script);
+    const markerClusterScript = LoadMap.getMarkerClusterScript();
+    document.head.appendChild(markerClusterScript);
 }
 
 document.head.append(leafletjs);
