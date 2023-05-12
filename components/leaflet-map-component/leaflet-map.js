@@ -47,7 +47,7 @@ class LeafletMap extends HTMLElement {
     #appendChild = element => this.shadowRoot.appendChild(element)
 
     #fireMarkerRemoved = feature => {
-        const evt = new CustomEvent('x-leaflet-map-marker-remove', {
+        const evt = new CustomEvent('x-leaflet-map:marker-removed', {
             bubbles: true,
             composed: true,
             detail: {

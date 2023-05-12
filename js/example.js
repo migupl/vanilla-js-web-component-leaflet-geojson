@@ -176,6 +176,6 @@ window.onload = (event) => {
     dispatchWithDelay(eventBus, map, geojson);
 }
 
-document.addEventListener('x-leaflet-map-marker-remove', ev => {
+document.addEventListener('x-leaflet-map:marker-removed', ev => {
     console.log(ev);
 })

@@ -602,10 +602,10 @@ The property *popupContent* is optional.
 
 Any of the elements added to the map can be deleted by double clicking on it and confirming the deletion.
 
-Web Component *leaflet-map* fires 'x-leaflet-map-marker-remove' event when any marker is removed from map by exposing its GeoJSON as follows
+Web Component *leaflet-map* fires 'x-leaflet-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
 
 ```json
-x-leaflet-map-marker-remove { 
+x-leaflet-map:marker-removed {
     target: leaflet-map,
     isTrusted: false,
     detail: {
