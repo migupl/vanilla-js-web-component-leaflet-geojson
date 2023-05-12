@@ -46,6 +46,7 @@ class LeafletMapFeatures {
         const initialPopupContent = layer.getPopup()._content;
 
         let btn = document.createElement('button');
+        btn.style = 'background-color: red; border: none; border-radius: 8px; color: white; padding: 10px;'
         btn.innerText = 'Delete Marker';
         btn.onclick = () => onMarkerRemoved(layer, markers)
 
