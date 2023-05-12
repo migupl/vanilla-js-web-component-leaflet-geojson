@@ -144,11 +144,13 @@ class LeafletMap extends HTMLElement {
     }
 
     #remove = (layer, markers) => {
-        const { type } = layer.feature.geometry
-        const remove = confirm(`Are you sure you want to remove this '${type}'?`)
-        if (remove) {
-            markers.removeLayer(layer);
-            this.#fireMarkerRemoved(layer.feature);
+        if (layer.feature) {
+            const { type } = layer.feature.geometry;
+            const remove = confirm(`Are you sure you want to remove this '${type}'?`)
+            if (remove) {
+                markers.removeLayer(layer);
+                this.#fireMarkerRemoved(layer.feature);
+            }
         }
     }
 }
