@@ -63,7 +63,7 @@ class LeafletMapFeatures {
 
     #onEachFeature = (feature, layer) => {
         if (feature?.properties?.popupContent) {
-            layer.bindPopup(feature.properties.popupContent);
+            this.#bindPopup(layer, feature.properties.popupContent);
         }
     }
 
@@ -112,6 +112,8 @@ class LeafletMapFeatures {
             },
         });
     }
+
+    #bindPopup = (layer, content) => layer.bindPopup(content)
 }
 
 const features = new LeafletMapFeatures();
