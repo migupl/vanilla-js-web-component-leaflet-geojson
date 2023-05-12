@@ -592,8 +592,27 @@ eventBus.dispatch('x-leaflet-map-geojson-add', {
         </div>
     </section>
     <section id="remove-an-element" class="container">
-        <h2>Remove an element from the map</h2>
-        <p>Any of the elements added to the map can be deleted by double clicking on it and confirming the deletion.</p>
+        <h2>Remove a marker from the map</h2>
+        <p>Any of the markers added to the map can be deleted by double clicking on it and confirming the deletion.</p>
+        <p>Web Component <code class="inline">&lt;leaflet-map&gt;</code> fires '<strong>x-leaflet-map:marker-removed</strong>' event
+            when any marker is removed from map by exposing its GeoJSON as follows</p>
+        <pre><code class="hljs language-json">
+x-leaflet-map:marker-removed {
+    target: leaflet-map,
+    isTrusted: false,
+    detail: {
+        feature: {
+            type: "Feature",
+            geometry: {
+            type: "Point",
+            coordinates: [-0.09, 51.5]
+            },
+            ...
+        }
+    }
+    ...
+}
+        </code></pre>
     </section>
     <section id="multiple-maps" class="container">
         <h2>Multiple maps</h2>

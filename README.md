@@ -598,9 +598,9 @@ The property *popupContent* is optional.
 </body>
 ```
 
-## Remove an element from the map
+## Remove a marker from the map
 
-Any of the elements added to the map can be deleted by double clicking on it and confirming the deletion.
+Any of the markers added to the map can be deleted by double clicking on it and confirming the deletion.
 
 Web Component *leaflet-map* fires 'x-leaflet-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
 
