@@ -113,7 +113,9 @@ class LeafletMapFeatures {
         });
     }
 
-    #bindPopup = (layer, content) => layer.bindPopup(content)
+    #bindPopup = (layer, content) => layer.bindPopup(content, {
+        closeButton: false
+    })
 }
 
 const features = new LeafletMapFeatures();
