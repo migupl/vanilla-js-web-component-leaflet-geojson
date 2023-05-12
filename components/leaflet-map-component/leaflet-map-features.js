@@ -42,13 +42,27 @@ class LeafletMapFeatures {
 
     #coordsToLatLng = mapId => new LeafletMapFeature(mapId).coordsToLatLng
 
+    #deleteMarker = (markers, layer, onMarkerRemoved) => {
+        const initialPopupContent = layer.getPopup()._content;
+
+        let btn = document.createElement('button');
+        btn.innerText = 'Delete Marker';
+        btn.onclick = () => onMarkerRemoved(layer, markers)
+
+        this.#bindPopup(layer, btn).openPopup();
+        layer.getPopup().on('remove', () => {
+            this.#bindPopup(layer, initialPopupContent);
+            layer.getPopup().off('remove');
+        });
+    }
+
     #getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
 
     #getClusterAndOnDblclickDo = onMarkerRemoved => {
         const markers = L.markerClusterGroup();
         markers.on('dblclick', ev => {
             const { layer } = ev;
-            onMarkerRemoved(layer, markers);
+            this.#deleteMarker(markers, layer, onMarkerRemoved);
         });
 
         return markers;
