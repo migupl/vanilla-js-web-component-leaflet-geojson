@@ -1,4 +1,6 @@
 window.onload = (event) => {
+    hljs.highlightAll();
+
     const introductionMap = document.getElementById('initial-map');
     const eventBus = introductionMap.eventBus;
 
@@ -204,5 +206,3 @@ window.onload = (event) => {
         geojson: walkThroughtElRetiro
     });
 }
-
-hljs.highlightAll();

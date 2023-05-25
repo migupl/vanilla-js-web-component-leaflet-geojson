@@ -1,4 +1,9 @@
 window.onload = (event) => {
+
+    document.addEventListener('x-leaflet-map:marker-removed', ev => {
+        console.log(ev);
+    })
+
     const marker = {
         type: "Feature",
         geometry: {
@@ -175,7 +180,3 @@ window.onload = (event) => {
     const geojson = [multiPolygon, marker, multiLineString, multiPoint, lineString, polygon, features];
     dispatchWithDelay(eventBus, map, geojson);
 }
-
-document.addEventListener('x-leaflet-map:marker-removed', ev => {
-    console.log(ev);
-})
