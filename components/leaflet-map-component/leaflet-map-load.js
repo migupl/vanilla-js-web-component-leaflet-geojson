@@ -40,8 +40,8 @@ class LeafletMapLoad {
 
     getLeafletScript = () => {
         const dependency = {
-            url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.js',
-            integrity: 'sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM='
+            url: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+            integrity: 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo='
         };
 
         let js = document.createElement('script');
@@ -83,8 +83,8 @@ class LeafletMapLoad {
 
     #fetchLeafletCss = () => {
         const leafletCss = {
-            url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css',
-            integrity: 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI='
+            url: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+            integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='
         };
 
         return this.#fetchCss(leafletCss.url);
