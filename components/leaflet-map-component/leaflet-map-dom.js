@@ -16,6 +16,10 @@ const css = `
     max-width: 100%;
     max-height: 100%;
 }
+
+.leaflet-control-zoom {
+    display: none;
+}
 `
 
 const html = `
