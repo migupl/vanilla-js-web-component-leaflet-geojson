@@ -6,6 +6,8 @@ Behind this idea is learning about:
 
 Checkout the [demo](https://migupl.github.io/vanilla-js-web-component-leaflet-geojson/).
 
+A more interesting example could be the integration with [dropping images](https://github.com/migupl/drop-photo-get-exif-data), as we can see [here](https://migupl.github.io/where-was-the-photo-taken/).
+
 ## GeoJSON
 
 GeoJSON is a format for encoding a variety of geographic data structures.
