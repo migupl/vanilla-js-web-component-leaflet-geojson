@@ -336,17 +336,6 @@ background: #2c3e50;
     <section id="events" class="container">
         <h2>Events</h2>
 
-        <p>The Web Component <code class="inline">&lt;leaflet-map&gt;</code> exposes an
-            <a href="https://www.thisdot.co/blog/web-components-communication-using-an-event-bus" target="_blank"
-                rel="noopener noreferrer">event bus</a>
-            at the property <code class="inline">eventBus</code>.
-        </p>
-
-        <p>This Event Bus can be considered as a global way to transport messages or events to make them
-            accesibles
-            from any place
-            within the web page.</p>
-
         <p>The Web Component <code class="inline">&lt;leaflet-map&gt;</code> defines two events as actions.</p>
 
         <h4>Event 'x-leaflet-map-geojson-add'</h4>
@@ -360,10 +349,8 @@ background: #2c3e50;
             as they allow you to describe features with a set of properties (samples bellow).
         </p>
 
-        <p>This event requires an object with the properties:
+        <p>This event requires an object with the property:
         <ol>
-            <li><code class="inline">leafletMap</code>, the DOM element of the map on top of which objects are to be
-                added</li>
             <li><code class="inline">geojson</code>, the GeoJSON object to be added</li>
         </ol>
         </p>
@@ -372,11 +359,7 @@ background: #2c3e50;
 
         <p>Use it to removing all GeoJSON features from the map.</p>
 
-        <p>This event requires an object with the property:
-        <ol>
-            <li><code class="inline">leafletMap</code>, the DOM Element of the map to be cleared</li>
-        </ol>
-        </p>
+        <p>This event requires no object.</p>
     </section>
     <section id="markers-circles-and-polygons" class="container">
         <h2>Markers, circles, and polygons</h2>
@@ -388,7 +371,6 @@ background: #2c3e50;
         </p>
         <pre><code class="hljs language-js">
 const introductionMap = document.getElementById('initial-map');
-const eventBus = introductionMap.eventBus;
 
 const features = {
     type: "FeatureCollection",
@@ -442,10 +424,11 @@ const features = {
     }]
 };
 
-eventBus.dispatch('x-leaflet-map-geojson-add', {
-    leafletMap: introductionMap,
-    geojson: features
-});
+introductionMap.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+    detail: {
+        geojson: features
+    }
+}));
         </code></pre>
         <p>The <code class="inline">icon</code> property for a marker is optional.</p>
         <p>The <code class="inline">radius</code> property defines a circle and is the only one required.</p>
@@ -570,11 +553,11 @@ type: "FeatureCollection",
     features: [multiPoint, lineString, multiLineString, multiPolygon]
 };
 
-
-eventBus.dispatch('x-leaflet-map-geojson-add', {
-    leafletMap: walking,
-    geojson: walkThroughtElRetiro
-});
+walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+    detail: {
+        geojson: walkThroughtElRetiro
+    }
+}));
             </code></pre>
         </div>
         <leaflet-map id="walk-throught-el-retiro" longitude="-3.6843547932100424" latitude="40.41411233423414"
