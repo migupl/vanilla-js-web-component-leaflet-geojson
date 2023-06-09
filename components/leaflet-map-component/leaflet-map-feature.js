@@ -8,7 +8,7 @@ class LeafletMapFeature {
 
     coordsToLatLng = coordinates => {
         const latlng = L.GeoJSON.coordsToLatLng(coordinates);
-        this.#map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson:add-latlng', {
+        this.#map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson:include-latlng-to-fly', {
             bubbles: true,
             composed: true,
             detail: {
