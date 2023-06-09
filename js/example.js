@@ -1,5 +1,9 @@
 window.onload = (event) => {
 
+    document.addEventListener('x-leaflet-map:marker-added', ev => {
+        console.log(ev.type, ev.detail);
+    })
+
     document.addEventListener('x-leaflet-map:marker-removed', ev => {
         console.log(ev);
     })

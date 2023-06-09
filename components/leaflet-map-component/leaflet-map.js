@@ -41,6 +41,17 @@ class LeafletMap extends HTMLElement {
 
     #appendChild = element => this.shadowRoot.appendChild(element)
 
+    #fireMarkerAdded = latlng => {
+        const evt = new CustomEvent('x-leaflet-map:marker-added', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                latlng: latlng
+            }
+        });
+        this.shadowRoot.dispatchEvent(evt);
+    }
+
     #fireMarkerRemoved = feature => {
         const evt = new CustomEvent('x-leaflet-map:marker-removed', {
             bubbles: true,
@@ -57,6 +68,10 @@ class LeafletMap extends HTMLElement {
     #initializeMap = mapElement => {
         const opts = this.#mapOptions();
         const map = L.map(mapElement, opts);
+
+        map.addEventListener('contextmenu', e => {
+            this.#fireMarkerAdded(e.latlng)
+        });
 
         LeafletMap.maps.set(this, {
             map: map,
