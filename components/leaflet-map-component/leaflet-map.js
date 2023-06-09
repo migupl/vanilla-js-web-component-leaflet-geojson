@@ -41,26 +41,25 @@ class LeafletMap extends HTMLElement {
 
     #appendChild = element => this.shadowRoot.appendChild(element)
 
-    #fireMarkerAdded = latlng => {
-        const evt = new CustomEvent('x-leaflet-map:marker-added', {
+    #fireEvent = (eventName, detail) => {
+        const evt = new CustomEvent(eventName, {
             bubbles: true,
             composed: true,
-            detail: {
-                latlng: latlng
-            }
+            detail: detail
         });
         this.shadowRoot.dispatchEvent(evt);
     }
 
-    #fireMarkerRemoved = feature => {
-        const evt = new CustomEvent('x-leaflet-map:marker-removed', {
-            bubbles: true,
-            composed: true,
-            detail: {
-                feature: feature
-            }
+    #fireMarkerAdded = latlng => {
+        this.#fireEvent('x-leaflet-map:marker-added', {
+            latlng: latlng
         });
-        this.shadowRoot.dispatchEvent(evt);
+    }
+
+    #fireMarkerRemoved = feature => {
+        this.#fireEvent('x-leaflet-map:marker-removed', {
+                feature: feature
+        });
     }
 
     #getCustomStyle = () => (this.getAttribute('customStyle') || '').split(':')
