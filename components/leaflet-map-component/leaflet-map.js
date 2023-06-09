@@ -99,10 +99,10 @@ class LeafletMap extends HTMLElement {
         this.addEventListener('x-leaflet-map-clear', (event) => {
             event.stopPropagation();
 
-            const { leafletMap } = event.detail;
+            const targetMap = event.target;
 
-            if (this.#isThisMap(leafletMap.id)) {
-                const { map, tile } = LeafletMap.maps.get(leafletMap);
+            if (this.#isThisMap(targetMap.id)) {
+                const { map, tile } = LeafletMap.maps.get(targetMap);
                 map.eachLayer(function (layer) {
                     if (layer !== tile) layer.removeFrom(map);
                 });
@@ -112,11 +112,12 @@ class LeafletMap extends HTMLElement {
         this.addEventListener('x-leaflet-map-geojson-add', (event) => {
             event.stopPropagation();
 
-            const { leafletMap, geojson } = event.detail;
+            const { geojson } = event.detail;
+            const targetMap = event.target;
 
-            if (this.#isThisMap(leafletMap.id)) {
-                const thisMap = LeafletMap.maps.get(leafletMap);
-                Features.addTo(geojson, leafletMap, thisMap);
+            if (this.#isThisMap(targetMap.id)) {
+                const thisMap = LeafletMap.maps.get(targetMap);
+                Features.addTo(geojson, targetMap, thisMap);
             }
         });
 
@@ -124,9 +125,10 @@ class LeafletMap extends HTMLElement {
             event.stopPropagation();
 
             const { map, latLngPoints } = LeafletMap.maps.get(this);
-            const { latlng: { lng, lat }, map: mapSource } = event.detail;
+            const { latlng: { lng, lat } } = event.detail;
+            const targetMap = event.target;
 
-            if (this.#isThisMap(mapSource.id)) {
+            if (this.#isThisMap(targetMap.id)) {
                 const latLng = L.latLng(lat, lng);
 
                 const latLngBounds = L.latLngBounds([latLng]);
