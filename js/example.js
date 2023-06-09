@@ -1,6 +1,6 @@
 window.onload = (event) => {
 
-    document.addEventListener('x-leaflet-map:marker-added', ev => {
+    document.addEventListener('x-leaflet-map:marker-pointed-out', ev => {
         console.log(ev.type, ev.detail);
     })
 

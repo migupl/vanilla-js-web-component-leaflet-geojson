@@ -235,7 +235,7 @@
                 or <code class="inline">flyToBounds</code>.
             </p>
             <p id="allow-adding-marker">The special attribute <code class="inline">allowAddMarker</code> triggers
-                the 'x-leaflet-map:marker-added' event on
+                the 'x-leaflet-map:marker-pointed-out' event on
                 <a href="#adding-a-marker">adding a new marker</a>. Nothing is done on the map.
             </p>
             <p id="custom-style">The optional attribute <code class="inline">customStyle</code> defines
@@ -589,17 +589,17 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
     </section>
     <section id="adding-a-marker" class="container">
         <h2>Adding a marker to the map</h2>
-        <p>Actually adding a marker only triggers the '<strong>x-leaflet-map:marker-added</strong>' event
+        <p>Actually adding a marker only triggers the '<strong>x-leaflet-map:marker-pointed-out</strong>' event
             and any action must be performed by whoever uses the web component by adding functionality to that marker.
             Nothing is done on the map.</p>
         <p>Adding a marker to the map could be done clicking with the right button in any point.</p>
         <p>This action opens a popup with a button for confirmation.
             Clicking in it triggers the
-            '<strong>x-leaflet-map:marker-added</strong>'
+            '<strong>x-leaflet-map:marker-pointed-out</strong>'
             event by exposing the latitude and
             longitude of the point as follows</p>
         <pre><code class="hljs language-json">
-    x-leaflet-map:marker-added {
+    x-leaflet-map:marker-pointed-out {
         target: leaflet-map,
         isTrusted: false,
         detail: {

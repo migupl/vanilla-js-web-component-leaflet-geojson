@@ -142,7 +142,7 @@ Default values are
 }
 ```
 
-The optional attribute *allowAddMarker* triggers the 'x-leaflet-map:marker-added' event on [adding a new marker](#adding-a-marker-to-the-map). Nothing is done on the map.
+The optional attribute *allowAddMarker* triggers the 'x-leaflet-map:marker-pointed-out' event on [adding a new marker](#adding-a-marker-to-the-map). Nothing is done on the map.
 
 The optional attribute *customStyle* defines the name of the custom class and style file separated by a colon. This allows custom styling of elements within the Web Component.
 
@@ -634,7 +634,7 @@ The property *popupContent* is optional.
 
 ## Adding a marker to the map
 
-Actually adding a marker only triggers the 'x-leaflet-map:marker-added' event and any action must be performed by whoever uses the web component by adding functionality to that marker. Nothing is done on the map.
+Actually adding a marker only triggers the 'x-leaflet-map:marker-pointed-out' event and any action must be performed by whoever uses the web component by adding functionality to that marker. Nothing is done on the map.
 
 Adding a marker to the map could be done clicking with the right button in any point.
 
@@ -642,10 +642,10 @@ This action opens a popup with a button for confirmation as follows
 
 ![Confirm for firing event](./docs/add-new-marker.webp)
 
-Clicking in it triggers the 'x-leaflet-map:marker-added' event by exposing the latitude and longitude of the point as follows
+Clicking in it triggers the 'x-leaflet-map:marker-pointed-out' event by exposing the latitude and longitude of the point as follows
 
 ```json
-x-leaflet-map:marker-added {
+x-leaflet-map:marker-pointed-out {
     target: leaflet-map,
     isTrusted: false,
     detail: {

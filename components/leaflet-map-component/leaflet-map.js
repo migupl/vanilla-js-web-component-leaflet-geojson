@@ -77,7 +77,7 @@ class LeafletMap extends HTMLElement {
     }
 
     #fireMarkerAdded = latlng => {
-        this.#fireEvent('x-leaflet-map:marker-added', {
+        this.#fireEvent('x-leaflet-map:marker-pointed-out', {
             latlng: latlng
         });
     }
