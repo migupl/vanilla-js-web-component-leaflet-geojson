@@ -13,7 +13,8 @@
 
     <meta property="og:title" content="A vanilla JavaScript Web Component for Leaflet using GeoJSON">
     <meta property="og:type" content="website">
-    <meta property="og:description" content="Try the link on about section how-to use the vanilla JavaScript Web Component for Leaflet using GeoJSON">
+    <meta property="og:description"
+        content="Try the link on about section how-to use the vanilla JavaScript Web Component for Leaflet using GeoJSON">
     <meta property="og:url" content="https://github.com/migupl/leaflet-map-vanilla-js-web-component">
 
     <meta name="twitter:title" content="A vanilla JavaScript Web Component for Leaflet using GeoJSON">
@@ -27,7 +28,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Source+Code+Pro:wght@500&display=swap"
         rel="stylesheet">
-        
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/agate.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
@@ -144,11 +145,15 @@
         <p>This simple guide will quickly get you started on using &lt;leaflet-map&gt;,
             including setting up the Web Component and working with GeoJSON objects.
         </p>
-        <leaflet-map id="initial-map" class="small-map" customStyle="custom-leaflet-popup-style:styles/leaflet-popup-style.css" flyToBounds></leaflet-map>
+        <leaflet-map id="initial-map" class="small-map"
+            customStyle="custom-leaflet-popup-style:styles/leaflet-popup-style.css" flyToBounds
+            allowAddMarker></leaflet-map>
         <p>The <code class="inline">&lt;leaflet-map&gt;</code> is using the attributes
-            <a href="#map-animation"><code class="inline">flyToBounds</code></a>, with a small delay, and
+            <a href="#map-animation"><code class="inline">flyToBounds</code></a>, with a small delay,
             <a href="#custom-style"><code class="inline">customStyle</code></a> for a pop-up with
-            dark background when the point and polygon are clicked.
+            dark background when the point and polygon are clicked, and
+            <a href="#allow-adding-marker"><code class="inline">allowAddMarker</code></a> for adding a marker
+            using the right button.
         </p>
     </section>
     <section id="getting-started" class="container">
@@ -221,10 +226,17 @@
                 <code class="inline">maxZoom</code>;
                 <code class="inline">tileCopyright</code>;
                 <code class="inline">tileServer</code>;
-                <code class="inline">zoom</code>;
-                and, the specials <code class="inline">customStyle</code>
+                <code class="inline">zoom</code>
+
+                and, the specials
+                <code class="inline">allowAddMarker</code>;
+                <code class="inline">customStyle</code>;
                 and <code class="inline">fitToBounds</code>
                 or <code class="inline">flyToBounds</code>.
+            </p>
+            <p id="allow-adding-marker">The special attribute <code class="inline">allowAddMarker</code> triggers
+                the 'x-leaflet-map:marker-added' event on
+                <a href="#adding-a-marker">adding a new marker</a>. Nothing is done on the map.
             </p>
             <p id="custom-style">The optional attribute <code class="inline">customStyle</code> defines
                 the name of a custom class and a style file separated by a colon.
@@ -247,7 +259,7 @@
             <h3>The customStyle attribute</h3>
             <p>For example, to change the background colour of all pop-up, we would include a CSS file</p>
             <p><code class="inline">custom-popup-style.css</code>
-                <pre><code class="hljs language-css">
+            <pre><code class="hljs language-css">
 .custom-leaflet-popup-style .leaflet-popup-content-wrapper {
     background: #2c3e50;
     color: #fff;
@@ -259,14 +271,15 @@ background: #2c3e50;
                 </code></pre>
             </p>
             <p>and the customStyle attribute as following
-                <pre><code>
+            <pre><code>
 &lt;body&gt;
     &lt;leaflet-map customStyle="custom-leaflet-popup-style:&lt;path to file&gt;/custom-popup-style.css"&gt;&lt;/leaflet-map&gt;
 &lt;/body&gt;
                 </code></pre>
             </p>
-            <p>Obviously the name of the class <i>custom-leaflet-popup-style</i> is the same as the one that encapsulates the styles in
-            the css file.</p>
+            <p>Obviously the name of the class <i>custom-leaflet-popup-style</i> is the same as the one that
+                encapsulates the styles in
+                the css file.</p>
         </div>
     </section>
     <section id="adding-tiles">
@@ -574,28 +587,58 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
             </code></pre>
         </div>
     </section>
+    <section id="adding-a-marker" class="container">
+        <h2>Adding a marker to the map</h2>
+        <p>Actually adding a marker only triggers the '<strong>x-leaflet-map:marker-added</strong>' event
+            and any action must be performed by whoever uses the web component by adding functionality to that marker.
+            Nothing is done on the map.</p>
+        <p>Adding a marker to the map could be done clicking with the right button in any point.</p>
+        <p>This action opens a popup with a button for confirmation.
+            Clicking in it triggers the
+            '<strong>x-leaflet-map:marker-added</strong>'
+            event by exposing the latitude and
+            longitude of the point as follows</p>
+        <pre><code class="hljs language-json">
+    x-leaflet-map:marker-added {
+        target: leaflet-map,
+        isTrusted: false,
+        detail: {
+            latlng: {
+                lat: 51.52540664057756,
+                lng: -0.07201194763183595
+            }
+        }
+        ...
+    }
+        </code></pre>
+        <p>You can the <a href="#initial-map">first map</a> as a small demo using the <code
+                class="inline">allowAddMarker</code> attribute.</p>
+    </section>
     <section id="remove-an-element" class="container">
         <h2>Remove a marker from the map</h2>
         <p>Any of the markers added to the map can be deleted by double clicking on it and confirming the deletion.</p>
-        <p>Web Component <code class="inline">&lt;leaflet-map&gt;</code> fires '<strong>x-leaflet-map:marker-removed</strong>' event
+        <p>Web Component <code class="inline">&lt;leaflet-map&gt;</code> triggers
+            '<strong>x-leaflet-map:marker-removed</strong>' event
             when any marker is removed from map by exposing its GeoJSON as follows</p>
         <pre><code class="hljs language-json">
-x-leaflet-map:marker-removed {
-    target: leaflet-map,
-    isTrusted: false,
-    detail: {
-        feature: {
-            type: "Feature",
-            geometry: {
-            type: "Point",
-            coordinates: [-0.09, 51.5]
-            },
-            ...
+    x-leaflet-map:marker-removed {
+        target: leaflet-map,
+        isTrusted: false,
+        detail: {
+            feature: {
+                type: "Feature",
+                geometry: {
+                type: "Point",
+                coordinates: [-0.09, 51.5]
+                },
+                ...
+            }
         }
+        ...
     }
-    ...
-}
         </code></pre>
+        <p>You can the <a href="#initial-map">first map</a> as a small demo using the <code
+                class="inline">flyToBounds</code> attribute.</p>
     </section>
     <section id="multiple-maps" class="container">
         <h2>Multiple maps</h2>
@@ -605,7 +648,8 @@ x-leaflet-map:marker-removed {
         <h2>About the code</h2>
         <p>Take a deeper look at the web component by reading and cloning the code on
             <a href="https://github.com/migupl/vanilla-js-web-component-leaflet-geojson/" target="_blank"
-            rel="noopener noreferrer">GitHub</a>.</p>
+                rel="noopener noreferrer">GitHub</a>.
+        </p>
     </section>
     <footer>
         Made with
