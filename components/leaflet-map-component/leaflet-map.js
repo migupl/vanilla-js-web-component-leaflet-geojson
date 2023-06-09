@@ -39,6 +39,32 @@ class LeafletMap extends HTMLElement {
         }
     }
 
+    #addNewMarkerTo = map => {
+        const isAddingAllowed = this.hasAttribute('allowAddMarker');
+        if (!isAddingAllowed) return;
+
+        const getAddingButton = latlng => {
+            const { lat, lng } = latlng;
+
+            let btn = document.createElement('button');
+            btn.style = 'background-color: blue; border: none; border-radius: 8px; color: white; padding: 10px;';
+            btn.innerText = `Click to adding a point at lat: ${lat}, lng: ${lng}`;
+            btn.onclick = _ => {
+                this.#fireMarkerAdded(latlng);
+                map.closePopup();
+            };
+
+            return btn;
+        }
+
+        map.addEventListener('contextmenu', e => {
+            const { latlng } = e;
+            const btn = getAddingButton(latlng);
+            map.openPopup(btn, latlng, { closeButton: false })
+        });
+
+    }
+
     #appendChild = element => this.shadowRoot.appendChild(element)
 
     #fireEvent = (eventName, detail) => {
@@ -68,9 +94,7 @@ class LeafletMap extends HTMLElement {
         const opts = this.#mapOptions();
         const map = L.map(mapElement, opts);
 
-        map.addEventListener('contextmenu', e => {
-            this.#fireMarkerAdded(e.latlng)
-        });
+        this.#addNewMarkerTo(map);
 
         LeafletMap.maps.set(this, {
             map: map,
