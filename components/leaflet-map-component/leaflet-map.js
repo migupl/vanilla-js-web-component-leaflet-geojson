@@ -122,7 +122,7 @@ class LeafletMap extends HTMLElement {
             }
         });
 
-        this.addEventListener('x-leaflet-map-geojson:add-latlng', (event) => {
+        this.addEventListener('x-leaflet-map-geojson:include-latlng-to-fly', (event) => {
             event.stopPropagation();
 
             const targetMap = event.target;
