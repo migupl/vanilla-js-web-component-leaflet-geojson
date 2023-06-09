@@ -11,7 +11,7 @@ class LeafletMapFeatures {
         shadowSize: [41, 41]
     };
 
-    addTo = (geojson, mapId, theMap) => {
+    addTo = (geojson, map, theMap) => {
         if (!theMap.markers) {
             const { onMarkerRemoved } = theMap;
             theMap.markers = this.#getClusterAndOnDblclickDo(onMarkerRemoved);
@@ -20,27 +20,27 @@ class LeafletMapFeatures {
         const features = this.#getFeaturesArray(geojson);
         const { points, polygons } = this.#groupPointsAndPolygons(features);
 
-        this.#addPoints(points, mapId, theMap);
-        this.#addPolygons(polygons, mapId, theMap);
+        this.#addPoints(points, map, theMap);
+        this.#addPolygons(polygons, map, theMap);
     }
 
-    #addPoints = (points, mapId, theMap) => {
+    #addPoints = (points, sourceMap, theMap) => {
         const { map, markers } = theMap;
         points &&
             markers
-                .addLayer(this.#pointToLayer(points, mapId))
+                .addLayer(this.#pointToLayer(points, sourceMap))
                 .addTo(map)
     }
 
-    #addPolygons = (polygons, mapId, theMap) => {
+    #addPolygons = (polygons, sourceMap, theMap) => {
         const { map, markers } = theMap;
         polygons &&
             markers
-                .addLayer(this.#polygonToLayer(polygons, mapId))
+                .addLayer(this.#polygonToLayer(polygons, sourceMap))
                 .addTo(map)
     }
 
-    #coordsToLatLng = mapId => new LeafletMapFeature(mapId).coordsToLatLng
+    #coordsToLatLng = map => new LeafletMapFeature(map).coordsToLatLng
 
     #deleteMarker = (markers, layer, onMarkerRemoved) => {
         const initialPopupContent = layer.getPopup()._content;
@@ -82,9 +82,9 @@ class LeafletMapFeatures {
         }
     }
 
-    #pointToLayer = (feature, mapId) => {
+    #pointToLayer = (feature, map) => {
         return L.geoJSON(feature, {
-            coordsToLatLng: this.#coordsToLatLng(mapId),
+            coordsToLatLng: this.#coordsToLatLng(map),
             onEachFeature: this.#onEachFeature,
             pointToLayer: function (feature, latlng) {
                 let point;
@@ -112,9 +112,9 @@ class LeafletMapFeatures {
         });
     }
 
-    #polygonToLayer = (feature, mapId) => {
+    #polygonToLayer = (feature, map) => {
         return L.geoJSON(feature, {
-            coordsToLatLng: this.#coordsToLatLng(mapId),
+            coordsToLatLng: this.#coordsToLatLng(map),
             onEachFeature: this.#onEachFeature,
             pointToLayer: function (feature, latlng) {
                 const icon = {

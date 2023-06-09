@@ -2,7 +2,6 @@ window.onload = (event) => {
     hljs.highlightAll();
 
     const introductionMap = document.getElementById('initial-map');
-    const eventBus = introductionMap.eventBus;
 
     const point = {
         type: "Feature",
@@ -57,8 +56,8 @@ window.onload = (event) => {
         }
     };
 
-    const features = [ point, circle, polygon ];
-    dispatchWithDelay(eventBus, introductionMap, features);
+    const features = [point, circle, polygon];
+    dispatchWithDelay(introductionMap, features);
 
     const multiPoint = {
         type: "Feature",
@@ -201,8 +200,5 @@ window.onload = (event) => {
         features: [multiPoint, lineString, multiLineString, multiPolygon]
     };
 
-    eventBus.dispatch('x-leaflet-map-geojson-add', {
-        leafletMap: walking,
-        geojson: walkThroughtElRetiro
-    });
+    dispatchWithDelay(walking, [walkThroughtElRetiro]);
 }

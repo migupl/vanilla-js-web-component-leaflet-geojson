@@ -175,8 +175,7 @@ window.onload = (event) => {
     };
 
     const map = document.querySelector('leaflet-map');
-    const eventBus = map.eventBus;
 
     const geojson = [multiPolygon, marker, multiLineString, multiPoint, lineString, polygon, features];
-    dispatchWithDelay(eventBus, map, geojson);
+    dispatchWithDelay(map, geojson);
 }

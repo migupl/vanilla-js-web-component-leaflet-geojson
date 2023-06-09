@@ -1,14 +1,9 @@
-import { EventBus } from "./event-bus.js";
 import { LoadMap } from "./leaflet-map-load.js";
 import { Features } from "./leaflet-map-features.js";
 
 class LeafletMap extends HTMLElement {
 
     static maps = new WeakMap();
-
-    get eventBus() {
-        return EventBus;
-    }
 
     constructor() {
         super();
@@ -101,7 +96,7 @@ class LeafletMap extends HTMLElement {
     }
 
     #registerEvents = () => {
-        EventBus.register('x-leaflet-map-clear', (event) => {
+        this.addEventListener('x-leaflet-map-clear', (event) => {
             event.stopPropagation();
 
             const { leafletMap } = event.detail;
@@ -114,24 +109,24 @@ class LeafletMap extends HTMLElement {
             }
         });
 
-        EventBus.register('x-leaflet-map-geojson-add', (event) => {
+        this.addEventListener('x-leaflet-map-geojson-add', (event) => {
             event.stopPropagation();
 
             const { leafletMap, geojson } = event.detail;
 
             if (this.#isThisMap(leafletMap.id)) {
                 const thisMap = LeafletMap.maps.get(leafletMap);
-                Features.addTo(geojson, leafletMap.id, thisMap);
+                Features.addTo(geojson, leafletMap, thisMap);
             }
         });
 
-        EventBus.register('x-leaflet-map-geojson:add-latlng', (event) => {
+        this.addEventListener('x-leaflet-map-geojson:add-latlng', (event) => {
             event.stopPropagation();
 
             const { map, latLngPoints } = LeafletMap.maps.get(this);
-            const { lng, lat, mapId } = event.detail;
+            const { latlng: { lng, lat }, map: mapSource } = event.detail;
 
-            if (this.#isThisMap(mapId)) {
+            if (this.#isThisMap(mapSource.id)) {
                 const latLng = L.latLng(lat, lng);
 
                 const latLngBounds = L.latLngBounds([latLng]);
