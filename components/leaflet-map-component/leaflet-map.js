@@ -84,7 +84,7 @@ class LeafletMap extends HTMLElement {
 
     #fireMarkerRemoved = feature => {
         this.#fireEvent('x-leaflet-map:marker-removed', {
-                feature: feature
+            feature: feature
         });
     }
 
@@ -134,9 +134,15 @@ class LeafletMap extends HTMLElement {
     }
 
     #registerEvents = () => {
-        this.addEventListener('x-leaflet-map-clear', (event) => {
-            event.stopPropagation();
+        [
+            'x-leaflet-map-clear',
+            'x-leaflet-map-geojson-add',
+            'x-leaflet-map-geojson:include-latlng-to-fly',
+        ].forEach(eventName => this.addEventListener(eventName, ev =>
+            ev.stopPropagation()
+        ))
 
+        this.addEventListener('x-leaflet-map-clear', (event) => {
             const targetMap = event.target;
 
             if (this.#isThisMap(targetMap.id)) {
@@ -148,8 +154,6 @@ class LeafletMap extends HTMLElement {
         });
 
         this.addEventListener('x-leaflet-map-geojson-add', (event) => {
-            event.stopPropagation();
-
             const targetMap = event.target;
 
             if (this.#isThisMap(targetMap.id)) {
@@ -161,8 +165,6 @@ class LeafletMap extends HTMLElement {
         });
 
         this.addEventListener('x-leaflet-map-geojson:include-latlng-to-fly', (event) => {
-            event.stopPropagation();
-
             const targetMap = event.target;
 
             if (this.#isThisMap(targetMap.id)) {
