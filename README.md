@@ -125,7 +125,7 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 ## Attributes and default values
 
-The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *maxZoom*; *tileCopyright*; *tileServer*; *zoom*; and, the specials *customStyle* and *fitToBounds* or *flyToBounds*.
+The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *maxZoom*; *tileCopyright*; *tileServer*; *zoom*; and, the specials *allowAddMarker*, *customStyle* and *fitToBounds* or *flyToBounds*.
 
 All attributes are optional.
 
@@ -141,6 +141,8 @@ Default values are
     zoom: 13
 }
 ```
+
+The optional attribute *allowAddMarker* triggers the 'x-leaflet-map:marker-pointed-out' event on [adding a new marker](#adding-a-marker-to-the-map). Nothing is done on the map.
 
 The optional attribute *customStyle* defines the name of the custom class and style file separated by a colon. This allows custom styling of elements within the Web Component.
 
@@ -630,11 +632,39 @@ The property *popupContent* is optional.
 </body>
 ```
 
+## Adding a marker to the map
+
+Actually adding a marker only triggers the 'x-leaflet-map:marker-pointed-out' event and any action must be performed by whoever uses the web component by adding functionality to that marker. Nothing is done on the map.
+
+Adding a marker to the map could be done clicking with the right button in any point.
+
+This action opens a popup with a button for confirmation as follows
+
+![Confirm for firing event](./docs/add-new-marker.webp)
+
+Clicking in it triggers the 'x-leaflet-map:marker-pointed-out' event by exposing the latitude and longitude of the point as follows
+
+```json
+x-leaflet-map:marker-pointed-out {
+    target: leaflet-map,
+    isTrusted: false,
+    detail: {
+        latlng: {
+            lat: 51.52540664057756,
+            lng: -0.07201194763183595
+        }
+    }
+    ...
+}
+```
+
+You can use the file *[example.html](example.html)* of the project as a small demo using the *allowAddMarker* attribute.
+
 ## Remove a marker from the map
 
 Any of the markers added to the map can be deleted by double clicking on it and confirming the deletion.
 
-Web Component *leaflet-map* fires 'x-leaflet-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
+Web Component *leaflet-map* triggers the 'x-leaflet-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
 
 ```json
 x-leaflet-map:marker-removed {
@@ -654,7 +684,7 @@ x-leaflet-map:marker-removed {
 }
 ```
 
-You can use the file *index.html* of the project as a small demo.
+You can use the file *[example.html](example.html)* of the project as a small demo using the *flyToBounds* attribute.
 
 ## Clear a map
 

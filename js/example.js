@@ -1,7 +1,11 @@
 window.onload = (event) => {
 
+    document.addEventListener('x-leaflet-map:marker-pointed-out', ev => {
+        console.log(ev.type, ev.detail);
+    })
+
     document.addEventListener('x-leaflet-map:marker-removed', ev => {
-        console.log(ev);
+        console.log(ev.type, ev.detail);
     })
 
     const marker = {
