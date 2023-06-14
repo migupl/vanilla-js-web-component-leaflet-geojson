@@ -173,8 +173,7 @@ class LeafletMap extends HTMLElement {
                 const { latlng: { lng, lat } } = event.detail;
                 const latLng = L.latLng(lat, lng);
 
-                const latLngBounds = L.latLngBounds([latLng]);
-                latLngPoints.push(latLngBounds);
+                latLngPoints.push(latLng);
 
                 if (this.hasAttribute('fitToBounds')) map.fitBounds(latLngPoints)
                 else if (this.hasAttribute('flyToBounds')) map.flyToBounds(latLngPoints);
