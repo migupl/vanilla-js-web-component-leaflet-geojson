@@ -13,8 +13,7 @@ class LeafletMapFeatures {
 
     addTo = (geojson, map, theMap) => {
         if (!theMap.markers) {
-            const { onMarkerRemoved } = theMap;
-            theMap.markers = this.#getClusterAndOnDblclickDo(onMarkerRemoved);
+            theMap.markers = this.#getClusterAndOnDblclickDo(theMap);
         }
 
         const features = this.#getFeaturesArray(geojson);
@@ -42,13 +41,17 @@ class LeafletMapFeatures {
 
     #coordsToLatLng = map => new LeafletMapFeature(map).coordsToLatLng
 
-    #deleteMarker = (markers, layer, onMarkerRemoved) => {
+    #deleteMarker = ({ markers, layer, latlng, theMap }) => {
         const initialPopupContent = layer.getPopup()._content;
 
         let btn = document.createElement('button');
         btn.style = 'background-color: red; border: none; border-radius: 8px; color: white; padding: 10px;'
         btn.innerText = 'Delete Marker';
-        btn.onclick = () => onMarkerRemoved(layer, markers)
+        btn.onclick = () => theMap.onMarkerRemoved({
+            layer, markers,
+            removingLatLng: latlng,
+            theMap
+        })
 
         this.#bindPopup(layer, btn).openPopup();
         layer.getPopup().on('remove', () => {
@@ -59,11 +62,11 @@ class LeafletMapFeatures {
 
     #getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
 
-    #getClusterAndOnDblclickDo = onMarkerRemoved => {
+    #getClusterAndOnDblclickDo = (theMap) => {
         const markers = L.markerClusterGroup();
         markers.on('dblclick', ev => {
-            const { layer } = ev;
-            this.#deleteMarker(markers, layer, onMarkerRemoved);
+            const { layer, latlng } = ev;
+            this.#deleteMarker({ markers, layer, latlng, theMap });
         });
 
         return markers;

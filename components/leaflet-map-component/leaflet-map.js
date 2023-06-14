@@ -180,10 +180,20 @@ class LeafletMap extends HTMLElement {
         });
     }
 
-    #remove = (layer, markers) => {
-        if (layer.feature) {
+    #remove = ({ layer, markers, removingLatLng, theMap }) => {
+        const { feature } = layer;
+        if (feature) {
+            let { map, latLngPoints } = theMap;
+            const removingPoint = L.latLng(removingLatLng);
+            const remainingPoints = latLngPoints.filter(point => !point.equals(removingPoint, 0));
+
             markers.removeLayer(layer);
-            this.#fireMarkerRemoved(layer.feature);
+            this.#fireMarkerRemoved(feature);
+
+            theMap.latLngPoints = remainingPoints;
+
+            if (remainingPoints.length)
+                this.#setViewToBounds(map, remainingPoints);
         }
     }
 
