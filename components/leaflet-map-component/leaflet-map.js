@@ -175,8 +175,7 @@ class LeafletMap extends HTMLElement {
 
                 latLngPoints.push(latLng);
 
-                if (this.hasAttribute('fitToBounds')) map.fitBounds(latLngPoints)
-                else if (this.hasAttribute('flyToBounds')) map.flyToBounds(latLngPoints);
+                this.#setViewToBounds(map, latLngPoints);
             }
         });
     }
@@ -186,6 +185,13 @@ class LeafletMap extends HTMLElement {
             markers.removeLayer(layer);
             this.#fireMarkerRemoved(layer.feature);
         }
+    }
+
+    #setViewToBounds(map, latLngPoints) {
+        if (this.hasAttribute('fitToBounds'))
+            map.fitBounds(latLngPoints);
+        else if (this.hasAttribute('flyToBounds'))
+            map.flyToBounds(latLngPoints);
     }
 }
 
