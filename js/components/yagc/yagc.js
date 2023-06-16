@@ -2,9 +2,10 @@ class YaGc extends HTMLElement {
 
     #custom = {};
     #defaults = {
-        hexFillColor: '#151513',
         hexColor: '#fff',
+        hexFillColor: '#151513',
         leftCorner: false,
+        openInNewWindow: false,
         url: 'https://github.com/'
     };
 
@@ -43,10 +44,14 @@ ya-gc {
     }
 
     #addGithubCorner = () => {
+        const { url, openInNewWindow } = this.#custom;
         const anchorEl = document.createElement('a');
         anchorEl.classList.add('ya-wc-github-corner')
         anchorEl.href = this.#custom.url
+        anchorEl.rel = 'noopener noreferrer'
         anchorEl.innerHTML = this.#githubCorner(this.#custom)
+        if (openInNewWindow)
+            anchorEl.target = '_blank'
 
         this.shadowRoot.appendChild(anchorEl)
     }
@@ -114,6 +119,7 @@ ya-gc {
             hexFillColor: this.getAttribute('hexFillColor') || this.#defaults.hexFillColor,
             hexColor: this.getAttribute('hexColor') || this.#defaults.hexColor,
             leftCorner: this.hasAttribute('leftCorner'),
+            openInNewWindow: this.hasAttribute('openInNewWindow'),
             url: this.getAttribute('url') || this.#defaults.url
         }
     }
