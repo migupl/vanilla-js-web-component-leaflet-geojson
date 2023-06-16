@@ -840,6 +840,9 @@ Test your GeoJSON with [GeoJSONLint](https://geojsonlint.com/).
 
 [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster#leafletmarkercluster) is used.
 
+Web Component behind this idea are:
+- [Yet Another GitHub Corner](https://github.com/migupl/yagc)
+
 Good luck and I hope you enjoy it.
 
 ## License
