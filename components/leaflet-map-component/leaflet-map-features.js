@@ -79,13 +79,21 @@ class LeafletMapFeatures {
         return r;
     }, Object.create(null));
 
+    #makeDraggable = marker => marker
+        .on('dragend', ev => {
+            const marker = ev.target;
+            const { lat, lng } = marker.getLatLng();
+            const position = new L.LatLng(lat, lng);
+            marker.setLatLng(position);
+        });
+
     #onEachFeature = (feature, layer) => {
         if (feature?.properties?.popupContent) {
             this.#bindPopup(layer, feature.properties.popupContent);
         }
     }
 
-    #pointToLayer = (feature, map) => {
+    #pointToLayer = (feature, map, makeDraggable = this.#makeDraggable) => {
         return L.geoJSON(feature, {
             coordsToLatLng: this.#coordsToLatLng(map),
             onEachFeature: this.#onEachFeature,
@@ -101,11 +109,14 @@ class LeafletMapFeatures {
                     point = L.circle(latlng, options);
                 }
                 else {
+                    const isDraggable = feature?.data?.draggable || false;
                     const options = {
-                        icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER)
+                        icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER),
+                        draggable: isDraggable
                     };
 
                     point = L.marker(latlng, options);
+                    if (isDraggable) makeDraggable(point);
                 }
 
                 return point;
