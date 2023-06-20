@@ -106,10 +106,11 @@ class LeafletMapFeatures {
                         ...feature.properties,
                     }
                     delete options.style;
+                    delete options.draggable;
                     point = L.circle(latlng, options);
                 }
                 else {
-                    const isDraggable = feature?.data?.draggable || false;
+                    const isDraggable = feature?.properties?.draggable || false;
                     const options = {
                         icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER),
                         draggable: isDraggable
