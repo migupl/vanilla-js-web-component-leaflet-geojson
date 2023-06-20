@@ -94,17 +94,18 @@ class LeafletMapFeatures {
                 const isCircle = feature?.properties?.radius;
 
                 if (isCircle) {
-                    const properties = {
+                    const options = {
                         ...feature.properties,
                     }
-                    delete properties.style;
-                    point = L.circle(latlng, properties);
+                    delete options.style;
+                    point = L.circle(latlng, options);
                 }
                 else {
-                    const icon = {
+                    const options = {
                         icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER)
                     };
-                    point = L.marker(latlng, icon);
+
+                    point = L.marker(latlng, options);
                 }
 
                 return point;
