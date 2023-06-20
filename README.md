@@ -242,6 +242,23 @@ The *icon* property for a marker is optional.
 </body>
 ```
 
+A marker allows to be dragged by adding the draggable property in as follow
+
+```javascript
+const marker = {
+    type: "Feature",
+    geometry: {
+        type: "Point",
+        coordinates: [-0.09, 51.5]
+    },
+    properties: {
+        ...,
+        draggable: true
+        }
+    ...
+}
+```
+
 #### Adding a circle
 
 The **radius** property defines a circle and is the only one required.

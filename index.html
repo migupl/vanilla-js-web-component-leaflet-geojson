@@ -448,6 +448,21 @@ introductionMap.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
         <p>The <code class="inline">radius</code> property defines a circle and is the only one required.</p>
         <p>The <code class="inline">popupContent</code> and <code class="inline">style</code>
             properties are always optional for all GeoJSON feature.</p>
+        <p>A marker allows to be dragged by adding the <code class="inline">draggable</code> property in as follow</p>
+        <pre><code class="hljs language-js">
+const marker = {
+    type: "Feature",
+    geometry: {
+        type: "Point",
+        coordinates: [-0.09, 51.5]
+    },
+    properties: {
+        ...,
+        draggable: true
+    }
+    ...
+}
+        </code></pre>
     </section>
     <section id="an-example-adding-other-features">
         <div id="adding-multipoint" class="container">
