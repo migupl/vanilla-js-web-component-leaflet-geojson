@@ -872,4 +872,3 @@ Good luck and I hope you enjoy it.
 [^4]: The [<template> tag specification](https://html.spec.whatwg.org/multipage/scripting.html#the-template-element)
 [^5]: [Valid custom element name](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)
 [^6]: [Associated mode](https://dom.spec.whatwg.org/#shadowroot-mode) to shadow root
-[^7]: [Creating a JavaScript Event Bus](https://pineco.de/creating-a-javascript-event-bus/)
