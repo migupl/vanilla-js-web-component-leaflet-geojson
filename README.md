@@ -4,7 +4,7 @@ Behind this idea is learning about:
 - Use the open-source JavaScript library [Leaflet](https://leafletjs.com/index.html) for playing with maps
 - Web Components
 
-Checkout the [demo](https://migupl.github.io/vanilla-js-web-component-leaflet-geojson/).
+Checkout the [demo](https://migupl.github.io/vanilla-js-web-component-leaflet-geojson/) 👀.
 
 A more interesting example could be the integration with [dropping images](https://github.com/migupl/drop-photo-get-exif-data), as we can see [here](https://migupl.github.io/where-was-the-photo-taken/).
 
