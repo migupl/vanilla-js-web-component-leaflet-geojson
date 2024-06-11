@@ -95,11 +95,9 @@ Copy the directory */components/leaflet-map-component/* to any directory in your
 To get started you need to import the Web Component
 
 ```html
-<head>
-    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
-</head>
 <body>
     <leaflet-map></leaflet-map>
+    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
 </body>
 ```
 
@@ -762,9 +760,6 @@ Using a *point* feature with a small card.
     <title>Web Component - Leaflet Map</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
-
-    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
-
     <style>
         html,
         body {
@@ -839,6 +834,7 @@ Using a *point* feature with a small card.
             }));
         }, 1000);
     </script>
+    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
 </body>
 </html>
 ```
