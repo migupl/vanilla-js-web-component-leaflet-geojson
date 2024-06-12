@@ -3,7 +3,7 @@ import { Features } from "./leaflet-map-features.js";
 ;(() => {
     class LeafletMap extends HTMLElement {
 
-        static maps = new WeakMap();
+        maps = new WeakMap();
 
         constructor() {
             super();
@@ -96,7 +96,7 @@ import { Features } from "./leaflet-map-features.js";
 
             this.#addNewMarkerTo(map);
 
-            LeafletMap.maps.set(this, {
+            this.maps.set(this, {
                 map: map,
                 tile: opts.layers,
                 markers: null,
@@ -146,7 +146,7 @@ import { Features } from "./leaflet-map-features.js";
                 const targetMap = event.target;
 
                 if (this.#isThisMap(targetMap.id)) {
-                    const { map, tile } = LeafletMap.maps.get(targetMap);
+                    const { map, tile } = this.maps.get(targetMap);
                     map.eachLayer(function (layer) {
                         if (layer !== tile) layer.removeFrom(map);
                     });
@@ -157,7 +157,7 @@ import { Features } from "./leaflet-map-features.js";
                 const targetMap = event.target;
 
                 if (this.#isThisMap(targetMap.id)) {
-                    const map = LeafletMap.maps.get(targetMap);
+                    const map = this.maps.get(targetMap);
                     const { geojson } = event.detail;
 
                     Features.addTo(geojson, targetMap, map);
@@ -168,7 +168,7 @@ import { Features } from "./leaflet-map-features.js";
                 const targetMap = event.target;
 
                 if (this.#isThisMap(targetMap.id)) {
-                    const { map, latLngPoints } = LeafletMap.maps.get(targetMap);
+                    const { map, latLngPoints } = this.maps.get(targetMap);
 
                     const { latlng: { lng, lat } } = event.detail;
                     const latLng = L.latLng(lat, lng);
