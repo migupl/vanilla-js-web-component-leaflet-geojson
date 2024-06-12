@@ -97,7 +97,7 @@ To get started you need to import the Web Component
 ```html
 <body>
     <leaflet-map></leaflet-map>
-    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
+    <script src="./components/leaflet-map-component/leaflet-map.js"></script>
 </body>
 ```
 
@@ -834,7 +834,7 @@ Using a *point* feature with a small card.
             }));
         }, 1000);
     </script>
-    <script type="module" src="./components/leaflet-map-component/leaflet-map.js"></script>
+    <script src="./components/leaflet-map-component/leaflet-map.js"></script>
 </body>
 </html>
 ```
