@@ -253,13 +253,6 @@ const features = (() => {
         return r;
     }, Object.create(null));
 
-    const makeDraggable = marker => marker
-        .on('dragend', ev => {
-            const marker = ev.target;
-            const { lat, lng } = marker.getLatLng();
-            const position = new L.LatLng(lat, lng);
-            marker.setLatLng(position);
-        });
 
     const onEachFeature = (feature, layer) => {
         if (feature?.properties?.popupContent) {
@@ -267,7 +260,15 @@ const features = (() => {
         }
     }
 
-    const pointToLayer = (feature, map, makeDraggable = makeDraggable) => {
+    const pointToLayer = (feature, map) => {
+        const makeDraggable = marker => marker
+            .on('dragend', ev => {
+                const marker = ev.target;
+                const { lat, lng } = marker.getLatLng();
+                const position = new L.LatLng(lat, lng);
+                marker.setLatLng(position);
+            });
+
         return L.geoJSON(feature, {
             coordsToLatLng: coordsToLatLng(map),
             onEachFeature: onEachFeature,
