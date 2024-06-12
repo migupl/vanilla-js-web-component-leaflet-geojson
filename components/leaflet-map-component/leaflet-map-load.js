@@ -82,17 +82,13 @@ class LeafletMapLoad {
     }
 
     getLeafletCss = () => {
-        const fetchLeafletCss = () => {
-            const leafletCss = {
-                url: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-                integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='
-            };
-
-            return this.#fetchCss(leafletCss.url)
-        }
+        const leafletCss = {
+            url: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+            integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='
+        };
 
         const el = document.createElement('style');
-        fetchLeafletCss().then(
+        this.#fetchCss(leafletCss.url).then(
             (css) => { el.innerText = css}
         );
 
