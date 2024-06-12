@@ -11,21 +11,21 @@
         }
 
         connectedCallback() {
-            const css = mapElements.getStyleElement();
+            const css = mapElements.getWcStyleNode();
             this.#appendChild(css);
 
             const [customStyleClass, customStyleFile] = this.#getCustomStyle();
 
-            const customLeafletStyle = mapElements.getCustomStyle(customStyleFile);
-            this.#appendChild(customLeafletStyle);
+            const customCss = mapElements.getStyleNodeFrom(customStyleFile);
+            this.#appendChild(customCss);
 
-            const markerClusterStyles = mapElements.getMarkerClusterStyles();
-            markerClusterStyles.forEach(style => this.#appendChild(style))
+            const markerClusterCss = mapElements.getMarkerClusterStyleNode();
+            markerClusterCss.forEach(style => this.#appendChild(style))
 
-            const leafletCss = mapElements.getLeafletCss();
+            const leafletCss = mapElements.getLeafletStyleNode();
             this.#appendChild(leafletCss);
 
-            const map = mapElements.getHtml();
+            const map = mapElements.getWcNode();
             this.#addCustomStyleClass(customStyleClass, map);
             this.#appendChild(map);
             this.#initializeMap(map);
@@ -158,7 +158,7 @@
                     const map = this.maps.get(targetMap);
                     const { geojson } = event.detail;
 
-                    features.addTo(geojson, targetMap, map);
+                    actions.addTo(geojson, targetMap, map);
                 }
             });
 
@@ -203,7 +203,7 @@
         }
     }
 
-    const features = ((defaultMarker) => {
+    const actions = ((defaultMarker) => {
 
         const addTo = (geojson, map, theMap) => {
             if (!theMap.markers) {
@@ -383,7 +383,7 @@
         }
         const markerClusterVersion = '1.5.3';
 
-        const getStyleElement = () => {
+        const getWcStyleNode = () => {
             const el = document.createElement('style');
             el.innerText =
                 ':host {' +
@@ -408,7 +408,7 @@
             return el
         }
 
-        const getCustomStyle = (styleFile) => {
+        const getStyleNodeFrom = (styleFile) => {
             const el = document.createElement('style');
 
             if (styleFile) {
@@ -419,7 +419,7 @@
             return el;
         }
 
-        const getHtml = () => {
+        const getWcNode = () => {
             const el = document.createElement('div');
             el.id = 'map'
             el.className = 'leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom'
@@ -462,7 +462,7 @@
             return el
         }
 
-        const getLeafletCss = () => {
+        const getLeafletStyleNode = () => {
             const leafletCss = {
                 url: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
                 integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='
@@ -475,7 +475,7 @@
             return el;
         }
 
-        const getLeafletScript = () => {
+        const getLeafletScriptNode = () => {
             const dependency = {
                 url: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
                 integrity: 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo='
@@ -491,7 +491,7 @@
             return js;
         }
 
-        const getMarkerClusterScript = () => {
+        const getMarkerClusterScriptNode = () => {
             let js = document.createElement('script');
             js.src = `https://unpkg.com/leaflet.markercluster@${markerClusterVersion}/dist/leaflet.markercluster.js`;
 
@@ -500,7 +500,7 @@
             return js;
         }
 
-        const getMarkerClusterStyles = () => {
+        const getMarkerClusterStyleNode = () => {
             const getMarkerClusterStyle = cssFile => {
                 const el = document.createElement('style');
                 const url = `https://unpkg.com/leaflet.markercluster@${markerClusterVersion}/dist/${cssFile}`;
@@ -517,21 +517,21 @@
         }
 
         return {
-            getStyleElement,
-            getCustomStyle,
-            getHtml,
-            getLeafletCss,
-            getLeafletScript,
-            getMarkerClusterScript,
-            getMarkerClusterStyles
+            getWcStyleNode,
+            getStyleNodeFrom,
+            getWcNode,
+            getLeafletStyleNode,
+            getLeafletScriptNode,
+            getMarkerClusterScriptNode,
+            getMarkerClusterStyleNode
         }
     })();
 
-    let leafletjs = mapElements.getLeafletScript();
+    let leafletjs = mapElements.getLeafletScriptNode();
     leafletjs.onload = (ev) => {
         customElements.define('leaflet-map', LeafletMap);
 
-        const markerClusterScript = mapElements.getMarkerClusterScript();
+        const markerClusterScript = mapElements.getMarkerClusterScriptNode();
         document.body.appendChild(markerClusterScript);
     }
 
