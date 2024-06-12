@@ -136,15 +136,13 @@ class LeafletMapLoad {
         ];
     }
 
-    #fetchCss = async (url) => {
-        const response = await fetch(url);
-        if (!response.ok) {
-            const message = `An error has occured: ${response.status}`;
-            throw new Error(message);
-        }
-
-        const css = await response.text();
-        return css;
+    #fetchCss = url => {
+        return fetch(url)
+            .then(response => response.text())
+            .catch(error => {
+                const message = `An error has occured: ${response.status}`;
+                throw new Error(message)
+            })
     }
 }
 
