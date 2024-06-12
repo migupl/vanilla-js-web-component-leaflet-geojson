@@ -1,4 +1,4 @@
-import { LoadMap } from "./leaflet-map-load.js";
+import { loadMap as LoadMap } from "./leaflet-map-load.js";
 import { Features } from "./leaflet-map-features.js";
 
 ;(() => {
