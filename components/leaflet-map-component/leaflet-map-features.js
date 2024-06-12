@@ -20,6 +20,25 @@ class LeafletMapFeature {
     }
 }
 
+const convertOn = map => {
+    const coordsToLatLng = coordinates => {
+        const latlng = L.GeoJSON.coordsToLatLng(coordinates);
+        map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson:include-latlng-to-fly', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                latlng: latlng,
+            }
+        }));
+
+        return latlng;
+    }
+
+    return {
+        coordsToLatLng
+    }
+}
+
 class LeafletMapFeatures {
 
     static DEFAULT_MARKER = {
