@@ -1,25 +1,3 @@
-class LeafletMapFeature {
-
-    #map;
-
-    constructor(map) {
-        this.#map = map;
-    }
-
-    coordsToLatLng = coordinates => {
-        const latlng = L.GeoJSON.coordsToLatLng(coordinates);
-        this.#map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson:include-latlng-to-fly', {
-            bubbles: true,
-            composed: true,
-            detail: {
-                latlng: latlng,
-            }
-        }));
-
-        return latlng;
-    }
-}
-
 const convertOn = map => {
     const coordsToLatLng = coordinates => {
         const latlng = L.GeoJSON.coordsToLatLng(coordinates);
@@ -78,7 +56,7 @@ class LeafletMapFeatures {
                 .addTo(map)
     }
 
-    #coordsToLatLng = map => new LeafletMapFeature(map).coordsToLatLng
+    #coordsToLatLng = map => convertOn(map).coordsToLatLng
 
     #deleteMarker = ({ markers, layer, latlng, theMap }) => {
         const initialPopupContent = layer.getPopup()._content;
