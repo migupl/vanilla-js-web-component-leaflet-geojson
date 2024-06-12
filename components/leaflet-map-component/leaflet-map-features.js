@@ -165,7 +165,7 @@ class LeafletMapFeatures {
     })
 }
 
-const features = (() => {
+const features = ((defaultMarker) => {
 
     const addTo = (geojson, map, theMap) => {
         if (!theMap.markers) {
@@ -287,7 +287,7 @@ const features = (() => {
                 else {
                     const isDraggable = feature?.properties?.draggable || false;
                     const options = {
-                        icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER),
+                        icon: L.icon(feature?.properties?.icon || defaultMarker),
                         draggable: isDraggable
                     };
 
@@ -309,7 +309,7 @@ const features = (() => {
             onEachFeature: onEachFeature,
             pointToLayer: function (feature, latlng) {
                 const icon = {
-                    icon: L.icon(feature?.properties?.icon || LeafletMapFeatures.DEFAULT_MARKER)
+                    icon: L.icon(feature?.properties?.icon || defaultMarker)
                 };
                 return L.marker(latlng, icon);
             },
@@ -324,6 +324,13 @@ const features = (() => {
     })
 
     return new LeafletMapFeatures()
-})()
+})({
+    iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+})
 
 export { features as Features }
