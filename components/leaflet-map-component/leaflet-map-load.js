@@ -162,7 +162,16 @@ class LeafletMapLoad {
 }
 
 const mapElements = () => {
-    return new LeafletMapLoad();
+    const nodes = new LeafletMapLoad();
+    return {
+        getStyleElement: nodes.getStyleElement,
+        getCustomStyle: nodes.getCustomStyle,
+        getHtml: nodes.getHtml,
+        getLeafletCss: nodes.getLeafletCss,
+        getLeafletScript: nodes.getLeafletScript,
+        getMarkerClusterScript: nodes.getMarkerClusterScript,
+        getMarkerClusterStyles: nodes.getMarkerClusterStyles
+    }
 }
 
 export const loadMap = mapElements()
