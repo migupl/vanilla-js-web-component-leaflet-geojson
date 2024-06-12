@@ -31,7 +31,7 @@ class LeafletMapLoad {
         const el = document.createElement('style');
 
         if (styleFile) {
-            this.#fetchCss(styleFile)
+            this.#getRemoteCssFile(styleFile)
                 .then(css => el.innerText = css);
         }
 
@@ -88,7 +88,7 @@ class LeafletMapLoad {
         };
 
         const el = document.createElement('style');
-        this.#fetchCss(leafletCss.url).then(
+        this.#getRemoteCssFile(leafletCss.url).then(
             (css) => { el.innerText = css}
         );
 
@@ -124,7 +124,7 @@ class LeafletMapLoad {
         const getMarkerClusterStyle = cssFile => {
             const el = document.createElement('style');
             const url = `https://unpkg.com/leaflet.markercluster@${this.#markerClusterVersion}/dist/${cssFile}`;
-            this.#fetchCss(url)
+            this.#getRemoteCssFile(url)
                 .then(css => el.innerText = css);
 
             return el;
@@ -136,7 +136,7 @@ class LeafletMapLoad {
         ];
     }
 
-    #fetchCss = url => {
+    #getRemoteCssFile = url => {
         return fetch(url)
             .then(response => response.text())
             .catch(error => {
