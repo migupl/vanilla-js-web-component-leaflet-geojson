@@ -121,9 +121,18 @@ class LeafletMapLoad {
     }
 
     getMarkerClusterStyles = () => {
+        const getMarkerClusterStyle = cssFile => {
+            const el = document.createElement('style');
+            const url = `https://unpkg.com/leaflet.markercluster@${this.#markerClusterVersion}/dist/${cssFile}`;
+            this.#fetchCss(url)
+                .then(css => el.innerText = css);
+
+            return el;
+        };
+
         return [
-            this.#getMarkerClusterStyle('MarkerCluster.Default.css'),
-            this.#getMarkerClusterStyle('MarkerCluster.css')
+            getMarkerClusterStyle('MarkerCluster.Default.css'),
+            getMarkerClusterStyle('MarkerCluster.css')
         ];
     }
 
@@ -136,15 +145,6 @@ class LeafletMapLoad {
 
         const css = await response.text();
         return css;
-    }
-
-    #getMarkerClusterStyle = cssFile => {
-        const el = document.createElement('style');
-        const url = `https://unpkg.com/leaflet.markercluster@${this.#markerClusterVersion}/dist/${cssFile}`;
-        this.#fetchCss(url)
-            .then(css => el.innerText = css);
-
-        return el;
     }
 }
 
