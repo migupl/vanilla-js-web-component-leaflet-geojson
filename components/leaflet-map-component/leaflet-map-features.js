@@ -1,26 +1,3 @@
-const convertOn = map => {
-    const emitLatlngEvent = latlng => {
-        map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson:include-latlng-to-fly', {
-            bubbles: true,
-            composed: true,
-            detail: {
-                latlng,
-            }
-        }))
-    }
-
-    const coordsToLatLng = coordinates => {
-        const latlng = L.GeoJSON.coordsToLatLng(coordinates);
-        emitLatlngEvent(latlng)
-
-        return latlng;
-    }
-
-    return {
-        coordsToLatLng
-    }
-}
-
 class LeafletMapFeatures {
 
     static DEFAULT_MARKER = {
@@ -60,7 +37,25 @@ class LeafletMapFeatures {
                 .addTo(map)
     }
 
-    #coordsToLatLng = map => convertOn(map).coordsToLatLng
+    #coordsToLatLng = map => {
+        const emitLatlngEvent = latlng => {
+            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson:include-latlng-to-fly', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    latlng,
+                }
+            }))
+        }
+
+        const coordsToLatLng = coordinates => {
+            const latlng = L.GeoJSON.coordsToLatLng(coordinates);
+            emitLatlngEvent(latlng)
+            return latlng;
+        }
+
+        return coordsToLatLng
+    }
 
     #deleteMarker = ({ markers, layer, latlng, theMap }) => {
         const initialPopupContent = layer.getPopup()._content;
