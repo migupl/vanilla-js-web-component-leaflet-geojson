@@ -161,4 +161,8 @@ class LeafletMapLoad {
     }
 }
 
-export const loadMap = new LeafletMapLoad();
+const mapElements = () => {
+    return new LeafletMapLoad();
+}
+
+export const loadMap = mapElements()
