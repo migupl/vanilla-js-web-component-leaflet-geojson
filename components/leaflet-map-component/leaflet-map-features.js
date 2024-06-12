@@ -1,4 +1,4 @@
-const features = ((defaultMarker) => {
+export const features = ((defaultMarker) => {
 
     const addTo = (geojson, map, theMap) => {
         if (!theMap.markers) {
@@ -167,5 +167,3 @@ const features = ((defaultMarker) => {
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
 })
-
-export { features as Features }

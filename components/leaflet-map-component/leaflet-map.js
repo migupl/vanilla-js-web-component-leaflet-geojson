@@ -1,4 +1,4 @@
-import { Features } from "./leaflet-map-features.js";
+import { features } from "./leaflet-map-features.js";
 
 ;(() => {
     class LeafletMap extends HTMLElement {
@@ -160,7 +160,7 @@ import { Features } from "./leaflet-map-features.js";
                     const map = this.maps.get(targetMap);
                     const { geojson } = event.detail;
 
-                    Features.addTo(geojson, targetMap, map);
+                    features.addTo(geojson, targetMap, map);
                 }
             });
 
