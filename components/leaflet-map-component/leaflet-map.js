@@ -51,7 +51,7 @@ import { Features } from "./leaflet-map-features.js";
                 btn.style = 'background-color: blue; border: none; border-radius: 8px; color: white; padding: 10px;';
                 btn.innerText = `Click to adding a point at lat: ${lat}, lng: ${lng}`;
                 btn.onclick = _ => {
-                    this.#fireMarkerAdded(latlng);
+                    this.#emitEventMarkerAdded(latlng);
                     map.closePopup();
                 };
 
@@ -68,7 +68,7 @@ import { Features } from "./leaflet-map-features.js";
 
         #appendChild = element => this.shadowRoot.appendChild(element)
 
-        #fireEvent = (eventName, detail) => {
+        #emitEvent = (eventName, detail) => {
             const evt = new CustomEvent(eventName, {
                 bubbles: true,
                 composed: true,
@@ -77,14 +77,14 @@ import { Features } from "./leaflet-map-features.js";
             this.shadowRoot.dispatchEvent(evt);
         }
 
-        #fireMarkerAdded = latlng => {
-            this.#fireEvent('x-leaflet-map:marker-pointed-out', {
+        #emitEventMarkerAdded = latlng => {
+            this.#emitEvent('x-leaflet-map:marker-pointed-out', {
                 latlng: latlng
             });
         }
 
-        #fireMarkerRemoved = feature => {
-            this.#fireEvent('x-leaflet-map:marker-removed', {
+        #emitEventMarkerRemoved = feature => {
+            this.#emitEvent('x-leaflet-map:marker-removed', {
                 feature: feature
             });
         }
@@ -189,7 +189,7 @@ import { Features } from "./leaflet-map-features.js";
                 const remainingPoints = latLngPoints.filter(point => !point.equals(removingPoint, 0));
 
                 markers.removeLayer(layer);
-                this.#fireMarkerRemoved(feature);
+                this.#emitEventMarkerRemoved(feature);
 
                 theMap.latLngPoints = remainingPoints;
 
