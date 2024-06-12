@@ -1,13 +1,17 @@
 const convertOn = map => {
-    const coordsToLatLng = coordinates => {
-        const latlng = L.GeoJSON.coordsToLatLng(coordinates);
+    const emitLatlngEvent = latlng => {
         map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson:include-latlng-to-fly', {
             bubbles: true,
             composed: true,
             detail: {
-                latlng: latlng,
+                latlng,
             }
-        }));
+        }))
+    }
+
+    const coordsToLatLng = coordinates => {
+        const latlng = L.GeoJSON.coordsToLatLng(coordinates);
+        emitLatlngEvent(latlng)
 
         return latlng;
     }
