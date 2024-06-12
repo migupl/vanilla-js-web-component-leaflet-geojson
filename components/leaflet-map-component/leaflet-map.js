@@ -13,21 +13,21 @@ import { Features } from "./leaflet-map-features.js";
         }
 
         connectedCallback() {
-            const css = LoadMap.getStyleElement();
+            const css = mapElements.getStyleElement();
             this.#appendChild(css);
 
             const [customStyleClass, customStyleFile] = this.#getCustomStyle();
 
-            const customLeafletStyle = LoadMap.getCustomStyle(customStyleFile);
+            const customLeafletStyle = mapElements.getCustomStyle(customStyleFile);
             this.#appendChild(customLeafletStyle);
 
-            const markerClusterStyles = LoadMap.getMarkerClusterStyles();
+            const markerClusterStyles = mapElements.getMarkerClusterStyles();
             markerClusterStyles.forEach(style => this.#appendChild(style))
 
-            const leafletCss = LoadMap.getLeafletCss();
+            const leafletCss = mapElements.getLeafletCss();
             this.#appendChild(leafletCss);
 
-            const map = LoadMap.getHtml();
+            const map = mapElements.getHtml();
             this.#addCustomStyleClass(customStyleClass, map);
             this.#appendChild(map);
             this.#initializeMap(map);
@@ -205,7 +205,7 @@ import { Features } from "./leaflet-map-features.js";
         }
     }
 
-    const mapElements = () => {
+    const mapElements = (() => {
         const getRemoteCssFile = url => {
             return fetch(url)
                 .then(response => response.text())
@@ -358,14 +358,13 @@ import { Features } from "./leaflet-map-features.js";
             getMarkerClusterScript,
             getMarkerClusterStyles
         }
-    }
+    })();
 
-    const LoadMap = mapElements();
-    let leafletjs = LoadMap.getLeafletScript();
+    let leafletjs = mapElements.getLeafletScript();
     leafletjs.onload = (ev) => {
         customElements.define('leaflet-map', LeafletMap);
 
-        const markerClusterScript = LoadMap.getMarkerClusterScript();
+        const markerClusterScript = mapElements.getMarkerClusterScript();
         document.body.appendChild(markerClusterScript);
     }
 
