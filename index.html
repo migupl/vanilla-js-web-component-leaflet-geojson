@@ -142,13 +142,13 @@
             including setting up the Web Component and working with GeoJSON objects.
         </p>
         <leaflet-map id="initial-map" class="small-map"
-            customStyle="custom-leaflet-popup-style:styles/leaflet-popup-style.css" flyToBounds
-            allowAddMarker></leaflet-map>
+            custom-style="custom-leaflet-popup-style:styles/leaflet-popup-style.css" fly-to-bounds
+            allows-add-marker></leaflet-map>
         <p>The <code class="inline">&lt;leaflet-map&gt;</code> is using the attributes
-            <a href="#map-animation"><code class="inline">flyToBounds</code></a>, with a small delay,
-            <a href="#custom-style"><code class="inline">customStyle</code></a> for a pop-up with
+            <a href="#map-animation"><code class="inline">fly-to-bounds</code></a>, with a small delay,
+            <a href="#custom-style"><code class="inline">custom-style</code></a> for a pop-up with
             dark background when the point and polygon are clicked, and
-            <a href="#allow-adding-marker"><code class="inline">allowAddMarker</code></a> for adding a marker
+            <a href="#allow-adding-marker"><code class="inline">allows-add-marker</code></a> for adding a marker
             using the right button.
         </p>
     </section>
@@ -219,22 +219,22 @@
                 <code class="inline">&lt;leaflet-map&gt;</code> allows the following attributes:
                 <code class="inline">latitude</code>;
                 <code class="inline">longitude</code>;
-                <code class="inline">maxZoom</code>;
-                <code class="inline">tileCopyright</code>;
-                <code class="inline">tileServer</code>;
+                <code class="inline">max-zoom</code>;
+                <code class="inline">tile-copyright</code>;
+                <code class="inline">tile-server</code>;
                 <code class="inline">zoom</code>
 
                 and, the specials
-                <code class="inline">allowAddMarker</code>;
-                <code class="inline">customStyle</code>;
-                and <code class="inline">fitToBounds</code>
-                or <code class="inline">flyToBounds</code>.
+                <code class="inline">allows-add-marker</code>;
+                <code class="inline">custom-style</code>;
+                and <code class="inline">fit-to-bounds</code>
+                or <code class="inline">fly-to-bounds</code>.
             </p>
-            <p id="allow-adding-marker">The special attribute <code class="inline">allowAddMarker</code> triggers
+            <p id="allow-adding-marker">The special attribute <code class="inline">allows-add-marker</code> triggers
                 the 'x-leaflet-map:marker-pointed-out' event on
                 <a href="#adding-a-marker">adding a new marker</a>. Nothing is done on the map.
             </p>
-            <p id="custom-style">The optional attribute <code class="inline">customStyle</code> defines
+            <p id="custom-style">The optional attribute <code class="inline">custom-style</code> defines
                 the name of a custom class and a style file separated by a colon.
                 This allows custom styling of elements within the Web Component.</p>
             <p id="map-animation">The special attributes fit, without or with animation,
@@ -245,14 +245,14 @@
 {
     latitude: 51.505,
     longitude: -0.09,
-    maxZoom: 19,
-    tileCopyright: '&copy; &lt;a href="http://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer"&gt;OpenStreetMap&lt;/a&gt;',
-    tileServer: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    max-zoom: 19,
+    tile-copyright: '&copy; &lt;a href="http://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer"&gt;OpenStreetMap&lt;/a&gt;',
+    tile-server: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     zoom: 13
 }
             </code></pre>
 
-            <h3>The customStyle attribute</h3>
+            <h3>The custom-style attribute</h3>
             <p>For example, to change the background colour of all pop-up, we would include a CSS file</p>
             <p><code class="inline">custom-popup-style.css</code>
             <pre><code class="hljs language-css">
@@ -266,10 +266,10 @@ background: #2c3e50;
 }
                 </code></pre>
             </p>
-            <p>and the customStyle attribute as following
+            <p>and the custom-style attribute as following
             <pre><code>
 &lt;body&gt;
-    &lt;leaflet-map customStyle="custom-leaflet-popup-style:&lt;path to file&gt;/custom-popup-style.css"&gt;&lt;/leaflet-map&gt;
+    &lt;leaflet-map custom-style="custom-leaflet-popup-style:&lt;path to file&gt;/custom-popup-style.css"&gt;&lt;/leaflet-map&gt;
 &lt;/body&gt;
                 </code></pre>
             </p>
@@ -281,26 +281,26 @@ background: #2c3e50;
     <section id="adding-tiles">
         <div class="container">
             <h2>Tiles</h2>
-            <p>Change easily the tile layer on the map using the <code class="inline">tileServer</code> property.</p>
+            <p>Change easily the tile layer on the map using the <code class="inline">tile-server</code> property.</p>
             <p>Note that most tile servers require attribution, which you can set using the <code
-                    class="inline">tileCopyrigth</code>
+                    class="inline">tile-copyright</code>
                 property.</p>
             <pre><code>
 &lt;leaflet-map id="tiles-map"
     longitude = "-3.6888136946558996"
     latitude = "40.42062134697108"
     zoom = "16"
-    tileCopyright="Map data: &copy; &lt;a href='https://www.openstreetmap.org/copyright'&gt;OpenStreetMap&lt;/a&gt;" +
+    tile-copyright="Map data: &copy; &lt;a href='https://www.openstreetmap.org/copyright'&gt;OpenStreetMap&lt;/a&gt;" +
         " contributors, &lt;a href='http://viewfinderpanoramas.org'&gt;SRTM&lt;/a&gt;" +
         " | Map style: &copy; &lt;a href='https://opentopomap.org'&gt;OpenTopoMap&lt;/a&gt;" +
         " (&lt;a href='https://creativecommons.org/licenses/by-sa/3.0/'&gt;CC-BY-SA&lt;/a&gt;)"
-    tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"&gt;
+    tile-server="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"&gt;
 &lt;/leaflet-map&gt;
             </code></pre>
         </div>
         <leaflet-map id="tiles-map" longitude="-3.6888136946558996" latitude="40.42062134697108" zoom="16"
-            tileCopyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
-            tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
+            tile-copyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
+            tile-server="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
         </leaflet-map>
         <div class="container">
             <p><a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html" target="_blank"
@@ -585,16 +585,16 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
             </code></pre>
         </div>
         <leaflet-map id="walk-throught-el-retiro" longitude="-3.6843547932100424" latitude="40.41411233423414"
-            fitToBounds></leaflet-map>
+            fit-to-bounds></leaflet-map>
         <div class="container">
             <p>The <code class="inline">&lt;leaflet-map&gt;</code> is using the attribute
-                <a href="#map-animation"><code class="inline">fitToBounds</code></a>
+                <a href="#map-animation"><code class="inline">fit-to-bounds</code></a>
             </p>
             <pre><code class="hljs language-js">
 &lt;leaflet-map id="walk-throught-el-retiro"
     longitude="-3.6843547932100424"
     latitude="40.41411233423414"
-    fitToBounds&gt;&lt;/leaflet-map&gt;
+    fit-to-bounds&gt;&lt;/leaflet-map&gt;
             </code></pre>
         </div>
     </section>
@@ -623,7 +623,7 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
     }
         </code></pre>
         <p>You can the <a href="#initial-map">first map</a> as a small demo using the <code
-                class="inline">allowAddMarker</code> attribute.</p>
+                class="inline">allows-add-marker</code> attribute.</p>
     </section>
     <section id="remove-an-element" class="container">
         <h2>Remove a marker from the map</h2>
@@ -649,7 +649,7 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
     }
         </code></pre>
         <p>You can the <a href="#initial-map">first map</a> as a small demo using the <code
-                class="inline">flyToBounds</code> attribute.</p>
+                class="inline">fly-to-bounds</code> attribute.</p>
     </section>
     <section id="multiple-maps" class="container">
         <h2>Multiple maps</h2>

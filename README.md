@@ -103,7 +103,7 @@ To get started you need to import the Web Component
 
 ## Tiles
 
-Change easily the tile layer on the map using the *tileServer* property.
+Change easily the tile layer on the map using the *tile-server* property.
 
 Note that most tile servers require attribution, which you can set using the *tileCopyrigth* property.
 
@@ -113,8 +113,8 @@ Note that most tile servers require attribution, which you can set using the *ti
         longitude="-3.7001448634709626"
         latitude="40.4237577382345"
         zoom="13"
-        tileCopyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
-        tileServer="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
+        tile-copyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
+        tile-server="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
     </leaflet-map>
 </body>
 ```
@@ -123,7 +123,7 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 ## Attributes and default values
 
-The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *maxZoom*; *tileCopyright*; *tileServer*; *zoom*; and, the specials *allowAddMarker*, *customStyle* and *fitToBounds* or *flyToBounds*.
+The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *max-zoom*; *tile-copyright*; *tile-server*; *zoom*; and, the specials *allows-add-marker*, *custom-style* and *fit-to-bounds* or *fly-to-bounds*.
 
 All attributes are optional.
 
@@ -133,20 +133,20 @@ Default values are
 {
     latitude: 51.505,
     longitude: -0.09,
-    maxZoom: 19,
-    tileCopyright: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    tileServer: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    max-zoom: 19,
+    tile-copyright: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    tile-server: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     zoom: 13
 }
 ```
 
-The optional attribute *allowAddMarker* triggers the 'x-leaflet-map:marker-pointed-out' event on [adding a new marker](#adding-a-marker-to-the-map). Nothing is done on the map.
+The optional attribute *allows-add-marker* triggers the 'x-leaflet-map:marker-pointed-out' event on [adding a new marker](#adding-a-marker-to-the-map). Nothing is done on the map.
 
-The optional attribute *customStyle* defines the name of the custom class and style file separated by a colon. This allows custom styling of elements within the Web Component.
+The optional attribute *custom-style* defines the name of the custom class and style file separated by a colon. This allows custom styling of elements within the Web Component.
 
-The special attributes *fitToBounds* or *flyToBounds*, without or with animation, the map view to contain all added GeoJSON objects at the hightst possible zoom level.
+The special attributes *fit-to-bounds* or *fly-to-bounds*, without or with animation, the map view to contain all added GeoJSON objects at the hightst possible zoom level.
 
-### The customStyle attribute
+### The *custom-style* attribute
 
 For example, to change the background colour of all pop-up, we would include a CSS file
 
@@ -162,11 +162,11 @@ custom-popup-style.css
 }
 ```
 
-and the customStyle attribute as following
+and the *custom-style* attribute as following
 
 ```html
 <body>
-    <leaflet-map customStyle="custom-leaflet-popup-style:<path to file>/custom-popup-style.css"></leaflet-map>
+    <leaflet-map custom-style="custom-leaflet-popup-style:<path to file>/custom-popup-style.css"></leaflet-map>
 </body>
 ```
 
@@ -673,7 +673,7 @@ x-leaflet-map:marker-pointed-out {
 }
 ```
 
-You can use the file *[example.html](example.html)* of the project as a small demo using the *allowAddMarker* attribute.
+You can use the file *[example.html](example.html)* of the project as a small demo using the *allows-add-marker* attribute.
 
 ## Remove a marker from the map
 
@@ -699,7 +699,7 @@ x-leaflet-map:marker-removed {
 }
 ```
 
-You can use the file *[example.html](example.html)* of the project as a small demo using the *flyToBounds* attribute.
+You can use the file *[example.html](example.html)* of the project as a small demo using the *fly-to-bounds* attribute.
 
 ## Clear a map
 
@@ -841,7 +841,7 @@ Using a *point* feature with a small card.
 
 ![An example](./docs/burguess-park.webp)
 
-You have another example with all the features and the *flyToBounds* attribute in [example.html](example.html).
+You have another example with all the features and the *fly-to-bounds* attribute in [example.html](example.html).
 
 ## Helpers
 

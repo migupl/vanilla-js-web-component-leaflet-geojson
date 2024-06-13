@@ -2,22 +2,22 @@
     class LeafletMap extends HTMLElement {
 
         #config = {
-            allowsAddMarker: this.hasAttribute('allowAddMarker'),
+            allowsAddMarker: this.hasAttribute('allows-add-marker'),
 
-            customStyle: this.getAttribute('customStyle') || '',
+            customStyle: this.getAttribute('custom-style') || '',
 
-            fitMapEffect: this.hasAttribute('fitToBounds'),
-            flyMapEffect: this.hasAttribute('flyToBounds'),
+            fitMapEffect: this.hasAttribute('fit-to-bounds'),
+            flyMapEffect: this.hasAttribute('fly-to-bounds'),
 
             latitude: this.getAttribute('latitude') || 51.505,
             longitude: this.getAttribute('longitude') || -0.09,
 
-            tileCopyright: this.getAttribute('tileCopyright') ||
-                (this.hasAttribute('tileServer') ? ''
+            tileCopyright: this.getAttribute('tile-copyright') ||
+                (this.hasAttribute('tile-server') ? ''
                     : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'),
-            tileServer: this.getAttribute('tileServer') || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            tileServer: this.getAttribute('tile-server') || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
 
-            maxZoom: this.getAttribute('maxZoom') || 19,
+            maxZoom: this.getAttribute('max-zoom') || 19,
             zoom: this.getAttribute('zoom') || 13
         }
 
