@@ -123,7 +123,7 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 ## Attributes and default values
 
-The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *max-zoom*; *tile-copyright*; *tile-server*; *zoom*; and, the specials *allows-add-marker*, *custom-style* and *fit-to-bounds* or *fly-to-bounds*.
+The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *max-zoom*; *tile-copyright*; *tile-server*; *zoom*; and, the specials *allows-add-marker*, *add-marker-custom-text*, *custom-style* and *fit-to-bounds* or *fly-to-bounds*.
 
 All attributes are optional.
 
@@ -140,7 +140,9 @@ Default values are
 }
 ```
 
-The optional attribute *allows-add-marker* triggers the 'x-leaflet-map:marker-pointed-out' event on [adding a new marker](#adding-a-marker-to-the-map). Nothing is done on the map.
+The optional attribute *allows-add-marker* triggers the 'x-leaflet-map:marker-pointed-out' event on [adding a new marker](#adding-a-marker-to-the-map). **Nothing is added to the map**.
+
+You can set a custom text for the confirm action using the attribute *add-marker-custom-text*, otherwise the default value is 'Click to getting the map coordinates of this point at'. Latitude and longitude are always added.
 
 The optional attribute *custom-style* defines the name of the custom class and style file separated by a colon. This allows custom styling of elements within the Web Component.
 

@@ -226,13 +226,19 @@
 
                 and, the specials
                 <code class="inline">allows-add-marker</code>;
+                <code class="inline">add-marker-custom-text</code>;
                 <code class="inline">custom-style</code>;
                 and <code class="inline">fit-to-bounds</code>
                 or <code class="inline">fly-to-bounds</code>.
             </p>
             <p id="allow-adding-marker">The special attribute <code class="inline">allows-add-marker</code> triggers
                 the 'x-leaflet-map:marker-pointed-out' event on
-                <a href="#adding-a-marker">adding a new marker</a>. Nothing is done on the map.
+                <a href="#adding-a-marker">adding a new marker</a>. <strong>Nothing is done on the map</strong>.
+            </p>
+            <p id="add-marker-custom-text">You can set a custom text for the confirm action using the attribute
+                <code class="inline">add-marker-custom-text</code>, otherwise the default value is
+                '<i>Click to getting the map coordinates of this point at</i>'.
+                Latitude and longitude are always added.
             </p>
             <p id="custom-style">The optional attribute <code class="inline">custom-style</code> defines
                 the name of a custom class and a style file separated by a colon.
