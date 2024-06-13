@@ -31,23 +31,25 @@
         }
 
         connectedCallback() {
+            const appendChild = element => this.shadowRoot.appendChild(element);
+
             const css = this.#mapElements.getWcStyleNode();
-            this.#appendChild(css);
+            appendChild(css);
 
             const [customStyleClass, customStyleFile] = this.#getCustomStyle();
 
             const customCss = this.#mapElements.getStyleNodeFrom(customStyleFile);
-            this.#appendChild(customCss);
+            appendChild(customCss);
 
             const markerClusterCss = this.#mapElements.getMarkerClusterStyleNode();
-            markerClusterCss.forEach(style => this.#appendChild(style))
+            markerClusterCss.forEach(style => appendChild(style))
 
             const leafletCss = this.#mapElements.getLeafletStyleNode();
-            this.#appendChild(leafletCss);
+            appendChild(leafletCss);
 
             const map = this.#mapElements.getWcNode();
             this.#addCustomStyleClass(customStyleClass, map);
-            this.#appendChild(map);
+            appendChild(map);
 
             this.#initializeMap(map);
         }
@@ -57,8 +59,6 @@
                 el.classList.add(styleClass);
             }
         }
-
-        #appendChild = element => this.shadowRoot.appendChild(element)
 
         #emitEvent = (eventName, detail) => {
             const evt = new CustomEvent(eventName, {
