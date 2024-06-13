@@ -54,28 +54,34 @@
             this.#initializeMap(map);
         }
 
-        #emitEvent = (eventName, detail) => {
-            const evt = new CustomEvent(eventName, {
-                bubbles: true,
-                composed: true,
-                detail: detail
-            });
-            this.shadowRoot.dispatchEvent(evt);
-        }
-
-        #emitEventMarkerAdded = latlng => {
-            this.#emitEvent('x-leaflet-map:marker-pointed-out', {
-                latlng: latlng
-            });
-        }
-
-        #emitEventMarkerRemoved = feature => {
-            this.#emitEvent('x-leaflet-map:marker-removed', {
-                feature: feature
-            });
-        }
-
         #initializeMap = mapElement => {
+            const emitMarkerEvent = (() => {
+                const emitEvent = (eventName, detail) => {
+                    const evt = new CustomEvent(eventName, {
+                        bubbles: true,
+                        composed: true,
+                        detail: detail
+                    });
+                    this.shadowRoot.dispatchEvent(evt);
+                };
+
+                const added = latlng => {
+                    emitEvent('x-leaflet-map:marker-pointed-out', {
+                        latlng: latlng
+                    });
+                };
+
+                const removed = feature => {
+                    emitEvent('x-leaflet-map:marker-removed', {
+                        feature: feature
+                    });
+                }
+
+                return {
+                    added, removed
+                }
+            })();
+
             const remove = ({ layer, markers, removingLatLng, mapInfo }) => {
                 const { feature } = layer;
                 if (feature) {
@@ -84,7 +90,7 @@
                     const remainingPoints = latLngPoints.filter(point => !point.equals(removingPoint, 0));
 
                     markers.removeLayer(layer);
-                    this.#emitEventMarkerRemoved(feature);
+                    emitMarkerEvent.removed(feature);
 
                     mapInfo.latLngPoints = remainingPoints;
 
@@ -100,7 +106,7 @@
                     btn.style = 'background-color: blue; border: none; border-radius: 8px; color: white; padding: 10px;';
                     btn.innerText = `Click to adding a point at lat: ${lat}, lng: ${lng}`;
                     btn.onclick = _ => {
-                        this.#emitEventMarkerAdded(latlng);
+                        emitMarkerEvent.added(latlng);
                         map.closePopup();
                     };
 
