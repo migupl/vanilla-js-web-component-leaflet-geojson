@@ -100,7 +100,15 @@
                 });
             };
 
-            const opts = this.#mapOptions();
+            const opts = {
+                center: new L.LatLng(this.#config.latitude, this.#config.longitude),
+                zoom: this.#config.zoom,
+                layers: L.tileLayer(this.#config.tileServer, {
+                    maxZoom: this.#config.maxZoom,
+                    attribution: this.#config.tileCopyright
+                })
+            };
+
             const map = L.map(mapElement, opts);
 
             if (this.#config.allowsAddMarker) addNewMarkerTo(map);
@@ -112,17 +120,6 @@
                 onMarkerRemoved: this.#remove,
                 latLngPoints: []
             });
-        }
-
-        #mapOptions = () => {
-            return {
-                center: new L.LatLng(this.#config.latitude, this.#config.longitude),
-                zoom: this.#config.zoom,
-                layers: L.tileLayer(this.#config.tileServer, {
-                    maxZoom: this.#config.maxZoom,
-                    attribution: this.#config.tileCopyright
-                })
-            }
         }
 
         #registerEvents = () => {
