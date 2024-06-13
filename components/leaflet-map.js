@@ -76,6 +76,22 @@
         }
 
         #initializeMap = mapElement => {
+            const remove = ({ layer, markers, removingLatLng, mapInfo }) => {
+                const { feature } = layer;
+                if (feature) {
+                    let { map, latLngPoints } = mapInfo;
+                    const removingPoint = L.latLng(removingLatLng);
+                    const remainingPoints = latLngPoints.filter(point => !point.equals(removingPoint, 0));
+
+                    markers.removeLayer(layer);
+                    this.#emitEventMarkerRemoved(feature);
+
+                    mapInfo.latLngPoints = remainingPoints;
+
+                    if (remainingPoints.length) this.#setViewToBounds(map, remainingPoints);
+                }
+            };
+
             const addNewMarkerTo = map => {
                 const getAddingButton = latlng => {
                     const { lat, lng } = latlng;
@@ -115,7 +131,7 @@
                 map: map,
                 tile: opts.layers,
                 markers: null,
-                onMarkerRemoved: this.#remove,
+                onMarkerRemoved: remove,
                 latLngPoints: []
             });
         }
@@ -167,23 +183,6 @@
                     this.#setViewToBounds(map, latLngPoints);
                 }
             });
-        }
-
-        #remove = ({ layer, markers, removingLatLng, mapInfo }) => {
-            const { feature } = layer;
-            if (feature) {
-                let { map, latLngPoints } = mapInfo;
-                const removingPoint = L.latLng(removingLatLng);
-                const remainingPoints = latLngPoints.filter(point => !point.equals(removingPoint, 0));
-
-                markers.removeLayer(layer);
-                this.#emitEventMarkerRemoved(feature);
-
-                mapInfo.latLngPoints = remainingPoints;
-
-                if (remainingPoints.length)
-                    this.#setViewToBounds(map, remainingPoints);
-            }
         }
 
         #setViewToBounds(map, latLngPoints) {
