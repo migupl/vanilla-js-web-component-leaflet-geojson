@@ -36,7 +36,7 @@
             const css = this.#mapElements.getWcStyleNode();
             appendChild(css);
 
-            const [customStyleClass, customStyleFile] = this.#getCustomStyle();
+            const [customStyleClass, customStyleFile] = this.#config.customStyle.split(':');
 
             const customCss = this.#mapElements.getStyleNodeFrom(customStyleFile);
             appendChild(customCss);
@@ -74,8 +74,6 @@
                 feature: feature
             });
         }
-
-        #getCustomStyle = () => this.#config.customStyle.split(':')
 
         #initializeMap = mapElement => {
             const addNewMarkerTo = map => {
