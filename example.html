@@ -23,7 +23,12 @@
 </head>
 
 <body>
-    <leaflet-map fly-to-bounds allows-add-marker></leaflet-map>
+    <leaflet-map
+        fly-to-bounds
+        allows-add-marker
+        add-marker-custom-text="Click to display in the console the point at :">
+    </leaflet-map>
+
     <ya-gc url="https://github.com/migupl/vanilla-js-web-component-leaflet-geojson" target-new-window></ya-gc>
 
     <script src="https://cdn.jsdelivr.net/gh/migupl/yagc/dist/yagc-0.2.0.min.js"></script>
