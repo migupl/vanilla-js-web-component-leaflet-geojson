@@ -185,7 +185,7 @@
             });
         }
 
-        #setViewToBounds(map, latLngPoints) {
+        #setViewToBounds = (map, latLngPoints) => {
             if (this.#config.fitMapEffect)
                 map.fitBounds(latLngPoints);
             else if (this.#config.flyMapEffect)
