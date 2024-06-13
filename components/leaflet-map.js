@@ -1,6 +1,26 @@
 ;(() => {
     class LeafletMap extends HTMLElement {
 
+        #config = {
+            allowsAddMarker: this.hasAttribute('allowAddMarker'),
+
+            customStyle: this.getAttribute('customStyle') || '',
+
+            fitMapEffect: this.hasAttribute('fitToBounds'),
+            flyMapEffect: this.hasAttribute('flyToBounds'),
+
+            latitude: this.getAttribute('latitude') || 51.505,
+            longitude: this.getAttribute('longitude') || -0.09,
+
+            tileCopyright: this.getAttribute('tileCopyright') ||
+                (this.hasAttribute('tileServer') ? ''
+                    : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'),
+            tileServer: this.getAttribute('tileServer') || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+
+            maxZoom: this.getAttribute('maxZoom') || 19,
+            zoom: this.getAttribute('zoom') || 13
+        }
+
         maps = new WeakMap();
 
         constructor() {
@@ -39,7 +59,7 @@
         }
 
         #addNewMarkerTo = map => {
-            const isAddingAllowed = this.hasAttribute('allowAddMarker');
+            const isAddingAllowed = this.#config.allowsAddMarker;
             if (!isAddingAllowed) return;
 
             const getAddingButton = latlng => {
@@ -87,7 +107,7 @@
             });
         }
 
-        #getCustomStyle = () => (this.getAttribute('customStyle') || '').split(':')
+        #getCustomStyle = () => this.#config.customStyle.split(':')
 
         #initializeMap = mapElement => {
             const opts = this.#mapOptions();
@@ -107,29 +127,14 @@
         #isThisMap = mapId => mapId === this.id
 
         #mapOptions = () => {
-            const config = {
-                allowsAddMarker: this.hasAttribute('allowAddMarker'),
-                fitMapBounds: this.hasAttribute('fitToBounds'),
-                fly: this.hasAttribute('flyToBounds'),
-                latitude: this.getAttribute('latitude') || 51.505,
-                longitude: this.getAttribute('longitude') || -0.09,
-                maxZoom: this.getAttribute('maxZoom') || 19,
-                tileCopyright: this.getAttribute('tileCopyright') || 
-                    (this.getAttribute('tileServer') ? '' 
-                        : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'),
-                tileServer: this.getAttribute('tileServer') || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                zoom: this.getAttribute('zoom') || 13
-            }
-
-            const opts = {
-                center: new L.LatLng(config.latitude, config.longitude),
-                zoom: config.zoom,
-                layers: L.tileLayer(config.tileServer, {
-                    maxZoom: config.maxZoom,
-                    attribution: config.tileCopyright
+            return {
+                center: new L.LatLng(this.#config.latitude, this.#config.longitude),
+                zoom: this.#config.zoom,
+                layers: L.tileLayer(this.#config.tileServer, {
+                    maxZoom: this.#config.maxZoom,
+                    attribution: this.#config.tileCopyright
                 })
-            };
-            return opts;
+            }
         }
 
         #registerEvents = () => {
@@ -197,9 +202,9 @@
         }
 
         #setViewToBounds(map, latLngPoints) {
-            if (this.hasAttribute('fitToBounds'))
+            if (this.#config.fitMapEffect)
                 map.fitBounds(latLngPoints);
-            else if (this.hasAttribute('flyToBounds'))
+            else if (this.#config.flyMapEffect)
                 map.flyToBounds(latLngPoints);
         }
 
