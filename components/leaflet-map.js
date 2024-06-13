@@ -28,6 +28,7 @@
             const map = this.#mapElements.getWcNode();
             this.#addCustomStyleClass(customStyleClass, map);
             this.#appendChild(map);
+
             this.#initializeMap(map);
         }
 
@@ -106,26 +107,26 @@
         #isThisMap = mapId => mapId === this.id
 
         #mapOptions = () => {
-            const defaults = {
-                latitude: 51.505,
-                longitude: -0.09,
-                maxZoom: 19,
-                tileCopyright: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                tileServer: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                zoom: 13
+            const config = {
+                allowsAddMarker: this.hasAttribute('allowAddMarker'),
+                fitMapBounds: this.hasAttribute('fitToBounds'),
+                fly: this.hasAttribute('flyToBounds'),
+                latitude: this.getAttribute('latitude') || 51.505,
+                longitude: this.getAttribute('longitude') || -0.09,
+                maxZoom: this.getAttribute('maxZoom') || 19,
+                tileCopyright: this.getAttribute('tileCopyright') || 
+                    (this.getAttribute('tileServer') ? '' 
+                        : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'),
+                tileServer: this.getAttribute('tileServer') || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                zoom: this.getAttribute('zoom') || 13
             }
 
-            const tileCopyright = this.getAttribute('tileCopyright') ||
-                (this.getAttribute('tileServer') ? '' : defaults.tileCopyright);
             const opts = {
-                center: new L.LatLng(
-                    this.getAttribute('latitude') || defaults.latitude,
-                    this.getAttribute('longitude') || defaults.longitude
-                ),
-                zoom: this.getAttribute('zoom') || defaults.zoom,
-                layers: L.tileLayer(this.getAttribute('tileServer') || defaults.tileServer, {
-                    maxZoom: this.getAttribute('maxZoom') || defaults.maxZoom,
-                    attribution: tileCopyright
+                center: new L.LatLng(config.latitude, config.longitude),
+                zoom: config.zoom,
+                layers: L.tileLayer(config.tileServer, {
+                    maxZoom: config.maxZoom,
+                    attribution: config.tileCopyright
                 })
             };
             return opts;
@@ -152,13 +153,13 @@
             });
 
             this.addEventListener('x-leaflet-map-geojson-add', (event) => {
-                const targetMap = event.target;
+                const mapNode = event.target;
 
-                if (this.#isThisMap(targetMap.id)) {
-                    const map = this.maps.get(targetMap);
+                if (this.#isThisMap(mapNode.id)) {
+                    const mapInfo = this.maps.get(mapNode);
                     const { geojson } = event.detail;
 
-                    this.#actions.addTo(geojson, targetMap, map);
+                    this.#actions.addTo(geojson, mapNode, mapInfo);
                 }
             });
 
@@ -178,17 +179,17 @@
             });
         }
 
-        #remove = ({ layer, markers, removingLatLng, theMap }) => {
+        #remove = ({ layer, markers, removingLatLng, mapInfo }) => {
             const { feature } = layer;
             if (feature) {
-                let { map, latLngPoints } = theMap;
+                let { map, latLngPoints } = mapInfo;
                 const removingPoint = L.latLng(removingLatLng);
                 const remainingPoints = latLngPoints.filter(point => !point.equals(removingPoint, 0));
 
                 markers.removeLayer(layer);
                 this.#emitEventMarkerRemoved(feature);
 
-                theMap.latLngPoints = remainingPoints;
+                mapInfo.latLngPoints = remainingPoints;
 
                 if (remainingPoints.length)
                     this.#setViewToBounds(map, remainingPoints);
@@ -203,31 +204,31 @@
         }
 
         #actions = ((defaultMarker) => {
-            const addTo = (geojson, map, theMap) => {
-                if (!theMap.markers) {
-                    theMap.markers = getClusterAndOnDblclickDo(theMap);
+            const addTo = (geojson, mapNode, mapInfo) => {
+                if (!mapInfo.markers) {
+                    mapInfo.markers = getClusterAndOnDblclickDo(mapInfo);
                 }
     
                 const features = getFeaturesArray(geojson);
                 const { points, polygons } = groupPointsAndPolygons(features);
     
-                addPoints(points, map, theMap);
-                addPolygons(polygons, map, theMap);
+                addPoints(points, mapNode, mapInfo);
+                addPolygons(polygons, mapNode, mapInfo);
             }
     
-            const addPoints = (points, sourceMap, theMap) => {
-                const { map, markers } = theMap;
+            const addPoints = (points, mapNode, mapInfo) => {
+                const { map, markers } = mapInfo;
                 points &&
                     markers
-                        .addLayer(pointToLayer(points, sourceMap))
+                        .addLayer(pointToLayer(points, mapNode))
                         .addTo(map)
             }
     
-            const addPolygons = (polygons, sourceMap, theMap) => {
-                const { map, markers } = theMap;
+            const addPolygons = (polygons, mapNode, mapInfo) => {
+                const { map, markers } = mapInfo;
                 polygons &&
                     markers
-                        .addLayer(polygonToLayer(polygons, sourceMap))
+                        .addLayer(polygonToLayer(polygons, mapNode))
                         .addTo(map)
             }
     
@@ -251,16 +252,16 @@
                 return coordsToLatLng
             }
     
-            const deleteMarker = ({ markers, layer, latlng, theMap }) => {
+            const deleteMarker = ({ markers, layer, latlng, mapInfo }) => {
                 const initialPopupContent = layer.getPopup()._content;
     
                 let btn = document.createElement('button');
                 btn.style = 'background-color: red; border: none; border-radius: 8px; color: white; padding: 10px;'
                 btn.innerText = 'Delete Marker';
-                btn.onclick = () => theMap.onMarkerRemoved({
+                btn.onclick = () => mapInfo.onMarkerRemoved({
                     layer, markers,
                     removingLatLng: latlng,
-                    theMap
+                    mapInfo
                 })
     
                 bindPopup(layer, btn).openPopup();
@@ -272,11 +273,11 @@
     
             const getFeaturesArray = geojson => 'FeatureCollection' === geojson.type ? geojson.features : [geojson]
     
-            const getClusterAndOnDblclickDo = (theMap) => {
+            const getClusterAndOnDblclickDo = (mapInfo) => {
                 const markers = L.markerClusterGroup();
                 markers.on('dblclick', ev => {
                     const { layer, latlng } = ev;
-                    deleteMarker({ markers, layer, latlng, theMap });
+                    deleteMarker({ markers, layer, latlng, mapInfo });
                 });
     
                 return markers;
