@@ -21,7 +21,7 @@
             zoom: this.getAttribute('zoom') || 13
         }
 
-        maps = new WeakMap();
+        #maps = new WeakMap();
 
         constructor() {
             super();
@@ -133,7 +133,7 @@
 
             if (this.#config.allowsAddMarker) addNewMarkerTo(map);
 
-            this.maps.set(this, {
+            this.#maps.set(this, {
                 map: map,
                 tile: opts.layers,
                 markers: null,
@@ -157,7 +157,7 @@
                 const targetMap = event.target;
 
                 if (isThisMap(targetMap.id)) {
-                    const { map, tile } = this.maps.get(targetMap);
+                    const { map, tile } = this.#maps.get(targetMap);
                     map.eachLayer(function (layer) {
                         if (layer !== tile) layer.removeFrom(map);
                     });
@@ -168,7 +168,7 @@
                 const mapNode = event.target;
 
                 if (isThisMap(mapNode.id)) {
-                    const mapInfo = this.maps.get(mapNode);
+                    const mapInfo = this.#maps.get(mapNode);
                     const { geojson } = event.detail;
 
                     this.#actions.addTo(geojson, mapNode, mapInfo);
@@ -179,7 +179,7 @@
                 const targetMap = event.target;
 
                 if (isThisMap(targetMap.id)) {
-                    const { map, latLngPoints } = this.maps.get(targetMap);
+                    const { map, latLngPoints } = this.#maps.get(targetMap);
 
                     const { latlng: { lng, lat } } = event.detail;
                     const latLng = L.latLng(lat, lng);
