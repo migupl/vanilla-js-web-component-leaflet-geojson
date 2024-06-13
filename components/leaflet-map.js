@@ -27,13 +27,13 @@
 
         constructor() {
             super();
-            this.attachShadow({ mode: 'open' });
+            this.#config.shadowRoot = this.attachShadow({ mode: 'open' });
 
             this.#registerEvents();
         }
 
         connectedCallback() {
-            const appendChild = element => this.shadowRoot.appendChild(element);
+            const appendChild = element => this.#config.shadowRoot.appendChild(element);
 
             const css = this.#mapElements.getWcStyleNode();
             appendChild(css);
@@ -64,7 +64,7 @@
                         composed: true,
                         detail: detail
                     });
-                    this.shadowRoot.dispatchEvent(evt);
+                    this.#config.shadowRoot.dispatchEvent(evt);
                 };
 
                 const added = latlng => {
