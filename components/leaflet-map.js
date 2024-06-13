@@ -58,32 +58,6 @@
             }
         }
 
-        #addNewMarkerTo = map => {
-            const isAddingAllowed = this.#config.allowsAddMarker;
-            if (!isAddingAllowed) return;
-
-            const getAddingButton = latlng => {
-                const { lat, lng } = latlng;
-
-                let btn = document.createElement('button');
-                btn.style = 'background-color: blue; border: none; border-radius: 8px; color: white; padding: 10px;';
-                btn.innerText = `Click to adding a point at lat: ${lat}, lng: ${lng}`;
-                btn.onclick = _ => {
-                    this.#emitEventMarkerAdded(latlng);
-                    map.closePopup();
-                };
-
-                return btn;
-            }
-
-            map.addEventListener('contextmenu', e => {
-                const { latlng } = e;
-                const btn = getAddingButton(latlng);
-                map.openPopup(btn, latlng, { closeButton: false })
-            });
-
-        }
-
         #appendChild = element => this.shadowRoot.appendChild(element)
 
         #emitEvent = (eventName, detail) => {
@@ -110,10 +84,32 @@
         #getCustomStyle = () => this.#config.customStyle.split(':')
 
         #initializeMap = mapElement => {
+            const addNewMarkerTo = map => {
+                const getAddingButton = latlng => {
+                    const { lat, lng } = latlng;
+
+                    let btn = document.createElement('button');
+                    btn.style = 'background-color: blue; border: none; border-radius: 8px; color: white; padding: 10px;';
+                    btn.innerText = `Click to adding a point at lat: ${lat}, lng: ${lng}`;
+                    btn.onclick = _ => {
+                        this.#emitEventMarkerAdded(latlng);
+                        map.closePopup();
+                    };
+
+                    return btn;
+                }
+
+                map.addEventListener('contextmenu', e => {
+                    const { latlng } = e;
+                    const btn = getAddingButton(latlng);
+                    map.openPopup(btn, latlng, { closeButton: false })
+                });
+            };
+
             const opts = this.#mapOptions();
             const map = L.map(mapElement, opts);
 
-            this.#addNewMarkerTo(map);
+            if (this.#config.allowsAddMarker) addNewMarkerTo(map);
 
             this.maps.set(this, {
                 map: map,
