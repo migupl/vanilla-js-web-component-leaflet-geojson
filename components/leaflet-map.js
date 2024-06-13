@@ -114,8 +114,6 @@
             });
         }
 
-        #isThisMap = mapId => mapId === this.id
-
         #mapOptions = () => {
             return {
                 center: new L.LatLng(this.#config.latitude, this.#config.longitude),
@@ -128,6 +126,8 @@
         }
 
         #registerEvents = () => {
+            const isThisMap = mapId => mapId === this.id;
+
             [
                 'x-leaflet-map-clear',
                 'x-leaflet-map-geojson-add',
@@ -139,7 +139,7 @@
             this.addEventListener('x-leaflet-map-clear', (event) => {
                 const targetMap = event.target;
 
-                if (this.#isThisMap(targetMap.id)) {
+                if (isThisMap(targetMap.id)) {
                     const { map, tile } = this.maps.get(targetMap);
                     map.eachLayer(function (layer) {
                         if (layer !== tile) layer.removeFrom(map);
@@ -150,7 +150,7 @@
             this.addEventListener('x-leaflet-map-geojson-add', (event) => {
                 const mapNode = event.target;
 
-                if (this.#isThisMap(mapNode.id)) {
+                if (isThisMap(mapNode.id)) {
                     const mapInfo = this.maps.get(mapNode);
                     const { geojson } = event.detail;
 
@@ -161,7 +161,7 @@
             this.addEventListener('x-leaflet-map-geojson:include-latlng-to-fly', (event) => {
                 const targetMap = event.target;
 
-                if (this.#isThisMap(targetMap.id)) {
+                if (isThisMap(targetMap.id)) {
                     const { map, latLngPoints } = this.maps.get(targetMap);
 
                     const { latlng: { lng, lat } } = event.detail;
