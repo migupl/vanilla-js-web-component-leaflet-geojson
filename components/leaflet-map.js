@@ -381,7 +381,6 @@
                     throw new Error(message)
                 })
         }
-        const markerClusterVersion = '1.5.3';
 
         const getWcStyleNode = () => {
             const el = document.createElement('style');
@@ -475,35 +474,10 @@
             return el;
         }
 
-        const getLeafletScriptNode = () => {
-            const dependency = {
-                url: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-                integrity: 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo='
-            };
-
-            let js = document.createElement('script');
-            js.src = dependency.url;
-            js.integrity = dependency.integrity;
-
-            js.crossOrigin = '';
-            js.async = 'false';
-
-            return js;
-        }
-
-        const getMarkerClusterScriptNode = () => {
-            let js = document.createElement('script');
-            js.src = `https://unpkg.com/leaflet.markercluster@${markerClusterVersion}/dist/leaflet.markercluster.js`;
-
-            js.crossOrigin = '';
-            js.async = 'false';
-            return js;
-        }
-
         const getMarkerClusterStyleNode = () => {
             const getMarkerClusterStyle = cssFile => {
                 const el = document.createElement('style');
-                const url = `https://unpkg.com/leaflet.markercluster@${markerClusterVersion}/dist/${cssFile}`;
+                const url = `https://unpkg.com/leaflet.markercluster@1.5.3/dist/${cssFile}`;
                 getRemoteCssFile(url)
                     .then(css => el.innerText = css);
 
@@ -521,17 +495,40 @@
             getStyleNodeFrom,
             getWcNode,
             getLeafletStyleNode,
-            getLeafletScriptNode,
-            getMarkerClusterScriptNode,
             getMarkerClusterStyleNode
         }
     })();
 
-    let leafletjs = mapElements.getLeafletScriptNode();
+    const getLeafletScriptNode = () => {
+        const dependency = {
+            url: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+            integrity: 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo='
+        };
+
+        let js = document.createElement('script');
+        js.src = dependency.url;
+        js.integrity = dependency.integrity;
+
+        js.crossOrigin = '';
+        js.async = 'false';
+
+        return js;
+    }
+
+    const getMarkerClusterScriptNode = () => {
+            let js = document.createElement('script');
+            js.src = `https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js`;
+
+            js.crossOrigin = '';
+            js.async = 'false';
+            return js;
+    }
+
+    let leafletjs = getLeafletScriptNode();
     leafletjs.onload = (ev) => {
         customElements.define('leaflet-map', LeafletMap);
 
-        const markerClusterScript = mapElements.getMarkerClusterScriptNode();
+        const markerClusterScript = getMarkerClusterScriptNode();
         document.body.appendChild(markerClusterScript);
     }
 
