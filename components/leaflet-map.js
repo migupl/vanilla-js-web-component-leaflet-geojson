@@ -48,16 +48,10 @@
             appendChild(leafletCss);
 
             const map = this.#mapElements.getWcNode();
-            this.#addCustomStyleClass(customStyleClass, map);
+            if (customStyleClass) map.classList.add(customStyleClass)
             appendChild(map);
 
             this.#initializeMap(map);
-        }
-
-        #addCustomStyleClass = (styleClass, el) => {
-            if (styleClass) {
-                el.classList.add(styleClass);
-            }
         }
 
         #emitEvent = (eventName, detail) => {
