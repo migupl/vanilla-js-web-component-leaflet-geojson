@@ -3,6 +3,8 @@
 
         #config = {
             allowsAddMarker: this.hasAttribute('allows-add-marker'),
+            addMarketText: this.getAttribute('add-marker-custom-text') ||
+                'Click to getting the map coordinates of this point at',
 
             customStyle: this.getAttribute('custom-style') || '',
 
@@ -104,7 +106,7 @@
 
                     let btn = document.createElement('button');
                     btn.style = 'background-color: blue; border: none; border-radius: 8px; color: white; padding: 10px;';
-                    btn.innerText = `Click to adding a point at lat: ${lat}, lng: ${lng}`;
+                    btn.innerText = `${this.#config.addMarketText}\nlatitude: ${lat},\nlongitude: ${lng}`;
                     btn.onclick = _ => {
                         emitMarkerEvent.added(latlng);
                         map.closePopup();
