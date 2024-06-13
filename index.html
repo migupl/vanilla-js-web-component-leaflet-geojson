@@ -157,22 +157,21 @@
         <p>To get started you need to do the following steps on your project:</p>
         <ol>
             <li>
-                Install the Web Component copying the directory
-                <code class="inline">/components/leaflet-map-component/</code>
+                You can self-hosted by copying the
+                <code class="inline">
+                    <a href="https://github.com/migupl/vanilla-js-web-component-leaflet-geojson/blob/master/dist"
+                        target="_blank" noopener noreferrer">leaflet-map-0.1.0.min.js</a>
+                </code>
                 to your project.
-                It is only required to keep all the files of the Web Component in the same directory.
-                Any directory structure can be used.
 
             </li>
             <li>
-                Include the Web Component itself.
+                Or use a CDN in the following way:
                 <pre><code>
-&lt;head&gt;
-    &lt;meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"&gt;
-
-    &lt;link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"&gt;
-    &lt;script src="./components/leaflet-map-component/leaflet-map.js"&gt;&lt;/script&gt;
-&lt;/head&gt;
+&lt;body&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/migupl/yagc/dist/leaflet-map-0.1.0.min.js"
+        integrity="sha256-lMo6jR0LIVylLqBUwVRN8rLm9ItfdvS1thLaMsjyin8=" crossorigin="anonymous"&gt;&lt;/script&gt;
+&lt;/body&gt;
                 </code></pre>
             </li>
             <li>

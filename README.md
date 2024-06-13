@@ -88,16 +88,15 @@ The HTML &lt;template&gt; element allows us to define a re-usable templates of c
 
 ## Install
 
-Copy the directory */components/* to any directory in your project.
-
 ## Getting started
 
-To get started you need to import the Web Component
+You can self-hosted by copying the `dist/leaflet-map-0.1.0.min.js` file or using a CDN in the following way
 
 ```html
 <body>
     <leaflet-map></leaflet-map>
-    <script src="./components/leaflet-map.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/migupl/vanilla-js-web-component-leaflet-geojson/dist/leaflet-map-0.1.0.min.js"
+        integrity="sha256-lMo6jR0LIVylLqBUwVRN8rLm9ItfdvS1thLaMsjyin8=" crossorigin="anonymous"></script>
 </body>
 ```
 
@@ -661,7 +660,7 @@ This action opens a popup with a button for confirmation as follows
 
 Clicking in it triggers the 'x-leaflet-map:marker-pointed-out' event by exposing the latitude and longitude of the point as follows
 
-```json
+```
 x-leaflet-map:marker-pointed-out {
     target: leaflet-map,
     isTrusted: false,
@@ -683,7 +682,7 @@ Any of the markers added to the map can be deleted by double clicking on it and 
 
 Web Component *leaflet-map* triggers the 'x-leaflet-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
 
-```json
+```
 x-leaflet-map:marker-removed {
     target: leaflet-map,
     isTrusted: false,
