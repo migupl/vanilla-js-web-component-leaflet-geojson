@@ -90,13 +90,12 @@ The HTML &lt;template&gt; element allows us to define a re-usable templates of c
 
 ## Getting started
 
-You can self-hosted by copying the `dist/leaflet-map-0.1.0.min.js` file or using a CDN in the following way
+You can self-hosted by copying the `components/leaflet-map.min.js` file
 
 ```html
 <body>
     <leaflet-map></leaflet-map>
-    <script src="https://cdn.jsdelivr.net/gh/migupl/vanilla-js-web-component-leaflet-geojson/dist/leaflet-map-0.1.0.min.js"
-        integrity="sha256-lMo6jR0LIVylLqBUwVRN8rLm9ItfdvS1thLaMsjyin8=" crossorigin="anonymous"></script>
+    <script src="/path/to/leaflet-map.min.js"></script>
 </body>
 ```
 
@@ -835,7 +834,7 @@ Using a *point* feature with a small card.
             }));
         }, 1000);
     </script>
-    <script src="./components/leaflet-map.js"></script>
+    <script src="/path/to/leaflet-map.min.js"></script>
 </body>
 </html>
 ```
