@@ -179,7 +179,7 @@ window.onload = (event) => {
         }]
     };
 
-    const map = document.querySelector('leaflet-map');
+    const map = document.querySelector('leaflet-geojson-map');
 
     const geojson = [multiPolygon, marker, multiLineString, multiPoint, lineString, polygon, features];
     dispatchWithDelay(map, geojson);

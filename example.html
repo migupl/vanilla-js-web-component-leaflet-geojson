@@ -16,18 +16,18 @@
             height: 100%;
         }
 
-        leaflet-map {
+        leaflet-geojson-map {
             min-height: 100%;
         }
     </style>
 </head>
 
 <body>
-    <leaflet-map
+    <leaflet-geojson-map
         fly-to-bounds
         allows-add-marker
         add-marker-custom-text="Click to display in the console the point at :">
-    </leaflet-map>
+    </leaflet-geojson-map>
 
     <ya-gc url="https://github.com/migupl/vanilla-js-web-component-leaflet-geojson" target-new-window></ya-gc>
 
@@ -35,7 +35,7 @@
 
     <script src="./js/delay.js"></script>
     <script src="./js/example.js"></script>
-    <script src="./components/leaflet-map.js"></script>
+    <script src="./components/leaflet-geojson-map.js"></script>
 </body>
 
 </html>

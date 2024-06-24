@@ -21,7 +21,7 @@ Features in GeoJSON contain a Geometry object and additional properties, and a F
 ## Web Components
 
 Web Components[^1] use three separate technologies together:
-- Custom Elements[^2]. Quite simply, these are fully-valid HTML elements with custom templates, behaviors and tag names (e.g. <leaflet-map>) made with a set of JavaScript APIs.
+- Custom Elements[^2]. Quite simply, these are fully-valid HTML elements with custom templates, behaviors and tag names (e.g. <leaflet-geojson-map>) made with a set of JavaScript APIs.
 - Shadow DOM[^3]. Capable of isolating CSS and JavaScript. This is defined in the Living Standard DOM specification.
 - HTML templates[^4]. User-defined templates in HTML that aren’t rendered until called upon.
 
@@ -90,12 +90,12 @@ The HTML &lt;template&gt; element allows us to define a re-usable templates of c
 
 ## Getting started
 
-You can self-hosted by copying the `components/leaflet-map.min.js` file
+You can self-hosted by copying the `components/leaflet-geojson-map.min.js` file
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
-    <script src="/path/to/leaflet-map.min.js"></script>
+    <leaflet-geojson-map></leaflet-geojson-map>
+    <script src="/path/to/leaflet-geojson-map.min.js"></script>
 </body>
 ```
 
@@ -107,13 +107,13 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 ```html
 <body>
-    <leaflet-map
+    <leaflet-geojson-map
         longitude="-3.7001448634709626"
         latitude="40.4237577382345"
         zoom="13"
         tile-copyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
         tile-server="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
-    </leaflet-map>
+    </leaflet-geojson-map>
 </body>
 ```
 
@@ -121,7 +121,7 @@ Note that most tile servers require attribution, which you can set using the *ti
 
 ## Attributes and default values
 
-The Web Component *leaflet-map* allows the following attributes: *latitude*; *longitude*; *max-zoom*; *tile-copyright*; *tile-server*; *zoom*; and, the specials *allows-add-marker*, *add-marker-custom-text*, *custom-style* and *fit-to-bounds* or *fly-to-bounds*.
+The Web Component *leaflet-geojson-map* allows the following attributes: *latitude*; *longitude*; *max-zoom*; *tile-copyright*; *tile-server*; *zoom*; and, the specials *allows-add-marker*, *add-marker-custom-text*, *custom-style* and *fit-to-bounds* or *fly-to-bounds*.
 
 All attributes are optional.
 
@@ -166,7 +166,7 @@ and the *custom-style* attribute as following
 
 ```html
 <body>
-    <leaflet-map custom-style="custom-leaflet-popup-style:<path to file>/custom-popup-style.css"></leaflet-map>
+    <leaflet-geojson-map custom-style="custom-leaflet-popup-style:<path to file>/custom-popup-style.css"></leaflet-geojson-map>
 </body>
 ```
 
@@ -176,7 +176,7 @@ Check this on the [demo start map](https://migupl.github.io/vanilla-js-web-compo
 
 ## Events
 
-The Web Component *leaflet-map* defines two events as actions.
+The Web Component *leaflet-geojson-map* defines two events as actions.
 
 ### Event 'x-leaflet-map-geojson-add'
 
@@ -205,11 +205,11 @@ The *icon* property for a marker is optional.
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const marker = {
                 type: "Feature",
@@ -263,11 +263,11 @@ The **radius** property defines a circle and is the only one required.
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const circle = {
                 type: "Feature",
@@ -300,11 +300,11 @@ The **radius** property defines a circle and is the only one required.
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const multiPoint = {
                 type: "Feature",
@@ -343,11 +343,11 @@ The **radius** property defines a circle and is the only one required.
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const lineString = {
                 type: "Feature",
@@ -382,11 +382,11 @@ The **radius** property defines a circle and is the only one required.
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const multiLineString = {
                 type: "Feature",
@@ -432,11 +432,11 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const polygon = {
                 type: "Feature",
@@ -471,11 +471,11 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const multiPolygon = {
                 type: "Feature",
@@ -523,11 +523,11 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const features = {
                 type: "FeatureCollection",
@@ -587,8 +587,8 @@ The property *popupContent* is optional.
 
 ```html
 <body>
-    <leaflet-map id="first-map"></leaflet-map>
-    <leaflet-map id="second-map"></leaflet-map>
+    <leaflet-geojson-map id="first-map"></leaflet-geojson-map>
+    <leaflet-geojson-map id="second-map"></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
@@ -661,7 +661,7 @@ Clicking in it triggers the 'x-leaflet-map:marker-pointed-out' event by exposing
 
 ```
 x-leaflet-map:marker-pointed-out {
-    target: leaflet-map,
+    target: leaflet-geojson-map,
     isTrusted: false,
     detail: {
         latlng: {
@@ -679,11 +679,11 @@ You can use the file *[example.html](example.html)* of the project as a small de
 
 Any of the markers added to the map can be deleted by double clicking on it and confirming the deletion.
 
-Web Component *leaflet-map* triggers the 'x-leaflet-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
+Web Component *leaflet-geojson-map* triggers the 'x-leaflet-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
 
 ```
 x-leaflet-map:marker-removed {
-    target: leaflet-map,
+    target: leaflet-geojson-map,
     isTrusted: false,
     detail: {
         feature: {
@@ -705,11 +705,11 @@ You can use the file *[example.html](example.html)* of the project as a small de
 
 ```html
 <body>
-    <leaflet-map id="first-map"></leaflet-map>
-    <leaflet-map id="second-map"></leaflet-map>
+    <leaflet-geojson-map id="first-map"></leaflet-geojson-map>
+    <leaflet-geojson-map id="second-map"></leaflet-geojson-map>
 
     <script>
-        const map = document.querySelector('leaflet-map');
+        const map = document.querySelector('leaflet-geojson-map');
 
         setTimeout(function () {
             const point = {
@@ -767,7 +767,7 @@ Using a *point* feature with a small card.
             margin: 0;
         }
 
-        leaflet-map {
+        leaflet-geojson-map {
             height: 500px;
             width: 800px;
             display: inline-block;
@@ -792,11 +792,11 @@ Using a *point* feature with a small card.
 </head>
 
 <body>
-    <leaflet-map></leaflet-map>
+    <leaflet-geojson-map></leaflet-geojson-map>
 
     <script>
         setTimeout(function () {
-            const map = document.querySelector('leaflet-map');
+            const map = document.querySelector('leaflet-geojson-map');
 
             const burgessPark = {
                 type: "Feature",
@@ -834,7 +834,7 @@ Using a *point* feature with a small card.
             }));
         }, 1000);
     </script>
-    <script src="/path/to/leaflet-map.min.js"></script>
+    <script src="/path/to/leaflet-geojson-map.min.js"></script>
 </body>
 </html>
 ```

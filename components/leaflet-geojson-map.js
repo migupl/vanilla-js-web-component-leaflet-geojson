@@ -524,7 +524,7 @@
 
     let leafletjs = getLeafletScriptNode();
     leafletjs.onload = (ev) => {
-        customElements.define('leaflet-map', LeafletMap);
+        customElements.define('leaflet-geojson-map', LeafletMap);
 
         const markerClusterScript = getMarkerClusterScriptNode();
         document.body.appendChild(markerClusterScript);

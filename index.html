@@ -106,7 +106,7 @@
             font-size: 0.8em;
         }
 
-        leaflet-map {
+        leaflet-geojson-map {
             height: 300px;
             display: block;
             position: relative;
@@ -131,20 +131,20 @@
         <div class="container">
             <h1>A vanilla JavaScript Web Component for Leaflet using GeoJSON</h1>
             <div id="subtitle">
-                <h2><code>&lt;leaflet-map&gt;&lt;/leaflet-map&gt;</code></h2>
+                <h2><code>&lt;leaflet-geojson-map&gt;&lt;/leaflet-geojson-map&gt;</code></h2>
                 <p>Use <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet</a>
                     maps with GeoJSON objects as a Web Component</p>
             </div>
         </div>
     </header>
     <section id="introduction" class="container">
-        <p>This simple guide will quickly get you started on using &lt;leaflet-map&gt;,
+        <p>This simple guide will quickly get you started on using &lt;leaflet-geojson-map&gt;,
             including setting up the Web Component and working with GeoJSON objects.
         </p>
-        <leaflet-map id="initial-map" class="small-map"
+        <leaflet-geojson-map id="initial-map" class="small-map"
             custom-style="custom-leaflet-popup-style:styles/leaflet-popup-style.css" fly-to-bounds
-            allows-add-marker></leaflet-map>
-        <p>The <code class="inline">&lt;leaflet-map&gt;</code> is using the attributes
+            allows-add-marker></leaflet-geojson-map>
+        <p>The <code class="inline">&lt;leaflet-geojson-map&gt;</code> is using the attributes
             <a href="#map-animation"><code class="inline">fly-to-bounds</code></a>, with a small delay,
             <a href="#custom-style"><code class="inline">custom-style</code></a> for a pop-up with
             dark background when the point and polygon are clicked, and
@@ -159,8 +159,8 @@
             <li>
                 You can self-hosted by copying the
                 <code class="inline">
-                    <a href="/components/leaflet-map.min.js"
-                        target="_blank" noopener noreferrer">leaflet-map.min.js</a>
+                    <a href="/components/leaflet-geojson-map.min.js"
+                        target="_blank" noopener noreferrer">leaflet-geojson-map.min.js</a>
                 </code>
                 to your project.
 
@@ -169,16 +169,16 @@
                 Or use a CDN in the following way:
                 <pre><code>
 &lt;body&gt;
-    &lt;script src="/path/to/leaflet-map.min.js"&gt;&lt;/script&gt;
+    &lt;script src="/path/to/leaflet-geojson-map.min.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
                 </code></pre>
             </li>
             <li>
-                Add the element <code class="inline">&lt;leaflet-map&gt;</code>. An <code class="inline">id</code> is
+                Add the element <code class="inline">&lt;leaflet-geojson-map&gt;</code>. An <code class="inline">id</code> is
                 recommended with multiple maps.
                 <pre><code>
 &lt;body&gt;
-    &lt;leaflet-map id="initial-map" class="small-map"&gt;&lt;/leaflet-map&gt;
+    &lt;leaflet-geojson-map id="initial-map" class="small-map"&gt;&lt;/leaflet-geojson-map&gt;
 &lt;/body&gt;
                 </code></pre>
             </li>
@@ -202,19 +202,19 @@
             </p>
             <pre><code>
 &lt;body&gt;
-    &lt;leaflet-map id="madrid-map"
+    &lt;leaflet-geojson-map id="madrid-map"
     longitude = "-3.6888136946558996"
     latitude = "40.42062134697108"
     zoom = "16"
-    &gt;&lt;/leaflet-map&gt;
+    &gt;&lt;/leaflet-geojson-map&gt;
 &lt;/body&gt;
             </code></pre>
         </div>
-        <leaflet-map id="madrid-map" longitude="-3.6888136946558996" latitude="40.42062134697108"
-            zoom="16"></leaflet-map>
+        <leaflet-geojson-map id="madrid-map" longitude="-3.6888136946558996" latitude="40.42062134697108"
+            zoom="16"></leaflet-geojson-map>
         <div class="container">
             <p>
-                <code class="inline">&lt;leaflet-map&gt;</code> allows the following attributes:
+                <code class="inline">&lt;leaflet-geojson-map&gt;</code> allows the following attributes:
                 <code class="inline">latitude</code>;
                 <code class="inline">longitude</code>;
                 <code class="inline">max-zoom</code>;
@@ -273,7 +273,7 @@ background: #2c3e50;
             <p>and the custom-style attribute as following
             <pre><code>
 &lt;body&gt;
-    &lt;leaflet-map custom-style="custom-leaflet-popup-style:&lt;path to file&gt;/custom-popup-style.css"&gt;&lt;/leaflet-map&gt;
+    &lt;leaflet-geojson-map custom-style="custom-leaflet-popup-style:&lt;path to file&gt;/custom-popup-style.css"&gt;&lt;/leaflet-geojson-map&gt;
 &lt;/body&gt;
                 </code></pre>
             </p>
@@ -290,7 +290,7 @@ background: #2c3e50;
                     class="inline">tile-copyright</code>
                 property.</p>
             <pre><code>
-&lt;leaflet-map id="tiles-map"
+&lt;leaflet-geojson-map id="tiles-map"
     longitude = "-3.6888136946558996"
     latitude = "40.42062134697108"
     zoom = "16"
@@ -299,13 +299,13 @@ background: #2c3e50;
         " | Map style: &copy; &lt;a href='https://opentopomap.org'&gt;OpenTopoMap&lt;/a&gt;" +
         " (&lt;a href='https://creativecommons.org/licenses/by-sa/3.0/'&gt;CC-BY-SA&lt;/a&gt;)"
     tile-server="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"&gt;
-&lt;/leaflet-map&gt;
+&lt;/leaflet-geojson-map&gt;
             </code></pre>
         </div>
-        <leaflet-map id="tiles-map" longitude="-3.6888136946558996" latitude="40.42062134697108" zoom="16"
+        <leaflet-geojson-map id="tiles-map" longitude="-3.6888136946558996" latitude="40.42062134697108" zoom="16"
             tile-copyright="Map data: &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, <a href='http://viewfinderpanoramas.org'>SRTM</a> | Map style: &copy; <a href='https://opentopomap.org'>OpenTopoMap</a> (<a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>)"
             tile-server="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">
-        </leaflet-map>
+        </leaflet-geojson-map>
         <div class="container">
             <p><a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html" target="_blank"
                     rel="noopener noreferrer">Leaflet Provider Demo</a>
@@ -335,7 +335,7 @@ background: #2c3e50;
             <a href="https://tools.ietf.org/html/rfc7946" target="_blank" rel="noopener noreferrer">GeoJSON
                 Specification (RFC 7946)</a>
         </p>
-        <p><code class="inline">&lt;leaflet-map&gt;</code> allows to add GeoJSON features. Among the allowed properties:
+        <p><code class="inline">&lt;leaflet-geojson-map&gt;</code> allows to add GeoJSON features. Among the allowed properties:
         <ol>
             <li>The <code class="inline">style</code> and <code class="inline">popupContent</code> properties are
                 optional.</li>
@@ -349,7 +349,7 @@ background: #2c3e50;
     <section id="events" class="container">
         <h2>Events</h2>
 
-        <p>The Web Component <code class="inline">&lt;leaflet-map&gt;</code> defines two events as actions.</p>
+        <p>The Web Component <code class="inline">&lt;leaflet-geojson-map&gt;</code> defines two events as actions.</p>
 
         <h4>Event 'x-leaflet-map-geojson-add'</h4>
 
@@ -376,7 +376,7 @@ background: #2c3e50;
     </section>
     <section id="markers-circles-and-polygons" class="container">
         <h2>Markers, circles, and polygons</h2>
-        <p>The <a href="#initial-map"><code class="inline">&lt;leaflet-map&gt;</code> on the header</a> is using the
+        <p>The <a href="#initial-map"><code class="inline">&lt;leaflet-geojson-map&gt;</code> on the header</a> is using the
             <a href="#geojson">GeoJSON features</a>
             point, circle and polygon all added using a
             <a href="#geojson">FeatureCollection</a>
@@ -588,17 +588,17 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
 }));
             </code></pre>
         </div>
-        <leaflet-map id="walk-throught-el-retiro" longitude="-3.6843547932100424" latitude="40.41411233423414"
-            fit-to-bounds></leaflet-map>
+        <leaflet-geojson-map id="walk-throught-el-retiro" longitude="-3.6843547932100424" latitude="40.41411233423414"
+            fit-to-bounds></leaflet-geojson-map>
         <div class="container">
-            <p>The <code class="inline">&lt;leaflet-map&gt;</code> is using the attribute
+            <p>The <code class="inline">&lt;leaflet-geojson-map&gt;</code> is using the attribute
                 <a href="#map-animation"><code class="inline">fit-to-bounds</code></a>
             </p>
             <pre><code class="hljs language-js">
-&lt;leaflet-map id="walk-throught-el-retiro"
+&lt;leaflet-geojson-map id="walk-throught-el-retiro"
     longitude="-3.6843547932100424"
     latitude="40.41411233423414"
-    fit-to-bounds&gt;&lt;/leaflet-map&gt;
+    fit-to-bounds&gt;&lt;/leaflet-geojson-map&gt;
             </code></pre>
         </div>
     </section>
@@ -615,7 +615,7 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
             longitude of the point as follows</p>
         <pre><code class="hljs language-json">
     x-leaflet-map:marker-pointed-out {
-        target: leaflet-map,
+        target: leaflet-geojson-map,
         isTrusted: false,
         detail: {
             latlng: {
@@ -632,12 +632,12 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
     <section id="remove-an-element" class="container">
         <h2>Remove a marker from the map</h2>
         <p>Any of the markers added to the map can be deleted by double clicking on it and confirming the deletion.</p>
-        <p>Web Component <code class="inline">&lt;leaflet-map&gt;</code> triggers
+        <p>Web Component <code class="inline">&lt;leaflet-geojson-map&gt;</code> triggers
             '<strong>x-leaflet-map:marker-removed</strong>' event
             when any marker is removed from map by exposing its GeoJSON as follows</p>
         <pre><code class="hljs language-json">
     x-leaflet-map:marker-removed {
-        target: leaflet-map,
+        target: leaflet-geojson-map,
         isTrusted: false,
         detail: {
             feature: {
@@ -680,7 +680,7 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="./js/wc/yagc.min.js"></script>
 
-    <script src="./components/leaflet-map.js"></script>
+    <script src="./components/leaflet-geojson-map.js"></script>
     <script src="./js/delay.js"></script>
     <script src="./js/how-to.js"></script>
 </body>
