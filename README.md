@@ -138,7 +138,7 @@ Default values are
 }
 ```
 
-The optional attribute *allows-add-marker* triggers the 'x-leaflet-map:marker-pointed-out' event on [adding a new marker](#adding-a-marker-to-the-map). **Nothing is added to the map**.
+The optional attribute *allows-add-marker* triggers the 'x-leaflet-geojson-map:marker-added' event on [adding a new marker](#adding-a-marker-to-the-map). **Nothing is added to the map**.
 
 You can set a custom text for the confirm action using the attribute *add-marker-custom-text*, otherwise the default value is 'Click to getting the map coordinates of this point at'. Latitude and longitude are always added.
 
@@ -178,14 +178,14 @@ Check this on the [demo start map](https://migupl.github.io/vanilla-js-web-compo
 
 The Web Component *leaflet-geojson-map* defines two events as actions.
 
-### Event 'x-leaflet-map-geojson-add'
+### Event 'x-leaflet-geojson-map:add'
 
 Use it to adding GeoJSON [Features](https://tools.ietf.org/html/rfc7946#section-3.2) and [FeatureCollections](https://tools.ietf.org/html/rfc7946#section-3.3) as they allow you to describe features with a set of properties (samples bellow).
 
 This event requires an object with the property:
 - geojson, the GeoJSON object to be added
 
-### Event 'x-leaflet-map-clear'
+### Event 'x-leaflet-geojson-map:clear'
 
 Use it to removing all GeoJSON features from the map (see [Clear a map](#clear-a-map)).
 
@@ -230,7 +230,7 @@ The *icon* property for a marker is optional.
                 }
             }
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: marker
                 }
@@ -286,7 +286,7 @@ The **radius** property defines a circle and is the only one required.
                 }
             }
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: circle
                 }
@@ -329,7 +329,7 @@ The **radius** property defines a circle and is the only one required.
                 }
             };
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: multiPoint
                 }
@@ -368,7 +368,7 @@ The **radius** property defines a circle and is the only one required.
                 }
             };
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: lineString
                 }
@@ -416,7 +416,7 @@ The **radius** property defines a circle and is the only one required.
                 }
             };
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: multiLineString
                 }
@@ -457,7 +457,7 @@ The property *popupContent* is optional.
                 }
             };
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: polygon
                 }
@@ -509,7 +509,7 @@ The property *popupContent* is optional.
                 }
             };
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: multiPolygon
                 }
@@ -573,7 +573,7 @@ The property *popupContent* is optional.
                 }]
             };
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: features
                 }
@@ -631,13 +631,13 @@ The property *popupContent* is optional.
                 }
             };
 
-            firstMap.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            firstMap.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: point
                 }
             }));
 
-            secondMap.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            secondMap.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: circle
                 }
@@ -649,7 +649,7 @@ The property *popupContent* is optional.
 
 ## Adding a marker to the map
 
-Actually adding a marker only triggers the 'x-leaflet-map:marker-pointed-out' event and any action must be performed by whoever uses the web component by adding functionality to that marker. Nothing is done on the map.
+Actually adding a marker only triggers the 'x-leaflet-geojson-map:marker-added' event and any action must be performed by whoever uses the web component by adding functionality to that marker. Nothing is done on the map.
 
 Adding a marker to the map could be done clicking with the right button in any point.
 
@@ -657,10 +657,10 @@ This action opens a popup with a button for confirmation as follows
 
 ![Confirm for firing event](./docs/add-new-marker.webp)
 
-Clicking in it triggers the 'x-leaflet-map:marker-pointed-out' event by exposing the latitude and longitude of the point as follows
+Clicking in it triggers the 'x-leaflet-geojson-map:marker-added' event by exposing the latitude and longitude of the point as follows
 
 ```
-x-leaflet-map:marker-pointed-out {
+x-leaflet-geojson-map:marker-added {
     target: leaflet-geojson-map,
     isTrusted: false,
     detail: {
@@ -679,10 +679,10 @@ You can use the file *[example.html](example.html)* of the project as a small de
 
 Any of the markers added to the map can be deleted by double clicking on it and confirming the deletion.
 
-Web Component *leaflet-geojson-map* triggers the 'x-leaflet-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
+Web Component *leaflet-geojson-map* triggers the 'x-leaflet-geojson-map:marker-removed' event when any marker is removed from map by exposing its GeoJSON as follows
 
 ```
-x-leaflet-map:marker-removed {
+x-leaflet-geojson-map:marker-removed {
     target: leaflet-geojson-map,
     isTrusted: false,
     detail: {
@@ -731,7 +731,7 @@ You can use the file *[example.html](example.html)* of the project as a small de
                 }
             };
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: point
                 }
@@ -739,7 +739,7 @@ You can use the file *[example.html](example.html)* of the project as a small de
         }, 1000);
 
         setTimeout(function () {
-            map.dispatchEvent(new Event('x-leaflet-map-geojson-clear'));
+            map.dispatchEvent(new Event('x-leaflet-geojson-map:clear'));
         }, 3000);
     </script>
 </body>
@@ -827,7 +827,7 @@ Using a *point* feature with a small card.
                 }
             };
 
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: burgessPark
                 }

@@ -2,7 +2,7 @@ const dispatchWithDelay = (map, geojson, delay = 200) => {
     setTimeout(function () {
         const [features, _] = geojson;
         if (features) {
-            map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+            map.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
                 detail: {
                     geojson: features
                 }

@@ -230,7 +230,7 @@
                 or <code class="inline">fly-to-bounds</code>.
             </p>
             <p id="allow-adding-marker">The special attribute <code class="inline">allows-add-marker</code> triggers
-                the 'x-leaflet-map:marker-pointed-out' event on
+                the 'x-leaflet-geojson-map:marker-added' event on
                 <a href="#adding-a-marker">adding a new marker</a>. <strong>Nothing is done on the map</strong>.
             </p>
             <p id="add-marker-custom-text">You can set a custom text for the confirm action using the attribute
@@ -351,7 +351,7 @@ background: #2c3e50;
 
         <p>The Web Component <code class="inline">&lt;leaflet-geojson-map&gt;</code> defines two events as actions.</p>
 
-        <h4>Event 'x-leaflet-map-geojson-add'</h4>
+        <h4>Event 'x-leaflet-geojson-map:add'</h4>
 
         <p>Use it to adding GeoJSON
             <a href="https://tools.ietf.org/html/rfc7946#section-3.2" target="_blank"
@@ -368,7 +368,7 @@ background: #2c3e50;
         </ol>
         </p>
 
-        <h4>Event 'x-leaflet-map-clear'</h4>
+        <h4>Event 'x-leaflet-geojson-map:clear'</h4>
 
         <p>Use it to removing all GeoJSON features from the map.</p>
 
@@ -437,7 +437,7 @@ const features = {
     }]
 };
 
-introductionMap.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+introductionMap.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
     detail: {
         geojson: features
     }
@@ -581,7 +581,7 @@ type: "FeatureCollection",
     features: [multiPoint, lineString, multiLineString, multiPolygon]
 };
 
-walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
+walking.dispatchEvent(new CustomEvent('x-leaflet-geojson-map:add', {
     detail: {
         geojson: walkThroughtElRetiro
     }
@@ -604,17 +604,17 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
     </section>
     <section id="adding-a-marker" class="container">
         <h2>Adding a marker to the map</h2>
-        <p>Actually adding a marker only triggers the '<strong>x-leaflet-map:marker-pointed-out</strong>' event
+        <p>Actually adding a marker only triggers the '<strong>x-leaflet-geojson-map:marker-added</strong>' event
             and any action must be performed by whoever uses the web component by adding functionality to that marker.
             Nothing is done on the map.</p>
         <p>Adding a marker to the map could be done clicking with the right button in any point.</p>
         <p>This action opens a popup with a button for confirmation.
             Clicking in it triggers the
-            '<strong>x-leaflet-map:marker-pointed-out</strong>'
+            '<strong>x-leaflet-geojson-map:marker-added</strong>'
             event by exposing the latitude and
             longitude of the point as follows</p>
         <pre><code class="hljs language-json">
-    x-leaflet-map:marker-pointed-out {
+    x-leaflet-geojson-map:marker-added {
         target: leaflet-geojson-map,
         isTrusted: false,
         detail: {
@@ -633,10 +633,10 @@ walking.dispatchEvent(new CustomEvent('x-leaflet-map-geojson-add', {
         <h2>Remove a marker from the map</h2>
         <p>Any of the markers added to the map can be deleted by double clicking on it and confirming the deletion.</p>
         <p>Web Component <code class="inline">&lt;leaflet-geojson-map&gt;</code> triggers
-            '<strong>x-leaflet-map:marker-removed</strong>' event
+            '<strong>x-leaflet-geojson-map:marker-removed</strong>' event
             when any marker is removed from map by exposing its GeoJSON as follows</p>
         <pre><code class="hljs language-json">
-    x-leaflet-map:marker-removed {
+    x-leaflet-geojson-map:marker-removed {
         target: leaflet-geojson-map,
         isTrusted: false,
         detail: {

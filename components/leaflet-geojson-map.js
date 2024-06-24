@@ -68,13 +68,13 @@
                 };
 
                 const added = latlng => {
-                    emitEvent('x-leaflet-map:marker-pointed-out', {
+                    emitEvent('x-leaflet-geojson-map:marker-added', {
                         latlng: latlng
                     });
                 };
 
                 const removed = feature => {
-                    emitEvent('x-leaflet-map:marker-removed', {
+                    emitEvent('x-leaflet-geojson-map:marker-removed', {
                         feature: feature
                     });
                 }
@@ -148,14 +148,14 @@
             const isThisMap = mapId => mapId === this.id;
 
             [
-                'x-leaflet-map-clear',
-                'x-leaflet-map-geojson-add',
-                'x-leaflet-map-geojson:include-latlng-to-fly',
+                'x-leaflet-geojson-map:clear',
+                'x-leaflet-geojson-map:add',
+                'latlng-to-fly',
             ].forEach(eventName => this.addEventListener(eventName, ev =>
                 ev.stopPropagation()
             ))
 
-            this.addEventListener('x-leaflet-map-clear', (event) => {
+            this.addEventListener('x-leaflet-geojson-map:clear', (event) => {
                 const targetMap = event.target;
 
                 if (isThisMap(targetMap.id)) {
@@ -166,7 +166,7 @@
                 }
             });
 
-            this.addEventListener('x-leaflet-map-geojson-add', (event) => {
+            this.addEventListener('x-leaflet-geojson-map:add', (event) => {
                 const mapNode = event.target;
 
                 if (isThisMap(mapNode.id)) {
@@ -177,7 +177,7 @@
                 }
             });
 
-            this.addEventListener('x-leaflet-map-geojson:include-latlng-to-fly', (event) => {
+            this.addEventListener('latlng-to-fly', (event) => {
                 const targetMap = event.target;
 
                 if (isThisMap(targetMap.id)) {
@@ -231,7 +231,7 @@
     
             const coordsToLatLng = map => {
                 const emitLatlngEvent = latlng => {
-                    map.dispatchEvent(new CustomEvent('x-leaflet-map-geojson:include-latlng-to-fly', {
+                    map.dispatchEvent(new CustomEvent('latlng-to-fly', {
                         bubbles: true,
                         composed: true,
                         detail: {

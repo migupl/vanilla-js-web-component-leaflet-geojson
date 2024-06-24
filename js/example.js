@@ -1,10 +1,10 @@
 window.onload = (event) => {
 
-    document.addEventListener('x-leaflet-map:marker-pointed-out', ev => {
+    document.addEventListener('x-leaflet-geojson-map:marker-added', ev => {
         console.log(ev.type, ev.detail);
     })
 
-    document.addEventListener('x-leaflet-map:marker-removed', ev => {
+    document.addEventListener('x-leaflet-geojson-map:marker-removed', ev => {
         console.log(ev.type, ev.detail);
     })
 
